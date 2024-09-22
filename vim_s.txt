@@ -1,0 +1,109 @@
+--movement--
+ctrl + y 	# scroll up 1 line (custom: ctrl + k)
+ctrl + e 	# scroll down 1 line (custom: ctrl + j)
+ctrl + u 	# scroll up half page
+ctrl + d 	# scroll down half page
+{ 		# go up to next paragraph (or empty line)
+} 		# go down to next paragraph
+H 		# move to highest viewport
+M 		# move to middle of the viewport
+L 		# move to lowest viewport
+:<i> 		# go to `<i>` line
+gg 		# go to first line in the file
+G 		# go to last line in the file
+$ 		# cursor to end of the line
+0 		# cursor to start of the line
+<i>j 		# down `<i>` row
+<i>k 		# up `<i>` row
+w 		# next word (can use W)
+b 		# previous word (can use B)
+e 		# end of word (can use E)
+f<c> 		# find `<c>` forwards on current line
+F<c> 		# find `<c>` backwards on current line
+t<c> 		# go next towards of `<c>`
+T<c> 		# go previouse towards of `<c>`
+; 		# next find of the line
+, 		# previuse find of the line
+/<search> 	# looking for `<search>` forwards
+?<search> 	# looking for `<search>` backwards
+q/ 		# history search (same `q?`)
+n 		# jump to the next match
+N 		# jump to the previous match
+ctrl + o 	# go back to previous cursor location
+ctrl + i 	# go to newer cursor location
+zt 		# top screen on cursor
+zz 		# center screen on cursor
+<i>% 		# move cursor to the line `<i>` percentage
+% 		# jump to matching block `( [], (), {} )`
+[<block> 	# jump to opener block `( [, (, { )`
+]<block> 	# jump to closer block `( ], ), } )`
+
+--insert--
+i 		# insert before the cursor
+I 		# insert end of line
+a 		# insert after the cursor
+A 		# insert start of line
+o 		# insert with new line
+O 		# insert with previous line
+
+--delete--
+dd 		# delete the line
+D 		# delete until end of line
+
+--change--
+cc 		# del entire the line and insert
+C 		# del until end of line and insert
+cgn -> `.` 	# replace word the next match ( cgn then change word and then `.`)
+
+--select--
+v 		# visual
+V 		# visual entire line
+ctrl + v 	# visual box
+-> aw 		# select a word and then white space
+-> af 		# select around block( {}, [] ) of text
+-> iB 		# visual in block
+-> ib 		# select in parentheses`()`
+-> r<c> 	# visual replace as `<c>`
+-> g$ 		# visual end of line
+-> g_ 		# visual last char on line (same vg$)
+gb 		# visual like ctrl + d
+g~<enter> 	# line switch uppercase and lowercase
+g~w 		# word switch uppercase and lowercase
+gh 		# mouse hover
+gd 		# go to definition
+gf 		# go to file
+gcc 		# line comment
+gC 		# block comment
+gi 		# go to last cursor insert mode
+ggVG 		# select all
+
+:%s/<old>/<new>/gc # replace all occurrences of <old> with <new> in whole file, asking for confirmation
+:g/<del>/d 	# global delete a word
+
+--duplicate--
+y 		# yank
+Y 		# yank entire line
+p 		# paste after the cursor
+P		# paste before the cursor
+yyp 		# duplicate line
+ddp 		# swap line
+xp 		# swap character ->
+Xp 		# swap character <-
+
+--indent--
+<< 		# shiftwidth left current line
+>> 		# shiftwidth right current line
+
+--easymotion--
+\ 			# <leader>
+<leader><leader> w 	# start of words
+<leader><leader> b 	# start of words backwards
+<leader><leader> e 	# end of words
+<leader><leader> ge 	# end of words backwards
+<leader><leader> s<c> 	# search `<c>` everywhere
+
+--undo/redo--
+u 		# undo
+ctrl + r 	# redo
+
+https://cheatography.com/thissitesucks/cheat-sheets/vscode-vim/
