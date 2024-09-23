@@ -92,7 +92,7 @@ function assignObjCallback(inputs, callback){
 assignObjCallback(inputs, fetchData)
 ```
 
-### loop perform in sequence (using await have to returning a Promise)
+### loop perform in sequence (using await should be returning a promise)
 ```
 async function fillCartItem(prods){
     for(let prod of prods){
@@ -103,12 +103,12 @@ async function fillCartItem(prods){
 fillCartItem(products)
 ```
 
-### convert a php string array to javascript obj
+### convert a string php array to javascript object
 ```
 const obj_data = JSON.parse('<?= json_encode($arr_data)?>')
 ```
 
-### filter obj keys that includes 'txt' and then value > 0 and create new obj with reduce
+### filter object keys that includes 'txt' and value > 0, and then return new objecet with reduce
 ```
 const obj = {
     'txtCash': 100,
@@ -124,7 +124,7 @@ const arr_txt = Object.keys(obj)
     }, {})
 ```
 
-### merge obj
+### merge object
 ```
 const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 ```
@@ -148,8 +148,32 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 
 # PHP
 
-### senitize
+### 
+
+# SQL
+
+### group by and with rollup (summary row)
 ```
+SELECT
+    ah.id,
+    ah.sano,
+    ah.sadate,
+    ah.total_pending_amount,
+    sm.send_date,
+    sm.send_amount,
+    sm.send_status,
+    sm.remark,
+    sm.id AS sm_id,
+    SUM(sm.send_amount) AS sum_sa
+FROM
+    ali_asaleh ah INNER JOIN ali_send_money sm ON(sm.sano = ah.sano)
+WHERE
+    1 = 1 AND ah.sano = 'SBTHONLIN2409000015'
+GROUP BY
+    sm.id WITH ROLLUP
+
+// Group the data by the sm.id column
+// Calculate the sum of send_amount for each group
 ```
 
 ### 
