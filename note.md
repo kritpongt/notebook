@@ -174,6 +174,7 @@ GROUP BY
 
 // Group the data by the sm.id column
 // Calculate the sum of send_amount for each group
+// In rollup where column group by(sm.id) will show as NULL
 ```
 
 ### 
