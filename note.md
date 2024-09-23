@@ -148,6 +148,10 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 
 # PHP
 
+### senitize
+```
+```
+
 ### 
 
 # PowerShell
@@ -160,4 +164,10 @@ ls -force
 ### remove hidden file
 ```
 Remove-Item -Recurse -Force .git
+```
+
+# Vscode
+```
+- split tabs
+- split in group
 ```
