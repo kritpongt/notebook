@@ -195,4 +195,5 @@ Remove-Item -Recurse -Force .git
 ```
 - split tabs
 - split in group
+- in explorer bar rename, copy, cut, delete
 ```
