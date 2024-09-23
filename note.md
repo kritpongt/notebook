@@ -36,7 +36,7 @@ $data = $_POST['data'] ?>
 <body><?= $data></body>
 ```
 
-### convert string data from fetch to array in php backend
+### convert string data from fetch to php array backend
 ```
 const data = JSON.stringify([{ 'key': 'value' }, { 'key': 'value' }])
 // set header and body
