@@ -61,8 +61,8 @@ V 		# visual entire line
 ctrl + v 	# visual box
 -> aw 		# select a word and then white space
 -> af 		# select around block( {}, [] ) of text
--> iB 		# visual in block
--> ib 		# select in parentheses`()`
+-> iB 		# visual in block 
+-> ib 		# select in first parentheses`()` of line
 -> r<c> 	# visual replace as `<c>`
 -> g$ 		# visual end of line
 -> g_ 		# visual last char on line (same vg$)
