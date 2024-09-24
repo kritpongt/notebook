@@ -166,10 +166,11 @@ SELECT
     sm.id AS sm_id,
     SUM(sm.send_amount) AS sum_sa
 FROM
-    ali_asaleh ah INNER JOIN ali_send_money sm ON(sm.sano = ah.sano)
+    ali_asaleh ah LEFT JOIN ali_send_money sm ON(sm.sano = ah.sano)
 WHERE
-    1 = 1 AND ah.sano = 'SBTHONLIN2409000015'
+    1 = 1 
 GROUP BY
+    ah.id,
     sm.id WITH ROLLUP
 
 // Group the data by the sm.id column
@@ -177,7 +178,56 @@ GROUP BY
 // In rollup where column group by(sm.id) will show as NULL
 ```
 
-### 
+###
+```
+SELECT *, 
+    CASE WHEN send_status = '1' THEN 'ครบ' WHEN send_status = '2' THEN 'ไม่ครบ' ELSE send_status END AS send_status_txt 
+FROM 
+    (
+    SELECT 
+        r.id, 
+        CASE WHEN r.sm_id IS NULL THEN CONCAT(r.sano, '') ELSE '' END AS sano, 
+        CASE WHEN r.sm_id IS NULL THEN CONCAT(r.sadate, '') ELSE '' END AS sadate, 
+        CASE WHEN r.sm_id IS NULL THEN FORMAT(r.total, 2) ELSE '' END AS total, 
+        CASE WHEN r.sm_id IS NULL THEN FORMAT(r.total_pending_amount, 2) ELSE '' END AS diff, 
+        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.sm_id, '') ELSE '' END AS sm_id, 
+        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_date, '') ELSE '' END AS send_date, 
+        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_amount, '') ELSE CONCAT(r.sum_sa, '') END AS send_amount, 
+        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_status, '') ELSE chk_diff END AS send_status, 
+        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.remark, '') ELSE '' END AS remark 
+    FROM 
+        (
+        SELECT 
+            ah.id, 
+            ah.sano, 
+            ah.sadate, 
+            ah.total, 
+            ah.total_pending_amount, 
+            sm.send_date, 
+            sm.send_amount, 
+            CASE WHEN send_status = '1' THEN 'ส่งแล้ว' ELSE 'ยังไม่ส่ง' END AS send_status, 
+            sm.remark, 
+            sm.id AS sm_id, 
+            SUM(sm.send_amount) AS sum_sa, 
+            CASE WHEN ah.total - SUM(sm.send_amount) = 0 THEN '1' ELSE '2' END AS chk_diff 
+        FROM 
+            ali_asaleh ah 
+            LEFT JOIN ali_send_money sm ON(sm.sano = ah.sano) 
+        GROUP BY 
+            ah.id, 
+            sm.id WITH ROLLUP
+        ) r 
+    WHERE 
+        r.id IS NOT NULL AND sadate between '2024-09-01' AND '2024-09-26'
+    ) a 
+GROUP BY 
+    a.id, 
+    a.sm_id 
+ORDER BY 
+    a.id DESC, 
+    a.sano DESC, 
+    a.sm_id ASC
+```
 
 # PowerShell
 
