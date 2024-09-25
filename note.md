@@ -209,7 +209,7 @@ FROM
             sm.remark, 
             sm.id AS sm_id, 
             SUM(sm.send_amount) AS sum_sa, 
-            CASE WHEN ah.total - SUM(sm.send_amount) = 0 THEN '1' ELSE '2' END AS chk_diff 
+            CASE WHEN ah.total - SUM(sm.send_amount) <= 0 THEN '1' ELSE '2' END AS chk_diff 
         FROM 
             ali_asaleh ah 
             LEFT JOIN ali_send_money sm ON(sm.sano = ah.sano) 
