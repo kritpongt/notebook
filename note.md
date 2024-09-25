@@ -178,10 +178,9 @@ GROUP BY
 // In rollup where column group by(sm.id) will show as NULL
 ```
 
-###
+### decorate the query group by with rollup
 ```
-SELECT *, 
-    CASE WHEN send_status = '1' THEN 'ครบ' WHEN send_status = '2' THEN 'ไม่ครบ' ELSE send_status END AS send_status_txt 
+SELECT * 
 FROM 
     (
     SELECT 
@@ -205,7 +204,6 @@ FROM
             ah.total_pending_amount, 
             sm.send_date, 
             sm.send_amount, 
-            CASE WHEN send_status = '1' THEN 'ส่งแล้ว' ELSE 'ยังไม่ส่ง' END AS send_status, 
             sm.remark, 
             sm.id AS sm_id, 
             SUM(sm.send_amount) AS sum_sa, 
