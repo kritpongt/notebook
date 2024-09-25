@@ -106,4 +106,4 @@ Xp 		# swap character <-
 u 		# undo
 ctrl + r 	# redo
 
-https://cheatography.com/thissitesucks/cheat-sheets/vscode-vim/
+ref: https://cheatography.com/thissitesucks/cheat-sheets/vscode-vim/
