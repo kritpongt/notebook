@@ -244,4 +244,6 @@ Remove-Item -Recurse -Force .git
 - split tabs
 - split in group
 - in explorer bar rename, copy, cut, delete
+- Trigger Suggest <ctrl + j>    (add "&& vim.active")
+- hideSuggestWidget             (add "&& vim.active")
 ```
