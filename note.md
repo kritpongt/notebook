@@ -148,15 +148,6 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 
 # PHP
 
-### check difference value in array
-```
-
-```
-
-### filter_var() validate a string according FILTER_NAME
-```
-```
-
 ### 
 
 # SQL
@@ -253,7 +244,9 @@ Remove-Item -Recurse -Force .git
 - split tabs
 - split in group
 - in explorer bar rename, copy, cut, delete
-- list.find <ctrl + f>         (add "&& vim.active")
-- Trigger Suggest <alt + i>    (add "&& vim.active")
-- hideSuggestWidget <alt + i>  (add "&& vim.active")
+- list.find <ctrl + f>          (add "&& vim.active")
+- Trigger Suggest <alt + i>     (add "&& vim.active")
+- hideSuggestWidget <alt + i>   (add "&& vim.active")
+- go next <ctrl + i>            (add "&& vim.active")
+- go back <ctrl + o>            (add "&& vim.active")
 ```
