@@ -247,6 +247,6 @@ Remove-Item -Recurse -Force .git
 - list.find <ctrl + f>          (add "&& vim.active")
 - Trigger Suggest <alt + i>     (add "&& vim.active")
 - hideSuggestWidget <alt + i>   (add "&& vim.active")
-- go next <ctrl + i>            (add "&& vim.active")
-- go back <ctrl + o>            (add "&& vim.active")
+- go next <ctrl + i>            (add "&& vim.active") -> handlekey disable <C-i>
+- go back <ctrl + o>            (add "&& vim.active") -> handlekey disable <C-o>
 ```
