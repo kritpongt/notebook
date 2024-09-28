@@ -242,7 +242,7 @@ Remove-Item -Recurse -Force .git, .gitignore
 # Vscode
 - remaneFile                                    `<r>`
 - deleteFile                                    `<d>`
-- filesExplorer.copy                            `<y>`
+- filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
 - filesExplorer.cut                             `<x>`
 - filesExplorer.paste                           `<p>`
 - split tabs                                    `<ctrl + \>` 
