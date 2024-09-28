@@ -131,10 +131,38 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 
 ### regex
 ```
-[...]   # charactor class: match a single position any char in [ ], ([ABC] => A OR B OR C)
-flag:   i
-        g
-        m
+// [...]        # charactor class: create a char set, match a single position any char in [ ], 
+//                  Ex. [ABC] => matches char "A" OR "B" OR "C"
+//                      [0-9] => matches a number 0-9
+// (...)        # capture group: matches group,
+//                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2}) => return a obj.group.year, obj.group.month
+// \d           # matches single number, equivalent to [0-9], `\D` not a number
+// \w           # matches word (alphanumeric && underscore), equivalent to [A-Za-z0-9_]
+// \s           # matches any whitespace char (spaces, tabs, linebreaks)
+// . (Dot)      # matches any char except linebreak, equivalent to [^\n\r]
+// ^<x>         # matches beginning with <x>
+// $<x>         # matches end with <x>
+// <x>?         # matches 0 or 1
+// <x>*         # matches 0 or more of the preceding <x> token
+// <x>+         # matches 1 or more of the preceding <x>
+// <x>{n}       # matches the specified quantity of <x>,
+                    Ex. <x>{3,} => , meaning more than specified quantity
+                        <x>{3,5} => match 3 to 5
+// <x>|<y>      # matches <x> or <y>
+// flag:   i    # ignore case
+//         g    # global. without `/g` will stopping after the first match
+//         m    # multi line
+```
+
+### regex method
+```
+const str = 'test test test'
+const pattern = /\S/g
+const foo = pattern.test(str)   // return false / true
+
+str.search(pattern)             // return > -1
+str.match(pattern)              // return array / null
+str.replace(pattern)            // return new string that have been replaced
 ```
 
 # CSS
@@ -158,7 +186,7 @@ flag:   i
 ```
 ```
 
-# SQL
+# MySQL
 
 ### group by and with rollup (summary row)
 ```
