@@ -162,7 +162,7 @@ const foo = pattern.test(str)   // return false / true
 
 str.search(pattern)             // return > -1
 str.match(pattern)              // return an array / null
-str.replace(pattern)            // return new string that have been replaced
+str.replace(pattern, 'renew')   // return new string with replacement made
 ```
 
 # CSS
