@@ -240,11 +240,16 @@ Remove-Item -Recurse -Force .git, .gitignore
 ```
 
 # Vscode
-```
-- split tabs
-- split in group
-- in explorer bar rename, copy, cut, delete
-- list.find <ctrl + f>          (add "&& vim.active")
-- Trigger Suggest <alt + i>     (add "&& vim.active")
-- hideSuggestWidget <alt + i>   (add "&& vim.active")
-```
+- remaneFile                                    `<r>`
+- deleteFile                                    `<d>`
+- filesExplorer.copy                            `<y>`
+- filesExplorer.cut                             `<x>`
+- filesExplorer.paste                           `<p>`
+- split tabs                                    `<ctrl + \>` 
+- workbench.action.focusPreviousGroup           `<ctrl + h>`
+- workbench.action.focusNextGroup               `<ctrl + l>`
+- workbench.action.moveEditorToPreviousGroup    `<ctrl + alt + h>`
+- workbench.action.moveEditorToNextGroup        `<ctrl + alt + l>`
+- list.find                                     `<ctrl + f>`
+- ~~Trigger Suggest                             `<alt + i>`~~
+- ~~hideSuggestWidget                           `<alt + i>`~~
