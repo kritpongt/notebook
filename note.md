@@ -129,7 +129,13 @@ const arr_txt = Object.keys(obj)
 const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 ```
 
-### 
+### regex
+```
+[...]   # charactor class: match a single position any char in [ ], ([ABC] => A OR B OR C)
+flag:   i
+        g
+        m
+```
 
 # CSS
 ### showing an ellipsis (...)
@@ -149,6 +155,8 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 # PHP
 
 ### 
+```
+```
 
 # SQL
 

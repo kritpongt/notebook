@@ -109,3 +109,10 @@ ctrl + r 	# redo
 ref: https://cheatography.com/thissitesucks/cheat-sheets/vscode-vim/
 
 --surround--
+note: start bracket on space, end bracket with space
+cs"<s>          # change " to <s>
+cst<s>          # change tag to <s>
+ds<s>           # delete <s>
+ysiw<s>         # add <s> around word
+yss<s>          # add <s> wrap entire line
+visual -> S<s>  # add <s> around visual
