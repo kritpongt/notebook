@@ -236,7 +236,7 @@ ls -force
 
 ### remove hidden file
 ```
-Remove-Item -Recurse -Force .git
+Remove-Item -Recurse -Force .git, .gitignore
 ```
 
 # Vscode
