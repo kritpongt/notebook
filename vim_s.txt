@@ -109,7 +109,7 @@ ctrl + r 	# redo
 ref: https://cheatography.com/thissitesucks/cheat-sheets/vscode-vim/
 
 --surround--
-note: start bracket on space, end bracket with space
+note: begin bracket with space, end bracket without space
 cs"<s>          # change " to <s>
 cst<s>          # change tag to <s>
 ds<s>           # delete <s>
