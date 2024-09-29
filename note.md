@@ -302,6 +302,7 @@ this keeps the branch organized.
 ```
 
 # Vscode
+- block comment                                 `<alt + shift + a`
 - remaneFile                                    `<r>`
 - deleteFile                                    `<d>`
 - filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
