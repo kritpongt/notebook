@@ -92,7 +92,7 @@ function assignObjCallback(inputs, callback){
 assignObjCallback(inputs, fetchData)
 ```
 
-### loop perform in sequence (using await should be returning a promise)
+### loop perform in sequence (using an await should be return a promise)
 ```
 async function fillCartItem(prods){
     for(let prod of prods){
@@ -209,9 +209,9 @@ GROUP BY
     ah.id,
     sm.id WITH ROLLUP
 
-// Group the data by the sm.id column
+// Group the data by the `ah.id` and `sm.id` column
 // Calculate the sum of send_amount for each group at last row
-// In rollup where column group by(sm.id) will show as NULL
+// In rollup where column group by `sm.id` will show as NULL
 ```
 
 ### decorate the query group by with rollup
@@ -267,12 +267,38 @@ ORDER BY
 
 ### list all files including hidden
 ```
-ls -force
+ls -Force
 ```
 
 ### remove hidden file
 ```
 Remove-Item -Recurse -Force .git, .gitignore
+```
+
+# Git cycle
+1. git pull origin <main_branch>                # synchronize the branch that lastest ver of the project.
+2. git checkout -b <feature/bugfix>             # create branch and work on new branch
+3. git commit -m "descriptive commit" -- ./path/file.md
+4. git push origin <branch_name>                # push current feature branch to remote.
+--
+5. git checkout <main_branch>                   # change to main branch
+6. git pull origin <main_branch>                # synchronize
+- merge:                                        # create a merge commit at main, that combines branch and main
+    - git merge <branch_name>                   # merge feature branch into main branch
+    - git push origin <main_branch> 
+    - or create a pull request(PR) to merge into the main branch.
+- rebase: 
+    - git checkout <branch_name>                # 
+    - git rebase <main_branch>                  #
+    - git push origin <main_branch>             #
+- when feature branch has been successfully merged, can delete them
+    - git branch -d <branch_name>               # local delete.
+    - git push origin --delete <branch_name>    # remote delete.
+
+# Volcab & Sentence
+```
+update this english for clearity.
+this keeps the branch organized.
 ```
 
 # Vscode
@@ -289,3 +315,4 @@ Remove-Item -Recurse -Force .git, .gitignore
 - list.find                                     `<ctrl + f>`
 - ~~Trigger Suggest                             `<alt + i>`~~
 - ~~hideSuggestWidget                           `<alt + i>`~~
+- go to matching tag
