@@ -69,11 +69,11 @@ ctrl + v 	# visual box
 gb 		# visual like ctrl + d
 g~<enter> 	# line switch uppercase and lowercase
 g~w 		# word switch uppercase and lowercase
+ggVG 		# select all
 gh 		# mouse hover
 gd 		# go to definition
 gf 		# go to file
 gi 		# go to last cursor insert mode
-ggVG 		# select all
 
 :%s/<old>/<new>/gc # replace all occurrences of <old> with <new> in whole file, asking for confirmation
 :g/<del>/d 	# global delete a word
