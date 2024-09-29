@@ -154,15 +154,15 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 //         m    # multi line
 ```
 
-### regex method
+### regex methods
 ```
 const str = 'test test test'
 const pattern = /\S/g
 const foo = pattern.test(str)   // return false / true
 
 str.search(pattern)             // return > -1
-str.match(pattern)              // return array / null
-str.replace(pattern)            // return new string that have been replaced
+str.match(pattern)              // return an array / null
+str.replace(pattern, 'renew')   // return new string with replacement made
 ```
 
 # CSS
