@@ -113,6 +113,8 @@ note: start bracket on space, end bracket with space
 cs"<s>          # change " to <s>
 cst<s>          # change tag to <s>
 ds<s>           # delete <s>
+dst             # remove tag
 ysiw<s>         # add <s> around word
+ysat<s>         # add <s> around tag
 yss<s>          # add <s> wrap entire line
 visual -> S<s>  # add <s> around visual
