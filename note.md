@@ -182,8 +182,32 @@ str.replace(pattern, 'renew')   // return new string with replacement made
 
 # PHP
 
-### 
+### array buil-in function
 ```
+// array_column()
+$arr_base = array(
+    [
+        'id'    => '1',
+        'name'  => 'name_1',
+    ],
+    [
+        'id'    => '2',
+        'name'  => 'name_2',
+    ]
+);
+$arr_new = array_column($arr_base, 'id');
+
+// array_filter()
+$arr_test = array(
+    '0' => 'total',
+    '1' => 'send_amount',
+    '2' => 'diff',
+    '3' => 'status',
+);
+$arr_tmp = ['diff', 'status'];
+$arr_new = array_filter($arr_test, function($item) use($arr_tmp){
+    return !in_array($item, $arr_tmp);
+});
 ```
 
 # MySQL
