@@ -340,3 +340,4 @@ this keeps the branch organized.
 - ~~Trigger Suggest                             `<alt + i>`~~
 - ~~hideSuggestWidget                           `<alt + i>`~~
 - go to matching tag
+- window.customMenuBarAltFocus                  `false`
