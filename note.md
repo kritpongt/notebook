@@ -361,3 +361,5 @@ this keeps the branch organized.
 - ~~hideSuggestWidget                           `<alt + i>`~~
 - go to matching tag                            `<<leader> + t>`
 - window.customMenuBarAltFocus                  `false`
+- editor.emmet.action.balanceIn
+- editor.emmet.action.balanceOut
