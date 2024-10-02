@@ -331,13 +331,14 @@ this keeps the branch organized.
 - filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
 - filesExplorer.cut                             `<x>`
 - filesExplorer.paste                           `<p>`
-- split tabs                                    `<ctrl + \>` 
+- split tabs                                    `<ctrl + \>`
+- workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
 - workbench.action.focusPreviousGroup           `<ctrl + h>`
 - workbench.action.focusNextGroup               `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup    `<ctrl + alt + h>`
-- workbench.action.moveEditorToNextGroup        `<ctrl + alt + l>`
+- workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`
+- workbench.action.moveEditorToNextGroup        `<ctrl + k + l>`
 - list.find                                     `<ctrl + f>`
 - ~~Trigger Suggest                             `<alt + i>`~~
 - ~~hideSuggestWidget                           `<alt + i>`~~
-- go to matching tag
+- go to matching tag                            `<<leader> + t>`
 - window.customMenuBarAltFocus                  `false`
