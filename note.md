@@ -182,7 +182,7 @@ str.replace(pattern, 'renew')   // return new string with replacement made
 
 # PHP
 
-### array buil-in function
+### array built-in function
 ```
 // array_column()
 $arr_base = array(
@@ -198,16 +198,35 @@ $arr_base = array(
 $arr_new = array_column($arr_base, 'id');
 
 // array_filter()
-$arr_test = array(
-    '0' => 'total',
-    '1' => 'send_amount',
-    '2' => 'diff',
-    '3' => 'status',
-);
+$arr_test = array( 'total', 'send_amount', 'diff', 'status' );
 $arr_tmp = ['diff', 'status'];
 $arr_new = array_filter($arr_test, function($item) use($arr_tmp){
     return !in_array($item, $arr_tmp);
 });
+
+// array_map()
+$arr_test = array( '1', '2', '3', '4', '5' );
+$arr_new = array_map(function($value){
+    if($value % 2 == 0){ return 'ZERO'; }
+    return $value;
+}, $arr_test);
+
+// array_reduce()
+$arr_new = array_reduce($arr_test, funciton($result, $value){
+    $result[] = $value % 2;
+    return $result;
+}, [])
+
+// array_unshift()   # add value to beginning element
+// array_shift()     # remove value beginning element
+// array_push()
+// array_pop()
+
+// current()         # return begining value of an array
+// next()            # move to next element
+// prev()            # move to previous element
+// end()             # return last value of an array
+// reset()           # move to first element of the array
 ```
 
 # MySQL
