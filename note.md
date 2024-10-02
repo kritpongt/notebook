@@ -159,6 +159,7 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 const str = 'test test test'
 const pattern = /\S/g
 const foo = pattern.test(str)   // return false / true
+const bar = pattern.exec(str)   // return an array
 
 str.search(pattern)             // return > -1
 str.match(pattern)              // return an array / null
