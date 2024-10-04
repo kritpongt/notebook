@@ -355,8 +355,8 @@ this keeps the branch organized.
 - workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
 - workbench.action.focusPreviousGroup           `<ctrl + h>`
 - workbench.action.focusNextGroup               `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`
-- workbench.action.moveEditorToNextGroup        `<ctrl + k + l>`
+- workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
+- workbench.action.moveEditorToNextGroup        `<ctrl + k + l>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
 - list.find                                     `<ctrl + f>`
 - ~~Trigger Suggest                             `<alt + i>`~~
 - ~~hideSuggestWidget                           `<alt + i>`~~
