@@ -134,7 +134,7 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 // [...]        # charactor class: create a char set, match a single position any char in [ ], 
 //                  Ex. [ABC] => matches char "A" OR "B" OR "C"
 //                      [0-9] => matches a number 0-9
-// (...)        # capture group: matches group,
+// (...)        # capture group: it used to return **matches group**,
 //                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2}) => return a obj.group.year, obj.group.month
 // \d           # matches single number, equivalent to [0-9], `\D` not a number
 // \w           # matches word (alphanumeric && underscore), equivalent to [A-Za-z0-9_]
