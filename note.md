@@ -28,12 +28,22 @@ fetch(url, {
 }).then(function(res){
     return res.text()
 }).then(function(data){
-
+    const send_money = document.querySelector('#sendmoney')
+    send_money.innerHTML = data
+    const scripts = send_money.querySelectorAll('script')
+    scripts.forEach(function(script){
+        let newScript = document.createElement('script')
+        newScript.textContent = script.textContent
+        document.body.appendChild(newScript)
+        document.body.removeChild(newScript)
+    })
 })
 // in php
 <?
 $data = $_POST['data'] ?>
-<body><?= $data></body>
+<body>
+    <?= $data?>
+</body>
 ```
 
 ### convert string data from fetch to php array backend
