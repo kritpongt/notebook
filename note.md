@@ -388,4 +388,5 @@ this keeps the branch organized.
 - window.customMenuBarAltFocus                  `false`
 - editor.emmet.action.balanceIn                 `<alt + i>`
 - editor.emmet.action.balanceOut                `<alt + o>`
+- editor.emmet.action.wrapWithAbbreviation      `<alt + u>`
 - terminal panel size 
