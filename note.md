@@ -28,12 +28,22 @@ fetch(url, {
 }).then(function(res){
     return res.text()
 }).then(function(data){
-
+    const send_money = document.querySelector('#sendmoney')
+    send_money.innerHTML = data
+    const scripts = send_money.querySelectorAll('script')
+    scripts.forEach(function(script){
+        let newScript = document.createElement('script')
+        newScript.textContent = script.textContent
+        document.body.appendChild(newScript)
+        document.body.removeChild(newScript)
+    })
 })
 // in php
 <?
 $data = $_POST['data'] ?>
-<body><?= $data></body>
+<body>
+    <?= $data?>
+</body>
 ```
 
 ### convert string data from fetch to php array backend
@@ -134,7 +144,7 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 // [...]        # charactor class: create a char set, match a single position any char in [ ], 
 //                  Ex. [ABC] => matches char "A" OR "B" OR "C"
 //                      [0-9] => matches a number 0-9
-// (...)        # capture group: matches group,
+// (...)        # capture group: it used to return **matches group**,
 //                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2}) => return a obj.group.year, obj.group.month
 // \d           # matches single number, equivalent to [0-9], `\D` not a number
 // \w           # matches word (alphanumeric && underscore), equivalent to [A-Za-z0-9_]
@@ -159,13 +169,23 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 const str = 'test test test'
 const pattern = /\S/g
 const foo = pattern.test(str)   // return false / true
+const bar = pattern.exec(str)   // return an array
 
 str.search(pattern)             // return > -1
 str.match(pattern)              // return an array / null
 str.replace(pattern, 'renew')   // return new string with replacement made
 ```
 
+# JS DOM
+
+### get all input elements by id
+```
+const form = document.getElementById('form')
+const inputs = form.querySelectorAll('input, select, textarea')
+```
+
 # CSS
+
 ### showing an ellipsis (...)
 ```
 .container {
@@ -182,8 +202,56 @@ str.replace(pattern, 'renew')   // return new string with replacement made
 
 # PHP
 
-### 
+### array built-in function
 ```
+// array_column()
+$arr_base = array(
+    [
+        'id'    => '1',
+        'name'  => 'name_1',
+    ],
+    [
+        'id'    => '2',
+        'name'  => 'name_2',
+    ]
+);
+$arr_new = array_column($arr_base, 'id');
+
+// array_filter()
+$arr_test = array( 'total', 'send_amount', 'diff', 'status' );
+$arr_tmp = ['diff', 'status'];
+$arr_new = array_filter($arr_test, function($item) use($arr_tmp){
+    return !in_array($item, $arr_tmp);
+});
+
+// array_map()
+$arr_test = array( '1', '2', '3', '4', '5' );
+$arr_new = array_map(function($value){
+    if($value % 2 == 0){ return 'ZERO'; }
+    return $value;
+}, $arr_test);
+
+// array_reduce()
+$arr_new = array_reduce($arr_test, funciton($result, $value){
+    $result[] = $value % 2;
+    return $result;
+}, [])
+
+// array_unshift()   # add value to beginning element
+// array_shift()     # remove value beginning element
+// array_push()
+// array_pop()
+
+// current()         # return begining value of an array
+// next()            # move to next element
+// prev()            # move to previous element
+// end()             # return last value of an array
+// reset()           # move to first element of the array
+```
+
+### float
+```
+
 ```
 
 # MySQL
@@ -228,7 +296,6 @@ FROM
         CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.sm_id, '') ELSE '' END AS sm_id, 
         CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_date, '') ELSE '' END AS send_date, 
         CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_amount, '') ELSE CONCAT(r.sum_sa, '') END AS send_amount, 
-        CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.send_status, '') ELSE chk_diff END AS send_status, 
         CASE WHEN r.sm_id IS NOT NULL THEN CONCAT(r.remark, '') ELSE '' END AS remark 
     FROM 
         (
@@ -243,10 +310,10 @@ FROM
             sm.remark, 
             sm.id AS sm_id, 
             SUM(sm.send_amount) AS sum_sa, 
-            CASE WHEN ah.total - SUM(sm.send_amount) <= 0 THEN '1' ELSE '2' END AS chk_diff 
+            CASE WHEN ah.total - (SELECT SUM(send_amount) FROM ali_send_money sm2 WHERE sm2.sano = ah.sano ) <= 0 THEN '1' ELSE '2' END AS chk_diff 
         FROM 
             ali_asaleh ah 
-            LEFT JOIN ali_send_money sm ON(sm.sano = ah.sano) 
+            LEFT JOIN ali_send_money sm ON(sm.sano = ah.sano AND sm.send_status = '1') 
         GROUP BY 
             ah.id, 
             sm.id WITH ROLLUP
@@ -308,12 +375,17 @@ this keeps the branch organized.
 - filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
 - filesExplorer.cut                             `<x>`
 - filesExplorer.paste                           `<p>`
-- split tabs                                    `<ctrl + \>` 
+- split tabs                                    `<ctrl + \>`
+- workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
 - workbench.action.focusPreviousGroup           `<ctrl + h>`
 - workbench.action.focusNextGroup               `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup    `<ctrl + alt + h>`
-- workbench.action.moveEditorToNextGroup        `<ctrl + alt + l>`
+- workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
+- workbench.action.moveEditorToNextGroup        `<ctrl + k + l>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
 - list.find                                     `<ctrl + f>`
 - ~~Trigger Suggest                             `<alt + i>`~~
 - ~~hideSuggestWidget                           `<alt + i>`~~
-- go to matching tag
+- go to matching tag                            `<<leader> + t>`
+- window.customMenuBarAltFocus                  `false`
+- editor.emmet.action.balanceIn                 `<alt + i>`
+- editor.emmet.action.balanceOut                `<alt + o>`
+- terminal panel size 

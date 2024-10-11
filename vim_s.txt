@@ -1,6 +1,6 @@
 --movement--
-ctrl + y 	# scroll up 1 line (custom: ctrl + k)
-ctrl + e 	# scroll down 1 line (custom: ctrl + j)
+ctrl + y 	# scroll up 1 line
+ctrl + e 	# scroll down 1 line
 ctrl + u 	# scroll up half page
 ctrl + d 	# scroll down half page
 { 		# go up to next paragraph (or empty line)
@@ -37,6 +37,12 @@ zz 		# center screen on cursor
 % 		# jump to matching block `( [], (), {} )`
 [<block> 	# jump to opener block `( [, (, { )`
 ]<block> 	# jump to closer block `( ], ), } )`
+
+--quit--
+:q    # quit (`:q!` force quit)
+:wq   # quit and save
+ZZ    # same the `:wq`
+:qa   # quit all opened files
 
 --insert--
 i 		# insert before the cursor
