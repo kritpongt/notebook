@@ -1,4 +1,5 @@
 # JavaScript
+
 ### fetch
 ```
 const url = '/';
@@ -174,6 +175,26 @@ const bar = pattern.exec(str)   // return an array
 str.search(pattern)             // return > -1
 str.match(pattern)              // return an array / null
 str.replace(pattern, 'renew')   // return new string with replacement made
+```
+
+### debounce function
+```
+function debounce(callback, delay){
+    let debounceTimeout
+    return function(...args){
+        clearTimeout(debounceTimeout)
+        debounceTimeout = setTimeout(() => { callback(...args) }, delay)
+    }
+}
+const debounced = debounce(function(){
+    //...
+}, 1000)
+
+debounced()
+```
+
+### mutation observe
+```
 ```
 
 # JS DOM
@@ -377,6 +398,7 @@ this keeps the branch organized.
 - filesExplorer.paste                           `<p>`
 - split tabs                                    `<ctrl + \>`
 - workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
+- terminal panel size 
 - workbench.action.focusPreviousGroup           `<ctrl + h>`
 - workbench.action.focusNextGroup               `<ctrl + l>`
 - workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
@@ -389,4 +411,4 @@ this keeps the branch organized.
 - editor.emmet.action.balanceIn                 `<alt + i>`
 - editor.emmet.action.balanceOut                `<alt + o>`
 - editor.emmet.action.wrapWithAbbreviation      `<alt + u>`
-- terminal panel size 
+- visual mode paste without override                                # NonRecursive
