@@ -35,6 +35,7 @@ fetch(url, {
     scripts.forEach(function(script){
         let newScript = document.createElement('script')
         newScript.textContent = script.textContent
+        if(script.src){ newScript.src = script.src }
         document.body.appendChild(newScript)
         document.body.removeChild(newScript)
     })
@@ -177,24 +178,35 @@ str.match(pattern)              // return an array / null
 str.replace(pattern, 'renew')   // return new string with replacement made
 ```
 
-### debounce function
+### mutation observe + debounce function
 ```
 function debounce(callback, delay){
-    let debounceTimeout
+    let timeout
     return function(...args){
-        clearTimeout(debounceTimeout)
-        debounceTimeout = setTimeout(() => { callback(...args) }, delay)
+        clearTimeout(timeout)
+        timeout = setTimeout(function(){
+            callback(...args)
+        }, delay)
     }
 }
-const debounced = debounce(function(){
-    //...
-}, 1000)
 
-debounced()
-```
-
-### mutation observe
-```
+function observeAndSetValue(id, value){
+    let select = document.getElementById(id);
+    if(select){
+        const debSetValue = debounce(function(){
+            select.value = value;
+            select.dispatchEvent(new Event('change'));
+        }, 300)
+        const debDisconnect = debounce(function(){
+            observer.disconnect();
+        }, 1000)
+        let observer = new MutationObserver((mutationList) => {
+            debSetValue()
+            debDisconnect()
+        });
+        observer.observe(select, { childList: true });
+    }
+}
 ```
 
 # JS DOM
@@ -203,6 +215,24 @@ debounced()
 ```
 const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
+```
+
+# JQuery and other libaries
+
+### select2 + btn in option
+```
+$("select[name='set_main_caddress']").select2({
+    templateResult: function(option){
+        if(option.id != ''){
+            let $newOption = $(`<div> <button type="button" class="btn btn-default" onclick="manageCaddress('edit', ${option.id})"><i class="far fa-edit"></i></button> <button type="button" class="btn btn-default" onclick="manageCaddress('del', ${option.id})"><i class="far fa-trash-alt"></i></button> ${option.text}</div>`)
+            return $newOption
+        }
+    }
+}).on('select2:open', function(){
+    $(this).val(null).trigger('change');
+}).on('select2:selecting', function(e){
+    if(e.params.args.originalEvent.target.tagName !== 'DIV') { e.preventDefault() }
+}).on('select2:close', function(e){ })
 ```
 
 # CSS
@@ -396,6 +426,8 @@ this keeps the branch organized.
 - filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
 - filesExplorer.cut                             `<x>`
 - filesExplorer.paste                           `<p>`
+- list.toggleSelection                          `<v>`
+- explorer.openAndPassFocus                     `<l>`
 - split tabs                                    `<ctrl + \>`
 - workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
 - terminal panel size 
