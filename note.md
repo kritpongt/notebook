@@ -431,7 +431,7 @@ this keeps the branch organized.
 - split tabs                                        `<ctrl + \>`
 - workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
 - workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
-- workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && !terminalEditorFocus
+- workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && terminalCount > 1
 - workbench.action.focusPreviousGroup               `<ctrl + h>`
 - workbench.action.focusNextGroup                   `<ctrl + l>`
 - workbench.action.moveEditorToPreviousGroup        `<ctrl + k + h>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
