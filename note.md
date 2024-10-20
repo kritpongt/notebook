@@ -420,27 +420,29 @@ this keeps the branch organized.
 ```
 
 # Vscode
-- block comment                                 `<alt + shift + a`
-- remaneFile                                    `<r>`
-- deleteFile                                    `<d>`
-- filesExplorer.copy                            `<y>`               # add "&& !notebookEditorFocused"
-- filesExplorer.cut                             `<x>`
-- filesExplorer.paste                           `<p>`
-- list.toggleSelection                          `<v>`
-- explorer.openAndPassFocus                     `<l>`
-- split tabs                                    `<ctrl + \>`
-- workbench.action.toggleEditorWidths           `<ctrl + shift + \>`
-- terminal panel size 
-- workbench.action.focusPreviousGroup           `<ctrl + h>`
-- workbench.action.focusNextGroup               `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup    `<ctrl + k + h>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- workbench.action.moveEditorToNextGroup        `<ctrl + k + l>`    # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- list.find                                     `<ctrl + f>`
-- ~~Trigger Suggest                             `<alt + i>`~~
-- ~~hideSuggestWidget                           `<alt + i>`~~
-- go to matching tag                            `<<leader> + t>`
-- window.customMenuBarAltFocus                  `false`
-- editor.emmet.action.balanceIn                 `<alt + i>`
-- editor.emmet.action.balanceOut                `<alt + o>`
-- editor.emmet.action.wrapWithAbbreviation      `<alt + u>`
-- visual mode paste without override                                # NonRecursive
+- block comment                                     `<alt + shift + a`
+- remaneFile                                        `<r>`
+- deleteFile                                        `<d>`
+- filesExplorer.copy                                `<y>`                   # add "&& !notebookEditorFocused"
+- filesExplorer.cut                                 `<x>`
+- filesExplorer.paste                               `<p>`
+- list.toggleSelection                              `<v>`
+- explorer.openAndPassFocus                         `<l>`
+- split tabs                                        `<ctrl + \>`
+- workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
+- workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
+- workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && !terminalEditorFocus
+- workbench.action.focusPreviousGroup               `<ctrl + h>`
+- workbench.action.focusNextGroup                   `<ctrl + l>`
+- workbench.action.moveEditorToPreviousGroup        `<ctrl + k + h>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
+- workbench.action.moveEditorToNextGroup            `<ctrl + k + l>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
+- list.find                                         `<ctrl + f>`
+- go to matching tag                                `<<leader> + t>`
+- window.customMenuBarAltFocus                                              # false
+- editor.emmet.action.balanceIn                     `<alt + i>`
+- editor.emmet.action.balanceOut                    `<alt + o>`
+- editor.emmet.action.wrapWithAbbreviation          `<alt + u>`
+- visual mode paste without override                                        # NonRecursive
+- editor.action.moveSelectionToPreviousFindMatch    `<ctrl + shift + n>`    # editorFocus
+- -liveshare.join                                   `<ctrl + alt + j>`      # remove
+- -bookmarks.toggle                                 `<ctrl + alt + k>`      # remove
