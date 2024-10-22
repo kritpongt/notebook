@@ -159,8 +159,8 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 // <x>*         # matches 0 or more of the preceding <x> token
 // <x>+         # matches 1 or more of the preceding <x>
 // <x>{n}       # matches the specified quantity of <x>,
-                    Ex. <x>{3,} => , meaning more than specified quantity
-                        <x>{3,5} => match 3 to 5
+//                  Ex. <x>{3,} => , meaning more than specified quantity
+//                      <x>{3,5} => match 3 to 5
 // <x>|<y>      # matches <x> or <y>
 // flag:   i    # ignore case
 //         g    # global. without `/g` will stopping after the first match
