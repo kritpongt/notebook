@@ -147,7 +147,8 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 //                  Ex. [ABC] => matches char "A" OR "B" OR "C"
 //                      [0-9] => matches a number 0-9
 // (...)        # capture group: it used to return **matches group**,
-//                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2}) => return a obj.group.year, obj.group.month
+//                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2})    => return a obj.group.year, obj.group.month
+                        ^\d+(\.\d{1,2})?$                                       => matche a number with 2 decimal places
 // \d           # matches single number, equivalent to [0-9], `\D` not a number
 // \w           # matches word (alphanumeric && underscore), equivalent to [A-Za-z0-9_]
 // \s           # matches any whitespace char (spaces, tabs, linebreaks)
@@ -300,9 +301,9 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // reset()           # move to first element of the array
 ```
 
-### float
+### display float number (string)
 ```
-
+$float_number = sprint('%.2f', 12.12);
 ```
 
 # MySQL
