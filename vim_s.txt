@@ -26,9 +26,9 @@ T<c> 		# go previouse towards of `<c>`
 , 		# previuse find of the line
 /<search> 	# looking for `<search>` forwards
 ?<search> 	# looking for `<search>` backwards
-q/ 		# history search (same `q?`)
 n 		# jump to the next match
 N 		# jump to the previous match
+q/ 		# history search (same `q?`)
 ctrl + o 	# go back to previous cursor location
 ctrl + i 	# go to newer cursor location
 zt 		# top screen on cursor
