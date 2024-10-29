@@ -301,6 +301,12 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // reset()           # move to first element of the array
 ```
 
+### less than 0 to be equal to 0
+```
+$value = -2;
+$value = max(0, $value);
+```
+
 ### display float number (string)
 ```
 $float_number = sprint('%.2f', 12.12);
