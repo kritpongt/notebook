@@ -388,6 +388,13 @@ ORDER BY
     a.sm_id ASC
 ```
 
+### NOT EXISTS (display records from one table where the id does not exist in another table)
+```
+SELECT id, column_name
+FROM table1 t1
+WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
+```
+
 # PowerShell
 
 ### list all files including hidden
