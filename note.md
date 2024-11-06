@@ -218,6 +218,22 @@ const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
 ```
 
+### validate form
+```
+const form = document.getElementById('form')
+form.checkValidity()        // true/false (in jquery `$('#form')[0].checkValidity()`)
+
+const inputs = form.querySelectorAll('input, select, textarea')
+inputs.forEach(input => {
+    if(input.hasAttribute('required')){
+        console.log(`Input '${input.name}' has required.`)
+    }
+    if(!input.checkValidity()){
+        console.log(`Input '${input.name}' is invalid.`)
+    }
+});
+```
+
 # JQuery and other libaries
 
 ### select2 + btn in option
@@ -310,6 +326,13 @@ $value = max(0, $value);
 ### display float number (string)
 ```
 $float_number = sprint('%.2f', 12.12);
+```
+
+### float number
+```
+$roundf = round(123.345, 2);            // 123.35
+$ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
+$floorf = floor(5680.555 * 100) / 100;  // 5680.55
 ```
 
 # MySQL
