@@ -210,6 +210,22 @@ function observeAndSetValue(id, value){
 }
 ```
 
+### download file from server
+```
+fetch('path/file.xls').then(function(res){
+    return res.blob()
+}).then(function(data){
+    const link  = document.createElement('a')
+    const url   = URL.createObjectURL(blob)
+    link.href = url
+    link.download = 'file.xls
+    link.click()
+    URL.revokeObjectURL(url)
+}).catch(err){
+    console.error(err)
+}
+```
+
 # JS DOM
 
 ### get all input elements by id
@@ -318,6 +334,10 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 
 array_merge()   ?
 array_replace() ?
+```
+
+### encryption
+```
 ```
 
 ### less than 0 to be equal to 0
