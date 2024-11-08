@@ -29,9 +29,9 @@ fetch(url, {
 }).then(function(res){
     return res.text()
 }).then(function(data){
-    const send_money = document.querySelector('#sendmoney')
-    send_money.innerHTML = data
-    const scripts = send_money.querySelectorAll('script')
+    const qs = document.querySelector('#div-id')
+    qs.innerHTML = data
+    const scripts = qs.querySelectorAll('script')
     scripts.forEach(function(script){
         let newScript = document.createElement('script')
         newScript.textContent = script.textContent
@@ -315,6 +315,9 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // prev()            # move to previous element
 // end()             # return last value of an array
 // reset()           # move to first element of the array
+
+array_merge()   ?
+array_replace() ?
 ```
 
 ### less than 0 to be equal to 0
@@ -325,7 +328,7 @@ $value = max(0, $value);
 
 ### display float number (string)
 ```
-$float_number = sprint('%.2f', 12.12);
+$float_number = sprintf('%.2f', 12.12);
 ```
 
 ### float number
