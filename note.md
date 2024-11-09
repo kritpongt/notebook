@@ -29,7 +29,7 @@ fetch(url, {
 }).then(function(res){
     return res.text()
 }).then(function(data){
-    const qs = document.querySelector('#sendmoney')
+    const qs = document.querySelector('#div-id')
     qs.innerHTML = data
     const scripts = qs.querySelectorAll('script')
     scripts.forEach(function(script){
@@ -210,12 +210,44 @@ function observeAndSetValue(id, value){
 }
 ```
 
+### download file from server
+```
+fetch('path/file.xls').then(function(res){
+    return res.blob()
+}).then(function(data){
+    const link  = document.createElement('a')
+    const url   = URL.createObjectURL(blob)
+    link.href = url
+    link.download = 'file.xls
+    link.click()
+    URL.revokeObjectURL(url)
+}).catch(err){
+    console.error(err)
+}
+```
+
 # JS DOM
 
 ### get all input elements by id
 ```
 const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
+```
+
+### validate form
+```
+const form = document.getElementById('form')
+form.checkValidity()        // true/false (in jquery `$('#form')[0].checkValidity()`)
+
+const inputs = form.querySelectorAll('input, select, textarea')
+inputs.forEach(input => {
+    if(input.hasAttribute('required')){
+        console.log(`Input '${input.name}' has required.`)
+    }
+    if(!input.checkValidity()){
+        console.log(`Input '${input.name}' is invalid.`)
+    }
+});
 ```
 
 # JQuery and other libaries
@@ -299,6 +331,13 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // prev()            # move to previous element
 // end()             # return last value of an array
 // reset()           # move to first element of the array
+
+array_merge()   ?
+array_replace() ?
+```
+
+### encryption
+```
 ```
 
 ### less than 0 to be equal to 0
@@ -309,7 +348,14 @@ $value = max(0, $value);
 
 ### display float number (string)
 ```
-$float_number = sprint('%.2f', 12.12);
+$float_number = sprintf('%.2f', 12.12);
+```
+
+### float number
+```
+$roundf = round(123.345, 2);            // 123.35
+$ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
+$floorf = floor(5680.555 * 100) / 100;  // 5680.55
 ```
 
 # MySQL
@@ -386,6 +432,13 @@ ORDER BY
     a.id DESC, 
     a.sano DESC, 
     a.sm_id ASC
+```
+
+### NOT EXISTS (display records from one table where the id does not exist in another table)
+```
+SELECT id, column_name
+FROM table1 t1
+WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
 ```
 
 # PowerShell
