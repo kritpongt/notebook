@@ -29,9 +29,9 @@ fetch(url, {
 }).then(function(res){
     return res.text()
 }).then(function(data){
-    const send_money = document.querySelector('#sendmoney')
-    send_money.innerHTML = data
-    const scripts = send_money.querySelectorAll('script')
+    const qs = document.querySelector('#sendmoney')
+    qs.innerHTML = data
+    const scripts = qs.querySelectorAll('script')
     scripts.forEach(function(script){
         let newScript = document.createElement('script')
         newScript.textContent = script.textContent
