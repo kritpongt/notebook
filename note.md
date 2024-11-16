@@ -234,6 +234,19 @@ const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
 ```
 
+### find the related element
+```
+// navigates in
+let modal = document.getElementById('modal-stmt')
+let modalTitle = modal.qeurySelector('.modal-title')
+modalTitle.textContent = 'Set Title from top level'
+
+// navigates up
+let stmtIframe = document.getElementById('stmt-iframe')
+let modalTitle = stmt_iframe.closest('.modal-content').querySelector('.modal-title')
+modalTitle.textContent = 'Set Title from low level'
+```
+
 ### validate form
 ```
 const form = document.getElementById('form')
