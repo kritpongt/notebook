@@ -226,6 +226,10 @@ fetch('path/file.xls').then(function(res){
 }
 ```
 
+### localStorage(), sessionStorage()
+```
+```
+
 # JS DOM
 
 ### get all input elements by id
