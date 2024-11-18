@@ -454,7 +454,7 @@ FROM table1 t1
 WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
 ```
 
-### count()
+### case in count()
 ```
 SELECT 
     COUNT(CASE WHEN status = '0' THEN id END) AS count 
@@ -462,6 +462,10 @@ FROM
     table
 GROUP BY 
     id
+```
+
+### websocket
+```
 ```
 
 # PowerShell
