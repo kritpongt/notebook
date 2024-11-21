@@ -339,7 +339,7 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 }, [])
 
 // array_unshift()   # add value to beginning element
-// array_shift()     # remove value beginning element
+// array_shift()     # remove value beginning element **and return the value**
 // array_push()
 // array_pop()
 
@@ -347,14 +347,30 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // next()            # move to next element
 // prev()            # move to previous element
 // end()             # return last value of an array
-// reset()           # move to first element of the array
+// reset()           # move to first element of the array **and return the value**
 
 array_merge()   ?
 array_replace() ?
 ```
 
-### encryption
+### flatten array (rework)
 ```
+function flattenArray($array) {
+    $result = [];
+    foreach ($array as $item) {
+        if (is_array($item)) {
+            // ถ้าเป็น Array ให้ทำ Recursive
+            $result = array_merge($result, flattenArray($item));
+        } else {
+            // ถ้าไม่ใช่ Array ให้เพิ่มค่าในผลลัพธ์
+            $result[] = $item;
+        }
+    }
+    return $result;
+}
+
+$flatArray = flattenArray($arr);
+print_r($flatArray);
 ```
 
 ### less than 0 to be equal to 0
@@ -373,6 +389,26 @@ $float_number = sprintf('%.2f', 12.12);
 $roundf = round(123.345, 2);            // 123.35
 $ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
 $floorf = floor(5680.555 * 100) / 100;  // 5680.55
+```
+
+### encryption
+```
+```
+
+### generator (lazily yield)
+```
+```
+
+### set time limit (Maximum execution time exceeded.) default: 30s
+```
+set_time_limit(0);
+sleep(5); // sleep 5s
+```
+
+### ini_set modify setting in php.ini
+```
+ini_set('memory_limit', '4069M');
+echo memory_get_usage();
 ```
 
 # MySQL
