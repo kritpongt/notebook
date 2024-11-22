@@ -230,6 +230,10 @@ fetch('path/file.xls').then(function(res){
 ```
 ```
 
+### websocket
+```
+```
+
 # JS DOM
 
 ### get all input elements by id
@@ -494,7 +498,7 @@ FROM table1 t1
 WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
 ```
 
-### case in count()
+### case in count
 ```
 SELECT 
     COUNT(CASE WHEN status = '0' THEN id END) AS count 
@@ -504,8 +508,15 @@ GROUP BY
     id
 ```
 
-### websocket
+### cross join
 ```
+SELECT 
+    p.customer_price,
+    (rp.max_cod * p.customer_price)AS price
+FROM 
+    products AS p
+CROSS JOIN 
+    (SELECT COALESCSE(MAX(cod), 0)AS max_cod FROM rate_point)AS rp;
 ```
 
 # PowerShell
