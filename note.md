@@ -359,12 +359,12 @@ array_replace() ?
 
 ### flatten array
 ```
-function flattenArray($array) {
+function flattenArray($array){
     $result = [];
-    foreach($array as $item) {
-        if (is_array($item)) {
+    foreach($array as $item){
+        if(is_array($item)){
             $result = array_merge($result, flattenArray($item));
-        } else {
+        }else{
             $result[] = $item;
         }
     }
@@ -396,6 +396,14 @@ $floorf = floor(5680.555 * 100) / 100;  // 5680.55
 
 ### generator (lazily yield)
 ```
+```
+
+### dir
+```
+$current_url = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+$current_dir = dirname($current_url);
+$current_file = basename($current_url);
+$test = dirname($current_dir);
 ```
 
 ### set time limit (Maximum execution time exceeded.) default: 30s
