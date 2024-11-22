@@ -357,24 +357,19 @@ array_merge()   ?
 array_replace() ?
 ```
 
-### flatten array (rework)
+### flatten array
 ```
 function flattenArray($array) {
     $result = [];
-    foreach ($array as $item) {
+    foreach($array as $item) {
         if (is_array($item)) {
-            // ถ้าเป็น Array ให้ทำ Recursive
             $result = array_merge($result, flattenArray($item));
         } else {
-            // ถ้าไม่ใช่ Array ให้เพิ่มค่าในผลลัพธ์
             $result[] = $item;
         }
     }
     return $result;
 }
-
-$flatArray = flattenArray($arr);
-print_r($flatArray);
 ```
 
 ### less than 0 to be equal to 0
@@ -498,7 +493,7 @@ FROM table1 t1
 WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
 ```
 
-### case in count
+### case when in count function
 ```
 SELECT 
     COUNT(CASE WHEN status = '0' THEN id END) AS count 
@@ -508,7 +503,7 @@ GROUP BY
     id
 ```
 
-### cross join
+### cross join return all records from both tables
 ```
 SELECT 
     p.customer_price,
@@ -517,6 +512,18 @@ FROM
     products AS p
 CROSS JOIN 
     (SELECT COALESCSE(MAX(cod), 0)AS max_cod FROM rate_point)AS rp;
+```
+
+### session variable
+```
+SET @rn = 0;
+UPDATE 
+    table
+SET 
+    count = @rn := @rn + 1
+WHERE 
+    count >= 5369
+ORDER BY id ASC
 ```
 
 # PowerShell
