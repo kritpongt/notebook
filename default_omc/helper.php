@@ -55,23 +55,23 @@ function getfulldate($date = '', $format = '', $mod = '', $checkdate = false){
 	// ================ modify date ================ //
 	if($mod != ''){
 		if(preg_match('/^\s*([+-]?\s*[0-9]+)\s*(month|year)s?$/', $mod, $matches)){
-			$ext_month 	= (int)str_replace(' ', '', $matches[1]);
+			$ext_month = (int)str_replace(' ', '', $matches[1]);
 			if($matches[2] == 'year'){
 				$ext_month *= 12;
 			}
 			if($ext_month > 0){
-				$year 	+= floor($ext_month / 12);
+				$year += floor($ext_month / 12);
 			}else{
-				$year 	+= ceil($ext_month / 12);
+				$year += ceil($ext_month / 12);
 			}
-			$ext_month 	= $ext_month % 12;
-			$month 		+= $ext_month;
+			$ext_month = $ext_month % 12;
+			$month += $ext_month;
 			if($month > 12){
 				$year++;
-				$month 	-= 12;
+				$month -= 12;
 			}else if($month < 1){
 				$year--;
-				$month 	+= 12;
+				$month += 12;
 			}
 			$day = $tmp_d ?? $day;
 			if(!checkdate($month, $day, $year)){
@@ -87,7 +87,6 @@ function getfulldate($date = '', $format = '', $mod = '', $checkdate = false){
 			$arr_date['set'] = $set_date->modify($mod);
 		}
 	}
-
 	// ================= format date ================= //
 	if($format == ''){ $format = 'Y-m-d'; }
 	$arr_date['result'] = $arr_date['set']->format($format);
@@ -110,7 +109,7 @@ function array_getfulldate($date = '', $mod = ''){
 }
 
 function array_periods($amount, $periods){
-	if($periods == 0){ return false; }
+	if($periods <= 0){ return false; }
 	$amt 		= floor($amount / $periods);
 	$remain 	= $amount % $periods;
 	$result 	= array();
