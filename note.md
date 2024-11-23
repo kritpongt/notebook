@@ -226,12 +226,33 @@ fetch('path/file.xls').then(function(res){
 }
 ```
 
+### localStorage(), sessionStorage()
+```
+```
+
+### websocket
+```
+```
+
 # JS DOM
 
 ### get all input elements by id
 ```
 const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
+```
+
+### find the related element
+```
+// navigates in
+let modal = document.getElementById('modal-stmt')
+let modalTitle = modal.qeurySelector('.modal-title')
+modalTitle.textContent = 'Set Title from top level'
+
+// navigates up
+let stmtIframe = document.getElementById('stmt-iframe')
+let modalTitle = stmt_iframe.closest('.modal-content').querySelector('.modal-title')
+modalTitle.textContent = 'Set Title from low level'
 ```
 
 ### validate form
@@ -322,7 +343,7 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 }, [])
 
 // array_unshift()   # add value to beginning element
-// array_shift()     # remove value beginning element
+// array_shift()     # remove value beginning element **and return the value**
 // array_push()
 // array_pop()
 
@@ -330,14 +351,25 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // next()            # move to next element
 // prev()            # move to previous element
 // end()             # return last value of an array
-// reset()           # move to first element of the array
+// reset()           # move to first element of the array **and return the value**
 
 array_merge()   ?
 array_replace() ?
 ```
 
-### encryption
+### flatten array
 ```
+function flattenArray($array){
+    $result = [];
+    foreach($array as $item){
+        if(is_array($item)){
+            $result = array_merge($result, flattenArray($item));
+        }else{
+            $result[] = $item;
+        }
+    }
+    return $result;
+}
 ```
 
 ### less than 0 to be equal to 0
@@ -356,6 +388,34 @@ $float_number = sprintf('%.2f', 12.12);
 $roundf = round(123.345, 2);            // 123.35
 $ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
 $floorf = floor(5680.555 * 100) / 100;  // 5680.55
+```
+
+### encryption
+```
+```
+
+### generator (lazily yield)
+```
+```
+
+### dir
+```
+$current_url = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+$current_dir = dirname($current_url);
+$current_file = basename($current_url);
+$test = dirname($current_dir);
+```
+
+### set time limit (Maximum execution time exceeded.) default: 30s
+```
+set_time_limit(0);
+sleep(5); // sleep 5s
+```
+
+### ini_set modify setting in php.ini
+```
+ini_set('memory_limit', '4069M');
+echo memory_get_usage();
 ```
 
 # MySQL
@@ -439,6 +499,39 @@ ORDER BY
 SELECT id, column_name
 FROM table1 t1
 WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
+```
+
+### case when in count function
+```
+SELECT 
+    COUNT(CASE WHEN status = '0' THEN id END) AS count 
+FROM 
+    table
+GROUP BY 
+    id
+```
+
+### cross join return all records from both tables
+```
+SELECT 
+    p.customer_price,
+    (rp.max_cod * p.customer_price)AS price
+FROM 
+    products AS p
+CROSS JOIN 
+    (SELECT COALESCSE(MAX(cod), 0)AS max_cod FROM rate_point)AS rp;
+```
+
+### session variable
+```
+SET @rn = 0;
+UPDATE 
+    table
+SET 
+    count = @rn := @rn + 1
+WHERE 
+    count >= 5369
+ORDER BY id ASC
 ```
 
 # PowerShell
