@@ -355,6 +355,8 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 
 array_merge()   ?
 array_replace() ?
+
+// array_fill()      # fills an array with value (index, number, value)
 ```
 
 ### flatten array
@@ -369,6 +371,94 @@ function flattenArray($array){
         }
     }
     return $result;
+}
+```
+
+### array destructuring (swap/update simultaneously)
+```
+$a = 24;
+$b = 12;
+[$a, $b] = [$b, $a + $b];
+```
+
+### generator (lazily yield), trigger with foreach,next()
+```
+function fibonacci($max){
+    $a = 0;
+    $b = 1;
+    for($i= 0; $i < $max; $i++){
+        yield $a;
+        [$a, $b] = [$b, $a + $b];
+    }
+}
+foreach(fibonacci(10) as $n){
+    echo $n."\n";
+}
+```
+
+### dp [F(n) = F(n-1) + F(n-2)]
+```
+// Tabulation (buttom-up)
+function fibonacci($n){
+    if($n <= 1){ return $n; }
+    $dp = [0, 1];
+    for($i = 2; $i <= $n; $i++){
+        $dp[$i] = $dp[$i - 1] + $dp[$i - 2];
+    }
+    return $dp[$n];
+}
+
+// Memoization (top-down)
+function fibonacci($n, &$memo = []){
+    if($n <= 1){ return $n; }
+    if(isset($memo[$n])){ return $memo[$n]; }
+    return $memo[$n] = fibonacci($n - 1, $memo) + fibonacci($n - 2, $memo);
+}
+```
+
+### iterator object
+```
+/**
+ * 1. rewind
+ * 2. valid
+ * 3. current, key
+ * 4. next
+ * 5. valid
+ */
+class FileIterator implements Iterator{
+    private $file;
+    private $line;
+    private $key;
+
+    public function __construct($file_path){
+        $this->file = fopen($file_path, 'r');
+    }
+    public function current(){
+        return $this->line;
+    }
+    public function key(){
+        return $this->key;
+    }
+    public function next(){
+        $this->line = fgets($this->file);
+        $this->key++;
+    }
+    public function rewind(){
+        rewind($this->file); // set file pointer to 0
+        $this->line = fgets($this->file);
+        $this->key = 0;
+    }
+    public function valid(){
+        return $this->line !== false;
+    }
+    public function __destruct(){
+        fclose($this->file);
+    }
+}
+
+$file = new FileIterator('example.txt');
+foreach($file as $line_no => $line){
+    echo $line_no.': '.$line;
 }
 ```
 
@@ -394,16 +484,12 @@ $floorf = floor(5680.555 * 100) / 100;  // 5680.55
 ```
 ```
 
-### generator (lazily yield)
-```
-```
-
-### dir
+### get current url
 ```
 $current_url = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 $current_dir = dirname($current_url);
+$backward_dir = dirname($current_dir);
 $current_file = basename($current_url);
-$test = dirname($current_dir);
 ```
 
 ### set time limit (Maximum execution time exceeded.) default: 30s
