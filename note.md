@@ -502,7 +502,7 @@ this keeps the branch organized.
 - editor.emmet.action.balanceIn                     `<alt + i>`
 - editor.emmet.action.balanceOut                    `<alt + o>`
 - editor.emmet.action.wrapWithAbbreviation          `<alt + u>`
-- editor.emmet.action.removeTag                     `<alt + d`
+- editor.emmet.action.removeTag                     `<alt + backspace`
 - visual mode paste without override                                        # NonRecursive
 - editor.action.moveSelectionToPreviousFindMatch    `<ctrl + shift + n>`    # editorFocus
 - -liveshare.join                                   `<ctrl + alt + j>`      # remove
