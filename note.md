@@ -374,6 +374,12 @@ function flattenArray($array){
 }
 ```
 
+### range()
+```
+// array(1, 2, 3, 4, 5);
+$arr = range(1, 5);
+```
+
 ### array destructuring (swap/update simultaneously)
 ```
 $a = 24;
@@ -381,12 +387,12 @@ $b = 12;
 [$a, $b] = [$b, $a + $b];
 ```
 
-### generator (lazily yield), trigger with foreach,next()
+### generator (lazily yield), trigger with foreach, next()
 ```
 function fibonacci($max){
     $a = 0;
     $b = 1;
-    for($i= 0; $i < $max; $i++){
+    for($i = 0; $i < $max; $i++){
         yield $a;
         [$a, $b] = [$b, $a + $b];
     }
@@ -414,6 +420,36 @@ function fibonacci($n, &$memo = []){
     if(isset($memo[$n])){ return $memo[$n]; }
     return $memo[$n] = fibonacci($n - 1, $memo) + fibonacci($n - 2, $memo);
 }
+```
+
+### knapsack problem
+```
+$weights = [1, 3, 4, 5];
+$values = [1, 4, 5, 7];
+$capacity = 9;
+$n = count($weights);
+
+$dp = array_fill(0, $n + 1, array_fill(0, $capacity + 1, 0));
+for($i = 1; $i <= $n; $i++){
+    for($w = 1; $w <= $capacity; $w++){
+        if($w < $weights[$i - 1]){
+            $dp[$i][$w] = $dp[$i - 1][$w];
+        }else{
+            $dp[$i][$w] = max($dp[$i - 1][$w], $values[$i - 1] + $dp[$i - 1][$w - $weights[$i - 1]]);
+        }
+    }
+}
+$select = array();
+$j = $capacity;
+for($i = $n; $i > 0; $i--){
+    if($dp[$i][$w] != $dp[$i - 1][$w]){
+        $select[] = $i;
+        $j -= $weights[$i - 1];
+        if($j <= 0){ break; }
+    }
+}
+echo 'maximum value: '.$dp[$n][$capacity];
+echo 'selected: '.implode(', ', $select);
 ```
 
 ### iterator object
