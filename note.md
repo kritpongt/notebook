@@ -321,6 +321,7 @@ $arr_base = array(
     ]
 );
 $arr_new = array_column($arr_base, 'id');
+$arr_new2 = array_column($arr_base, 'id', 'name');
 
 // array_filter()
 $arr_test = array( 'total', 'send_amount', 'diff', 'status' );
@@ -371,6 +372,17 @@ function flattenArray($array){
         }
     }
     return $result;
+}
+```
+
+### clear references &
+```
+foreach($data as &$val){
+    //..
+}
+unset($val);
+foreach($rs as $val){
+    //..
 }
 ```
 
@@ -518,6 +530,20 @@ $floorf = floor(5680.555 * 100) / 100;  // 5680.55
 
 ### encryption
 ```
+```
+
+### include, require (always starts from the location of the PHP file that is running)
+```
+/**
+ * 1. find in CWD
+ * 2. find in default path(set_include_path())
+ */
+set_include_path(__DIR__."/libraries");
+include('helper.php');
+restore_include_path();
+
+chdir('../document');
+getcwd();
 ```
 
 ### get current url
@@ -703,6 +729,8 @@ this keeps the branch organized.
 - filesExplorer.paste                               `<p>`
 - list.toggleSelection                              `<v>`
 - explorer.openAndPassFocus                         `<l>`
+- search.action.collapseSearchResults               `<c>`                   # hasSearchResult && searchViewletFocus && !searchInputBoxFocus
+- search.focus.nextInputBox                         `<ctrl + j>`
 - split tabs                                        `<ctrl + \>`
 - workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
 - workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
