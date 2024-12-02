@@ -55,11 +55,14 @@ if($data['state'] == 4){
 	});
 	$sqlwhere 	= search_where($data, $arr_show, $array_option, $array_search);
 	$sqlhaving 	= search_where($data, $arr_tmp, $array_option, $array_search);
-
+	
 	$sql = "SELECT * ";
-
-	$sql .= "FROM {$dbprefix}table tb";
+	$sql .= "FROM {$dbprefix}table tb ";
+	$sql .= "WHERE 1=1 ";
 	$sql .= $sqlwhere;
+	if($sqlhaving != ''){
+		$sql .= ' HAVING '.$sqlhaving;
+	}
 
 	box_search_datatable($data, $array_search);
 
@@ -79,20 +82,20 @@ if($data['state'] == 4){
 	 * 4:   del
 	 * 8:   look
 	 * 16:  download */
-	if($acc->isAccess(2)){
-		$obj->setSpecial("../images/true.gif", "", "sale_special", "id,mcode", "IMAGE", $wording_lan["re_pass"]);
-		$obj->setSpecial("../images/editlink.gif", "", "sale_edit", "id,sano_temp", "IMAGE", $wording_lan['edit']);
-		$obj->setSpecial("../images/cancel.gif", "", "sale_cancel", "id,sano_temp,linkx", "IMAGE",$wording_lan["bt"]["cancle"]);
-		/* one column multi select */
-		$obj->setdel("index.php?sessiontab={$data['sessiontab']}&sub={$data['sub']}&state=5","id","id","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันรับชำระเงิน');
-		/* more than one column multi select */
-		// $obj->setselect('multi_cancel',"id","selfield","<font class='txt-button-link' >".$wording_lan["bt"]['cancle']."</font>", 'ยืนยันการยกเลิก', 1, '');
-		// $obj->setselect("index.php?sessiontab=".$data['sessiontab']."&sub=".$data['sub']."&state=5","id","delfield","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันการชำระเงิน', 1, '');
-	}
-	if($acc->isAccess(8)){
-		$obj->setSpecial("../images/Amber-Printer.gif", "", "sale_print", "id", "IMAGE", $wording_lan["print"]);
-		$obj->setSpecial("../images/search.gif", "", "sale_look", "sano", "IMAGE", $wording_lan["look"]);
-	}
+	// if($acc->isAccess(2)){
+	// 	$obj->setSpecial("../images/true.gif", "", "sale_special", "id,mcode", "IMAGE", $wording_lan["re_pass"]);
+	// 	$obj->setSpecial("../images/editlink.gif", "", "sale_edit", "id,sano_temp", "IMAGE", $wording_lan['edit']);
+	// 	$obj->setSpecial("../images/cancel.gif", "", "sale_cancel", "id,sano_temp,linkx", "IMAGE",$wording_lan["bt"]["cancle"]);
+	// 	================ one column multi select ================
+	// 	$obj->setdel("index.php?sessiontab={$data['sessiontab']}&sub={$data['sub']}&state=5","id","id","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันรับชำระเงิน');
+	// 	=========== more than one column multi select ===========
+	// 	$obj->setselect('multi_cancel',"id","selfield","<font class='txt-button-link' >".$wording_lan["bt"]['cancle']."</font>", 'ยืนยันการยกเลิก', 1, '');
+	// 	$obj->setselect("index.php?sessiontab=".$data['sessiontab']."&sub=".$data['sub']."&state=5","id","delfield","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันการชำระเงิน', 1, '');
+	// }
+	// if($acc->isAccess(8)){
+	// 	$obj->setSpecial("../images/Amber-Printer.gif", "", "sale_print", "id", "IMAGE", $wording_lan["print"]);
+	// 	$obj->setSpecial("../images/search.gif", "", "sale_look", "sano", "IMAGE", $wording_lan["look"]);
+	// }
 
 	$header = array(
 		"name_ltd"	=> array($wording_lan["company_name_show"], 'center'),
