@@ -13,19 +13,19 @@ function getfulldate($date = '', $format = '', $mod = '', $checkdate = false){
 			$y 	    = $arr_date_str[0];
 			$m 	    = $arr_date_str[1];
 			$d 	    = $arr_date_str[2];
-			$tmp_d  = $d;
+			$d_tmp  = $d;
 			$arr_date['date'] = "{$y}-{$m}-{$d}";
 			$prove  = true;
 			if(!checkdate($m, $d, $y)){
-				$y 			= $y < 1000 ? 1000 : $y;
-				$m          = $m > 12 ? 12 : $m;
-				$d 			= $d < 1 ? 1 : $d;
-				$tmp_date 	= new DateTime("{$y}-{$m}");
-				$tmp_t 		= $tmp_date->format("t");
-				if($d > $tmp_t){
-					$arr_date['date'] = $tmp_date->format("Y-m-t");
+				$y 			= max(1000, $y %= 10000);
+				$m          = min(12, $m);
+				$d 			= max(1, $d);
+				$date_tmp 	= new DateTime("{$y}-{$m}");
+				$t_tmp 		= $date_tmp->format("t");
+				if($d > $t_tmp){
+					$arr_date['date'] = $date_tmp->format("Y-m-t");
 				}else{
-					$arr_date['date'] = $tmp_date->format("Y-m-{$d}");
+					$arr_date['date'] = $date_tmp->format("Y-m-{$d}");
 				}
 				$prove = false;
 			}
@@ -73,7 +73,7 @@ function getfulldate($date = '', $format = '', $mod = '', $checkdate = false){
 				$year--;
 				$month += 12;
 			}
-			$day = $tmp_d ?? $day;
+			$day = $d_tmp ?? $day;
 			if(!checkdate($month, $day, $year)){
 				$arr_date['set'] = DateTime::createFromFormat('Y-m-d', "{$year}-{$month}-01");
 				$arr_date['set']->modify('last day of');

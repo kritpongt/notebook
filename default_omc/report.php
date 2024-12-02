@@ -1,5 +1,6 @@
 <? 
-require('rpdialog.php'); ?>
+require('rpdialog.php');
+?>
 
 <script>
 	function sale_print(id){
