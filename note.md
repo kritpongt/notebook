@@ -670,6 +670,19 @@ CROSS JOIN
     (SELECT COALESCSE(MAX(cod), 0)AS max_cod FROM rate_point)AS rp;
 ```
 
+### window function
+```
+LEFT JOIN (
+    SELECT pay_id, collector_code, start_date, end_date,
+           ROW_NUMBER() OVER (PARTITION BY pay_id ORDER BY id DESC)AS row_num
+    FROM {$dbprefix}asaleh_payment_log
+) AS pl ON (pl.pay_id = ap.id AND pl.row_num = 1)
+/**
+ * ROW_NUMBER() provide sequence number
+ * PARTITION BY like `GROUP BY`
+ */
+```
+
 ### session variable
 ```
 SET @rn = 0;
