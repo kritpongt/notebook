@@ -464,6 +464,24 @@ echo 'maximum value: '.$dp[$n][$capacity];
 echo 'selected: '.implode(', ', $select);
 ```
 
+### binary search
+```
+function binary_search($arr, $target){
+    $low, $high = 0, strlen($arr) - 1;
+    while($low <= $high){
+        $mid = ($low + $high);
+        if($arr['mid'] == $target){
+            return $arr['mid];
+        }else if($arr['mid] < $target){
+            $low = $mid + 1;
+        }else{
+            $high = $mid - 1;
+        }
+    }
+    return false;
+}
+```
+
 ### iterator object
 ```
 /**
@@ -674,9 +692,9 @@ CROSS JOIN
 ```
 LEFT JOIN (
     SELECT pay_id, collector_code, start_date, end_date,
-           ROW_NUMBER() OVER (PARTITION BY pay_id ORDER BY id DESC)AS row_num
+        ROW_NUMBER() OVER (PARTITION BY pay_id ORDER BY id DESC)as row_num
     FROM {$dbprefix}asaleh_payment_log
-) AS pl ON (pl.pay_id = ap.id AND pl.row_num = 1)
+)AS pl ON(pl.pay_id = ap.id AND pl.row_num = '1')
 /**
  * ROW_NUMBER() provide sequence number
  * PARTITION BY like `GROUP BY`
