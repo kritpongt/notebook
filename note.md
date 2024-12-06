@@ -129,11 +129,15 @@ const obj = {
 }
 
 const arr_txt = Object.keys(obj)
-    .filter(key => key.includes('txt') && obj[key] > 0)
+    .filter((key) => key.includes('txt') && obj[key] > 0)
     .reduce(function(result, key){
         result[key] = obj[key]
         return result
     }, {})
+/* or do this */
+const arr_txt = Object.entries(obj)
+    .filter(([index, item]) => index.includes('txt') && obj[index] > 0)
+let arr_result = Object.fromEntries(arr_txt)
 ```
 
 ### merge object
