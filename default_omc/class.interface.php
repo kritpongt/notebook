@@ -570,4 +570,31 @@ function convertToDATETIME($input_date){
 	}
 	return $new_date.' '.$time;
 }
+
+require_once("../PHPExcel/Classes/PHPExcel.php");
+// OLD PHPExcel Read Excel File
+function excelReader($tmp_file){
+	$excelReader 	= PHPExcel_IOFactory::createReaderForFile($tmp_file);
+	$excelObj 		= $excelReader->load($tmp_file);
+	$spreadsheet 	= $excelObj->getSheetNames();
+	$itemMaster 	= array();
+	foreach($spreadsheet as $key => $val){
+		$worksheet 	= $excelObj->getSheet($key);
+		foreach($worksheet->getRowIterator() as $index => $row){
+			$rowData = array();
+			foreach($row->getCellIterator() as $cell){
+				$rowData[] = $cell->getValue();
+			}
+			$arr_filter = array_filter($rowData, function($item){
+				return !empty($item);
+			});
+			if(count($arr_filter) <= 0){
+				$countEmpty++;
+				continue;
+			}
+			if($countEmpty == 3){ break; }
+			yield $key => $rowData;
+		}
+	}
+}
 ?>
