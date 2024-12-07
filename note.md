@@ -147,28 +147,30 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 
 ### regex
 ```
-// [...]        # charactor class: create a char set, match a single position any char in [ ], 
-//                  Ex. [ABC] => matches char "A" OR "B" OR "C"
-//                      [0-9] => matches a number 0-9
-// (...)        # capture group: it used to return **matches group**,
-//                  Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2})    => return a obj.group.year, obj.group.month
-//                      ^\d+(\.\d{1,2})?$                                       => matche a number with 2 decimal places
-// \d           # matches single number, equivalent to [0-9], `\D` not a number
-// \w           # matches word (alphanumeric && underscore), equivalent to [A-Za-z0-9_]
-// \s           # matches any whitespace char (spaces, tabs, linebreaks)
-// . (Dot)      # matches any char except linebreak, equivalent to [^\n\r]
-// ^<x>         # matches beginning with <x>
-// $<x>         # matches end with <x>
-// <x>?         # matches 0 or 1
-// <x>*         # matches 0 or more of the preceding <x> token
-// <x>+         # matches 1 or more of the preceding <x>
-// <x>{n}       # matches the specified quantity of <x>,
-//                  Ex. <x>{3,} => , meaning more than specified quantity
-//                      <x>{3,5} => match 3 to 5
-// <x>|<y>      # matches <x> or <y>
-// flag:   i    # ignore case
-//         g    # global. without `/g` will stopping after the first match
-//         m    # multi line
+// [ ... ]      # Character Set: Match any single character inside the brackets
+//                 Ex. [ABC] => Match 'A', 'B', or 'C'
+//                     [0-9] => Match any digit from 0 to 9
+// ( ... )      # Capturing Group: Groups tokens and captures the matched substring
+//                 Ex. (?<year>\d{4})[-|/](?<month>\d{2})[-|/](?<day>\d{2})
+//                     Returns obj.group.year, obj.group.month
+// (?: ... )    # Non-Capturing Group: Groups tokens but does not capture the match
+//                 Ex. (?:http|https):// => Match 'http://' or 'https://' but exclude from matches
+// \d           # Digit: Match a single digit (0-9). `\D` matches any non-digit
+// \w           # Word Character: Match alphanumeric characters or underscore [A-Za-z0-9_]
+// \s           # Whitespace: Match spaces, tabs, or line breaks
+// . (Dot)      # Any Character: Match any character except line breaks
+// ^<x>         # Start of String: Match if the string starts with <x>
+// <x>$         # End of String: Match if the string ends with <x>
+// <x>?         # Optional: Match 0 or 1 occurrence of <x>
+// <x>*         # Zero or More: Match 0 or more occurrences of <x>
+// <x>+         # One or More: Match 1 or more occurrences of <x>
+// <x>{n}       # Exact Quantifier: Match exactly n occurrences of <x>
+//                 Ex. <x>{3,} => Match 3 or more occurrences
+//                     <x>{3,5} => Match 3 to 5 occurrences
+// <x>|<y>      # Alternation: Match either <x> or <y>
+// Flags: i     # Case-Insensitive Matching
+//        g     # Global Match: Match all occurrences (stops after first match without `/g`)
+//        m     # Multi-Line Mode: Match across multiple lines
 ```
 
 ### regex methods
