@@ -556,7 +556,9 @@ function convertToDATETIME($input_date){
 	$datetime		= explode(' ', $input_date);
 	$date 			= $datetime[0];
 	$time 			= $datetime[1] ?? '';
-	if($date != ''){
+	if(is_numeric($date)){
+		$new_date 	= getfulldate('1900-01-01', 'Y-m-d', '+'.($date - 2).'days');
+	}else if($date != ''){
 		$date_str	= preg_replace('/([^0-9]+)/', '-', $date);
 		$arr_date	= explode('-', $date_str);
 		$d 			= $arr_date[0];
