@@ -613,7 +613,7 @@ function addressExtraction($address){
 	preg_match('/(.*?)\s(ต\.|ตำบล|แขวง|อ\.|อำเภอ|เขต)/', $address, $matches_address);
 	preg_match('/(ต\.|ตำบล|แขวง)(.+?)\s/', $address, $matches_district);
 	preg_match('/(อ\.|อำเภอ|เขต)(.+?)\s/', $address, $matches_area);
-	preg_match('/(จ\.|จังหวัด)(.+?)\s(\d{5})/', $address, $matches_province);
+	preg_match('/(จ\.|จังหวัด)(.+?)(?:\s(\d{5}))?$/', $address, $matches_province);
 	$result = array(
 		'address' 		=> $matches_address[1],
 		'district' 		=> $matches_district[2],
