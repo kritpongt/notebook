@@ -360,16 +360,23 @@ function interface_bank_ddr($bank, $format, $head, $detail, $total, $record, $tx
 	return $h_content.$d_content.$t_content;
 }
 
-function adjustStrLen($text, $length, $str_pad = '', $flag = 'RIGHT'){
-	$len = mb_strlen($text, 'UTF-8');
+function adjustStrLen($str, $length, $pad_char = '', $flag = 'RIGHT'){
+	$len = mb_strlen($str, 'UTF-8');
 	if($len < $length){
-		if($flag == 'RIGHT'){ $result = $text; }
-		for($i = 1; $i <= max(0, $length - $len); $i++){
-			$result .= $str_pad;
-		}
-		if($flag == 'LEFT'){ $result = $result.$text; }
+        // Padding
+        $padding = str_repeat($pad_char, ($length - $len));
+		if($flag == 'RIGHT'){
+            $result = $str.$padding;
+        }else if($flag == 'LEFT'){
+            $result = $padding.$str;
+        }
 	}else{
-		$result = mb_substr($text, 0, $length, 'UTF-8');
+        // Trimming
+        if($flag == 'RIGHT'){
+            $result = mb_substr($str, 0, $length, 'UTF-8');
+        }else if($flag == 'LEFT'){
+            $result = mb_substr($str, ($len - $length), $length, 'UTF-8');
+        }
 	}
 	return $result;
 }
