@@ -586,7 +586,6 @@ function excelReader($tmp_file){
 	$excelReader 	= PHPExcel_IOFactory::createReaderForFile($tmp_file);
 	$excelObj 		= $excelReader->load($tmp_file);
 	$spreadsheet 	= $excelObj->getSheetNames();
-	$itemMaster 	= array();
 	foreach($spreadsheet as $key => $val){
 		$worksheet 	= $excelObj->getSheet($key);
 		foreach($worksheet->getRowIterator() as $index => $row){
