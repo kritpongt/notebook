@@ -758,17 +758,25 @@ this keeps the branch organized.
 ```
 
 # Vscode
-- block comment                                     `<alt + shift + a`
-- remaneFile                                        `<r>`
+- block comment                                     `<alt + shift + a>`
+- workbench.explorer.fileView.focus                 `<alt + e + e>`
+- workbench.files.action.collapseExplorerFolders    `<f>`                   # filesExplorerFocus && !inputFocus
+- workbench.files.action.refreshFilesExplorer       `<z>`                   # explorerViewletFocus && !inputFocus
+- renameFile                                        `<r>`
 - deleteFile                                        `<d>`
 - filesExplorer.copy                                `<y>`                   # add "&& !notebookEditorFocused"
 - filesExplorer.cut                                 `<x>`
 - filesExplorer.paste                               `<p>`
 - list.toggleSelection                              `<v>`
 - explorer.openAndPassFocus                         `<l>`
-- search.action.collapseSearchResults               `<c>`                   # hasSearchResult && searchViewletFocus && !searchInputBoxFocus
+- list.find                                         `<ctrl + f>`
+- workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
+- openInIntegratedTerminal
+- filesExplorer.findInFolder                        `<alt + e + f>`
+- workbench.action.findInFiles                      `<alt + e + />`
 - search.focus.nextInputBox                         `<ctrl + j>`
-- split tabs                                        `<ctrl + \>`
+- search.action.collapseSearchResults               `<f>`                   # hasSearchResult && searchViewletFocus && !searchInputBoxFocus
+- workbench.action.splitEditor                      `<ctrl + \>`
 - workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
 - workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
 - workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && terminalCount > 1
@@ -776,14 +784,10 @@ this keeps the branch organized.
 - workbench.action.focusNextGroup                   `<ctrl + l>`
 - workbench.action.moveEditorToPreviousGroup        `<ctrl + k + h>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
 - workbench.action.moveEditorToNextGroup            `<ctrl + k + l>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- list.find                                         `<ctrl + f>`
-- go to matching tag                                `<<leader> + t>`
-- window.customMenuBarAltFocus                                              # false
+- window.customMenuBarAltFocus                      `false`
 - editor.emmet.action.balanceIn                     `<alt + i>`
 - editor.emmet.action.balanceOut                    `<alt + o>`
 - editor.emmet.action.wrapWithAbbreviation          `<alt + u>`
-- editor.emmet.action.removeTag                     `<alt + backspace`
+- editor.emmet.action.removeTag                     `<alt + backspace>`
 - visual mode paste without override                                        # NonRecursive
 - editor.action.moveSelectionToPreviousFindMatch    `<ctrl + shift + n>`    # editorFocus
-- -liveshare.join                                   `<ctrl + alt + j>`      # remove
-- -bookmarks.toggle                                 `<ctrl + alt + k>`      # remove
