@@ -264,7 +264,10 @@ modalTitle.textContent = 'Set Title from low level'
 ### validate form
 ```
 const form = document.getElementById('form')
-form.checkValidity()        // true/false (in jquery `$('#form')[0].checkValidity()`)
+form.checkValidity()        
+/** in jquery
+ * $('#form')[0].checkValidity()
+ */
 
 const inputs = form.querySelectorAll('input, select, textarea')
 inputs.forEach(input => {
@@ -293,6 +296,20 @@ $("select[name='set_main_caddress']").select2({
 }).on('select2:selecting', function(e){
     if(e.params.args.originalEvent.target.tagName !== 'DIV') { e.preventDefault() }
 }).on('select2:close', function(e){ })
+```
+
+### swal sweet alert2
+```
+swal({
+    title: 'Are you sure?',
+    text: '',
+    showCancelButton: true,
+    confirmButtonColor: '#53E69D',
+    confirmButtonText: 'OK',
+    closeOnConfirm: false
+}, function(){
+    form.submit();
+})
 ```
 
 # CSS
@@ -358,7 +375,7 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // next()            # move to next element
 // prev()            # move to previous element
 // end()             # return last value of an array
-// reset()           # move to first element of the array **and return the value**
+// reset()           # move to first element of the array **and return the value `$first_element = reset($arr);`**
 
 array_merge()   ?
 array_replace() ?
@@ -590,6 +607,12 @@ ini_set('memory_limit', '4069M');
 echo memory_get_usage();
 ```
 
+### add `.user.ini` file to a specific directory (php setting at the directory level)
+```
+upload_max_filesize = 200M
+post_max_size = 210M
+```
+
 # MySQL
 
 ### group by and with rollup (summary row)
@@ -698,7 +721,7 @@ CROSS JOIN
 ```
 LEFT JOIN (
     SELECT pay_id, collector_code, start_date, end_date,
-        ROW_NUMBER() OVER (PARTITION BY pay_id ORDER BY id DESC)as row_num
+        ROW_NUMBER() OVER(PARTITION BY pay_id ORDER BY id DESC)as row_num
     FROM {$dbprefix}asaleh_payment_log
 )AS pl ON(pl.pay_id = ap.id AND pl.row_num = '1')
 /**
