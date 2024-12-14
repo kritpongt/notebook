@@ -104,18 +104,17 @@ function assignObjCallback(inputs, callback){
 assignObjCallback(inputs, fetchData)
 ```
 
-### loop perform in sequence (using an await should be return a promise)
+### execute loop with sequential promises (using await waits for a promise in async function)
 ```
 async function fillCartItem(prods){
     for(let prod of prods){
         await cartActionPromise('add,ctrl-edit', prod.pcode, prod.qty)
     }
 }
-
 fillCartItem(products)
 ```
 
-### convert a string php array to javascript object
+### convert PHP Array to Javascript Object
 ```
 const obj_data = JSON.parse('<?= json_encode($arr_data)?>')
 ```
@@ -605,12 +604,20 @@ sleep(5); // sleep 5s
 ```
 ini_set('memory_limit', '4069M');
 echo memory_get_usage();
+echo memory_get_peak_usage();
 ```
 
-### add `.user.ini` file to a specific directory (php setting at the directory level)
+### add `.user.ini` file to a specific directory (php setting at the directory level, compatibility: CGI, FastCGI)
 ```
 upload_max_filesize = 200M
 post_max_size = 210M
+```
+
+# Composer
+
+### download without GD (ignore any missing platform requirements)
+```
+composer require vender/package --ignore-platform-reqs
 ```
 
 # MySQL
@@ -793,6 +800,7 @@ this keeps the branch organized.
 - list.toggleSelection                              `<v>`
 - explorer.openAndPassFocus                         `<l>`
 - list.find                                         `<ctrl + f>`
+- list.toggleFilterOnType                           `<ctrl + l>`
 - workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
 - openInIntegratedTerminal
 - filesExplorer.findInFolder                        `<alt + e + f>`
