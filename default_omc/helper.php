@@ -122,4 +122,9 @@ function array_periods($amount, $periods){
 	}
 	return $result;
 }
+
+function sanitizedTextArea($text){
+	$result = str_replace(['\r\n', "\r"], "\n", $text);
+	return $result;
+}
 ?>
