@@ -154,6 +154,7 @@ const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
 //                     Returns obj.group.year, obj.group.month
 // (?: ... )    # Non-Capturing Group: Groups tokens but does not capture the match
 //                 Ex. (?:http|https):// => Match 'http://' or 'https://' but exclude from matches
+// (?= ... )    # 
 // \d           # Digit: Match a single digit (0-9). `\D` matches any non-digit
 // \w           # Word Character: Match alphanumeric characters or underscore [A-Za-z0-9_]
 // \s           # Whitespace: Match spaces, tabs, or line breaks
@@ -800,7 +801,7 @@ this keeps the branch organized.
 - list.toggleSelection                              `<v>`
 - explorer.openAndPassFocus                         `<l>`
 - list.find                                         `<ctrl + f>`
-- list.toggleFilterOnType                           `<ctrl + l>`
+- list.toggleFilterOnType                           `<ctrl + l>`            # listFocus
 - workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
 - openInIntegratedTerminal
 - filesExplorer.findInFolder                        `<alt + e + f>`
