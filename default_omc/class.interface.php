@@ -559,16 +559,19 @@ function convertToDATETIME($input_date){
 	if(is_numeric($date)){
 		$new_date 	= getfulldate('1900-01-01', 'Y-m-d', '+'.($date - 2).'days');
 	}else if($date != ''){
-		$date_str	= preg_replace('/([^0-9]+)/', '-', $date);
-		$arr_date	= explode('-', $date_str);
-		$d 			= $arr_date[0];
-		$m 			= $arr_date[1];
-		$y 			= $arr_date[2];
-		$year_now 	= getfulldate('', 'y');
-		if($y > ($year_now + 20) && strlen($y) == 2){
-			$new_date = getfulldate("25{$y}-{$m}-{$d}", 'Y-m-d', '-543 year');
+		$chk_date 	= DateTime::createFromFormat('Y-m-d', $date);
+		if($chk_date && $chk_date->format('Y-m-d') === $date){
+			$new_date 			= $date;
 		}else{
-			$new_date = getfulldate("{$y}-{$m}-{$d}", 'Y-m-d');
+			$date_str			= preg_replace('/([^0-9]+)/', '-', $date);
+			$arr_date			= explode('-', $date_str);
+			list($d, $m, $y) 	= $arr_date;
+			$year_now 			= getfulldate('', 'y');
+			if($y > ($year_now + 20) && strlen($y) == 2){
+				$new_date 		= getfulldate("25{$y}-{$m}-{$d}", 'Y-m-d', '-543 year');
+			}else{
+				$new_date 		= getfulldate("{$y}-{$m}-{$d}", 'Y-m-d');
+			}
 		}
 	}
 	if($time != ''){
@@ -584,6 +587,7 @@ require_once("../PHPExcel/Classes/PHPExcel.php");
 // OLD PHPExcel Read Excel File
 function excelReader($tmp_file){
 	$excelReader 	= PHPExcel_IOFactory::createReaderForFile($tmp_file);
+	// $excelReader->setReadDataOnly(true);
 	$excelObj 		= $excelReader->load($tmp_file);
 	$spreadsheet 	= $excelObj->getSheetNames();
 	foreach($spreadsheet as $key => $val){
@@ -596,11 +600,13 @@ function excelReader($tmp_file){
 			$arr_filter = array_filter($rowData, function($item){
 				return !empty($item);
 			});
-			if(count($arr_filter) <= 0){
+			if(count($arr_filter) < 1){
 				$countEmpty++;
+				if($countEmpty == 3){ break; }
 				continue;
+			}else{
+				$countEmpty = 0;
 			}
-			if($countEmpty == 3){ break; }
 			yield $key => $rowData;
 		}
 	}
@@ -620,6 +626,37 @@ function addressExtraction($address){
 		'province' 		=> $matches_province[2],
 		'postal_code' 	=> $matches_province[3]
 	);
+	return $result;
+}
+
+function vocationMapId(string $text){
+	global $arr_vocation;
+	if(empty($text)){ return false; }
+	$arr_career = array(
+		'1' => ['ครู', 'อาจารย์'],
+		'2' => ['พยาบาล', 'แพทย์'],
+		'3' => ['ร้านค้า'],
+		'4' => ['เกษตร'],
+		'5' => ['เจ้าของบริษัท'],
+		'6' => ['พนักงาน'],
+		'7' => ['ราชการ', 'รัฐ']
+	);
+	foreach($arr_career as $key => $arr_keyword){
+		foreach($arr_keyword as $word){
+			if(mb_strpos($text, $word, 0, 'UTF-8') !== false){
+				return $key;
+			}
+		}
+	}
+	return '99';
+}
+
+function extractAddressParts(...$arr_str){
+	$result = array();
+	foreach($arr_str as $key => $val){
+		if(empty($val)){ continue; }
+		array_push($result, addressExtraction($val));
+	}
 	return $result;
 }
 ?>
