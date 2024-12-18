@@ -1,5 +1,4 @@
-<? 
-require('rpdialog.php');
+<? require('rpdialog.php');
 ?>
 
 <script>
@@ -11,6 +10,11 @@ require('rpdialog.php');
 		var link 	= '<?=$actual_link?>invoice/invoice_aprint_sale_look.php';
 		var wlink 	= link+'?bid='+id;
 		window.open(wlink);
+	}
+	function sale_edit(id,sano_temp){
+		var txt		= "แก้ไขเลขที่บิล: " + sano_temp;
+		var link	= 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=6&ctrl=edit&bid='+id;
+		aconfirm(txt,link);
 	}
 	function sale_cancel(id,sano_temp){
 		var txt		= "<?=$wording_lan["cancel_this_bill"]?> : "+sano_temp;
