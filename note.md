@@ -119,6 +119,11 @@ fillCartItem(products)
 const obj_data = JSON.parse('<?= json_encode($arr_data)?>')
 ```
 
+### merge object
+```
+const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
+```
+
 ### filter object keys that includes 'txt' and value > 0, and then return new objecet with reduce
 ```
 const obj = {
@@ -126,22 +131,32 @@ const obj = {
     'txtTransfer': 0,
     'name': 5
 }
-
 const arr_txt = Object.keys(obj)
     .filter((key) => key.includes('txt') && obj[key] > 0)
     .reduce(function(result, key){
         result[key] = obj[key]
         return result
     }, {})
+
 /* or do this */
 const arr_txt = Object.entries(obj)
     .filter(([index, item]) => index.includes('txt') && obj[index] > 0)
 let arr_result = Object.fromEntries(arr_txt)
 ```
 
-### merge object
+### create an array of object
 ```
-const merged_obj = Object.assign({}, obj_txt, obj_option, obj_select)
+const obj = {
+    1: 'G',
+    2: 'GW,
+    3: 'GC'
+}
+const arr_map = Object.entries(obj).map(([index, item]) => {
+    return {id: index, text: item}
+})
+arra_map.forEach((item) => {
+    console.log(item.id, item.text)
+})
 ```
 
 ### regex
@@ -278,6 +293,25 @@ inputs.forEach(input => {
         console.log(`Input '${input.name}' is invalid.`)
     }
 });
+```
+
+### update options in select
+```
+function updSelectOptions(element, obj_options, val_selected){
+    const select = document.getElementById(element)
+    if(!select || !obj_options){ return false }
+    while(select.firstChild){
+        const child = select.firstChild
+        select.removeChild(child)
+    }
+    Object.keys(obj_options).forEach((index) => {
+        const opt = document.createElement('option')
+        opt.value = index
+        opt.textContent = obj_options[index]
+        if(val_selected == index){ opt.selected = true }
+        select.appendChild(opt)
+    })
+}
 ```
 
 # JQuery and other libaries
