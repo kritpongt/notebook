@@ -127,4 +127,14 @@ function sanitizedTextArea($text){
 	$result = str_replace(['\r\n', "\r"], "\n", $text);
 	return $result;
 }
+
+function array_invert($arr_data){
+	$result = array();
+	if(!is_array($arr_data)){ return false; }
+	foreach($arr_data as $key => $val){
+		if(is_array($val)){ return false; }
+		$result[$val] = $key;
+	}
+	return $result;
+}
 ?>
