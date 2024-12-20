@@ -629,6 +629,15 @@ function addressExtraction($address){
 	return $result;
 }
 
+function extractAddressParts(...$arr_str){
+	$result = array();
+	foreach($arr_str as $key => $val){
+		if(empty($val)){ continue; }
+		array_push($result, addressExtraction($val));
+	}
+	return $result;
+}
+
 function vocationMapId(string $text){
 	global $arr_vocation;
 	if(empty($text)){ return false; }
@@ -651,12 +660,9 @@ function vocationMapId(string $text){
 	return '99';
 }
 
-function extractAddressParts(...$arr_str){
-	$result = array();
-	foreach($arr_str as $key => $val){
-		if(empty($val)){ continue; }
-		array_push($result, addressExtraction($val));
-	}
-	return $result;
+function phoneNumbers(string $text){
+	$clean_text = preg_replace('/-/', '', $text);
+	preg_match('/\b0\d{8,9}\b/', $clean_text, $matches_number);
+	return $matches_number[0];
 }
 ?>
