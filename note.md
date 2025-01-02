@@ -154,7 +154,7 @@ const obj = {
 const arr_map = Object.entries(obj).map(([index, item]) => {
     return {id: index, text: item}
 })
-arra_map.forEach((item) => {
+arr_map.forEach((item) => {
     console.log(item.id, item.text)
 })
 ```
@@ -413,6 +413,8 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 
 array_merge()   ?
 array_replace() ?
+// array_slice()    # (array, start, length)
+$arr_left = array_slice($array, 0, 12);
 
 // array_fill()      # fills an array with value (index, number, value)
 ```
@@ -443,10 +445,39 @@ foreach($rs as $val){
 }
 ```
 
+### usort user-defined comparison function
+```
+$arr_queue = array(
+    [ 'seq_no' => 98, 'name' => 'x' ],
+    [ 'seq_no' => 80, 'name' => 'y' ],
+    [ 'seq_no' => 12, 'name' => 'z' ]
+);
+usort($arr_queue, function($a, $b){
+    return $a['seq_no'] <=> $b['seq_no'];
+})
+```
+
 ### range()
 ```
-// array(1, 2, 3, 4, 5);
-$arr = range(1, 5);
+$arr = range(1, 5); // array(1, 2, 3, 4, 5);
+```
+
+### less than 0 to be equal to 0
+```
+$value = -2;
+$value = max(0, $value);
+```
+
+### display float number (string)
+```
+$float_number = sprintf('%.2f', 12.12);
+```
+
+### float number
+```
+$roundf = round(123.345, 2);            // 123.35
+$ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
+$floorf = floor(5680.555 * 100) / 100;  // 5680.55
 ```
 
 ### array destructuring (swap/update simultaneously)
@@ -583,24 +614,6 @@ $file = new FileIterator('example.txt');
 foreach($file as $line_no => $line){
     echo $line_no.': '.$line;
 }
-```
-
-### less than 0 to be equal to 0
-```
-$value = -2;
-$value = max(0, $value);
-```
-
-### display float number (string)
-```
-$float_number = sprintf('%.2f', 12.12);
-```
-
-### float number
-```
-$roundf = round(123.345, 2);            // 123.35
-$ceilf = ceil((10000 / 3) * 100) / 100; // 3333.34
-$floorf = floor(5680.555 * 100) / 100;  // 5680.55
 ```
 
 ### encryption
