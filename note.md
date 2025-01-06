@@ -338,7 +338,7 @@ swal({
     title: 'Are you sure?',
     text: '',
     showCancelButton: true,
-    confirmButtonColor: '#53E69D',
+    // confirmButtonColor: '#53E69D',
     confirmButtonText: 'OK',
     closeOnConfirm: false
 }, function(){
