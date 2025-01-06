@@ -32,12 +32,8 @@ if($data['state'] == 4){
 	$case_status = ",CASE status_terminate WHEN '0' THEN CONCAT('<a onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\" style=\"cursor:pointer;\"><font class=\"text-danger\">NO</font></a>')
 	ELSE CONCAT('<a Onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\"><font class=\"text-success\" style=\"cursor:pointer;\">YES</font></a>') END AS status_terminate ";
 
-	$array_show = array(
-
-	);
-	$array_option = array(
-
-	);
+	$array_show 	= array();
+	$array_option 	= array();
 	/**
 	 * $array_search
 	 * 0 : text description
@@ -108,13 +104,13 @@ if($data['state'] == 4){
 		"ist_user"	=> array($wording_lan["user_test"].$_SESSION['inv_usercode'], 'left'),
 		"print_d"	=> array($wording_lan["date_print"].getfulldate('', "d/m/Y"), 'right')
 	);
-	if($_POST){
+	if(count($_POST) > 0){
 		$header['src_w'] = array($wording_lan["search_conditions"], 'right', $_POST);
 	} 
 	if($acc->isAccess(16)){
 		$obj->setexcelnew($wording_lan["bt"]["load_excel"], 'report.xls', $header);
 		$obj->setpdf($wording_lan["bt"]["load_pdf"], 'report.pdf', 14, 'L', $header);
-		$obj->setSpecialButton($wording_lan["print_all"], '../invoice/invoice_aprint_sale.php?lid='.$_SESSION['admininvent'].$linkx);
+		// $obj->setSpecialButton($wording_lan["print_all"], '../invoice/invoice_aprint_sale.php?lid='.$_SESSION['admininvent'].$linkx);
 	}
 	$obj->showdata();
 }
