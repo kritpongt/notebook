@@ -3,22 +3,22 @@
 
 <script>
 	function sale_print(id){
-		var wlink = '../invoice/invoice_aprint_sale_temp.php?bid='+id;
-		window.open(wlink);
+		var link = '../invoice/invoice_aprint_sale_temp.php?bid='+id;
+		window.open(link);
 	}
 	function sale_look(id){
-		var link 	= '<?=$actual_link?>invoice/invoice_aprint_sale_look.php';
-		var wlink 	= link+'?bid='+id;
-		window.open(wlink);
+		var link = '<?=$actual_link?>invoice/invoice_aprint_sale_look.php';
+		var link = link+'?bid='+id;
+		window.open(link);
 	}
 	function sale_edit(id,sano_temp){
-		var txt		= "แก้ไขเลขที่บิล: " + sano_temp;
-		var link	= 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=6&ctrl=edit&bid='+id;
+		var txt = "แก้ไขเลขที่บิล: " + sano_temp;
+		var link = 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=6&ctrl=edit&bid='+id;
 		aconfirm(txt,link);
 	}
 	function sale_cancel(id,sano_temp){
-		var txt		= "<?=$wording_lan["cancel_this_bill"]?> : "+sano_temp;
-		var link	= 'index.php?sessiontab=<?=$data["sessiontab"];?>&sub=<?=$data["sub"];?>&state=4&bid='+id;
+		var txt = "<?=$wording_lan["cancel_this_bill"]?> : "+sano_temp;
+		var link = 'index.php?sessiontab=<?=$data["sessiontab"];?>&sub=<?=$data["sub"];?>&state=4&bid='+id;
 		remark_confirm(txt,link);
 	}
 </script>
@@ -32,8 +32,26 @@ if($data['state'] == 4){
 	$case_status = ",CASE status_terminate WHEN '0' THEN CONCAT('<a onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\" style=\"cursor:pointer;\"><font class=\"text-danger\">NO</font></a>')
 	ELSE CONCAT('<a Onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\"><font class=\"text-success\" style=\"cursor:pointer;\">YES</font></a>') END AS status_terminate ";
 
-	$array_show 	= array();
-	$array_option 	= array();
+	$array_show = array(
+		'id',
+		'date',
+		'time',
+		'effect_date',
+		'member_id',
+		'total',
+		'remark',
+		'locationbase',
+	);
+	$array_option = array(
+		'id' 			=> array('', 'center', '5%', '', '', '', 'hidden'),
+		'date' 			=> array($wording_lan["date"],'center','5%','',''),
+		'time' 			=> array($wording_lan["time"],'center','5%','',''),
+		'effect_date' 	=> array($wording_lan["effect_date"],'center','5%','',''),
+		'member_id' 	=> array($wording_lan["member_id"], 'center', '5%', '', '', 'index.php?sessiontab=1&sub=3'),
+		'total' 		=> array($wording_lan["amount"], 'right', '5%', '2', 'true'),
+		'remark' 		=> array($wording_lan["remark"], 'left', '10%', '', ''),
+		'locationbase' 	=> array($wording_lan["locationbase"],'center', '10%', '', ''),
+	);
 	/**
 	 * $array_search
 	 * 0 : text description
@@ -44,8 +62,15 @@ if($data['state'] == 4){
 	 * 5 : fix / %LIKE% / between(-)
 	 * 6 : sql where alias */
 	$array_search = array(
-		'locationbase' 	=> array($array_option["locationbase"][0], 'DROPDOWN_MULTI', '2-3-6', $arr_locationbase, ''),
-		's_list' 		=> array($wording_lan["list_number"], 'DROPDOWN', '2-3-6', $arr_page, ''),
+		'id' 			=> array('', 'TEXT', '4-6-12', '', 'hidden', ''),
+		'date' 			=> array($array_option["date"][0], 'DATE2_3', '4-6-12', '', '', '%LIKE%'),
+		'time' 			=> array($array_option["time"][0], 'TIME', '4-6-12',  '', '', ''),
+		'effect_date' 	=> array($array_option["effect_date"][0], 'DATE9', '2-3-6', '', '', '%LIKE%'),
+		'member_id' 	=> array($array_option["member_id"][0], 'TEXT', '2-3-6', '', '', '%LIKE%'),
+		'total' 		=> array($array_option["amount"][0], 'TEXT', '2-3-6', '', '', '-'),
+		'remark' 		=> array($array_option["remark"][0], 'TEXT', '2-3-6', '', '', '%LIKE%'),
+		'locationbase' 	=> array($array_option["locationbase"][0], 'DROPDOWN_MULTI', '2-3-6', $arr_locationbase, '', ''),
+		's_list' 		=> array($wording_lan["list_number"], 'DROPDOWN', '2-3-6', $arr_page, '', ''),
 		'btn_search' 	=> array($wording_lan["bt"]["search"], 'SUBMIT', '2-3-12')
 	);
 	include('check_report_status.php');
