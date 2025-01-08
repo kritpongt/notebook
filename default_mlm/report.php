@@ -83,10 +83,10 @@ if($data['state'] == 4){
 	
 	$sql = "SELECT * ";
 	$sql .= "FROM {$dbprefix}table tb ";
-	$sql .= "WHERE 1=1 ";
+	$sql .= "WHERE 1 ";
 	$sql .= $sqlwhere;
 	if($sqlhaving != ''){
-		$sql .= ' HAVING '.$sqlhaving;
+		$sql .= ' HAVING 1 '.$sqlhaving;
 	}
 
 	box_search_datatable($data, $array_search);
