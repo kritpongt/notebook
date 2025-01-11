@@ -344,6 +344,14 @@ swal({
 }, function(){
     form.submit();
 })
+
+swal({
+    title: 'แจ้งเตือน',
+    text: '',
+    type: 'warning',
+    confirmButtonText: 'ยืนยัน',
+    closeOnConfirm: true
+})
 ```
 
 # CSS
