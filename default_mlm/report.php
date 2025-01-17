@@ -29,8 +29,12 @@ if($data['state'] == 4){
 }else if($data['state'] == 5){
 	include('report_operate.php');
 }else{
-	$case_status = ",CASE status_terminate WHEN '0' THEN CONCAT('<a onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\" style=\"cursor:pointer;\"><font class=\"text-danger\">NO</font></a>')
-	ELSE CONCAT('<a Onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'" . $linkx . "\')\"><font class=\"text-success\" style=\"cursor:pointer;\">YES</font></a>') END AS status_terminate ";
+	$case_status = ",CASE 
+						status_terminate WHEN '0' THEN 
+							CONCAT('<a role=\"button\" onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-danger\">NO</font></a>')
+						ELSE 
+							CONCAT('<a role=\"button\" onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-success\">YES</font></a>') 
+					END AS status_terminate ";
 
 	$array_show = array(
 		'id',
