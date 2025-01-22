@@ -586,6 +586,9 @@ function convertToDATETIME($input_date){
 require_once("../PHPExcel/Classes/PHPExcel.php");
 // OLD PHPExcel Read Excel File
 function excelReader($tmp_file){
+	PHPExcel_Settings::setCacheStorageMethod(
+		PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp, ['memoryCacheSize' => '16MB']
+	);
 	$excelReader 	= PHPExcel_IOFactory::createReaderForFile($tmp_file);
 	// $excelReader->setReadDataOnly(true);
 	$excelObj 		= $excelReader->load($tmp_file);
@@ -595,6 +598,7 @@ function excelReader($tmp_file){
 		foreach($worksheet->getRowIterator() as $index => $row){
 			$rowData = array();
 			foreach($row->getCellIterator() as $cell){
+				// $rowData[] = $cell->geCalculatedtValue();
 				$rowData[] = $cell->getValue();
 			}
 			$arr_filter = array_filter($rowData, function($item){
