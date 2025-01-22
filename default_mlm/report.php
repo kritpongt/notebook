@@ -13,7 +13,7 @@
 	}
 	function sale_edit(id,sano_temp){
 		var txt = "แก้ไขเลขที่บิล: " + sano_temp;
-		var link = 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=6&ctrl=edit&bid='+id;
+		var link = 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=6&&bid='+id;
 		aconfirm(txt,link);
 	}
 	function sale_cancel(id,sano_temp){
