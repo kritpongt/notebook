@@ -856,7 +856,7 @@ this keeps the branch organized.
 - list.toggleSelection                              `<v>`
 - explorer.openAndPassFocus                         `<l>`
 - list.find                                         `<ctrl + f>`
-- list.toggleFilterOnType                           `<ctrl + l>`            # listFocus
+- list.toggleFilterOnType                           `<alt + i>`             # listFocus
 - workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
 - openInIntegratedTerminal
 - filesExplorer.findInFolder                        `<alt + e + f>`
