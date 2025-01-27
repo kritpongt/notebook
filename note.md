@@ -789,7 +789,7 @@ LEFT JOIN (
 )AS pl ON(pl.pay_id = ap.id AND pl.row_num = '1')
 /**
  * ROW_NUMBER() provide sequence number
- * PARTITION BY like `GROUP BY`
+ * `PARTITION BY` same like `GROUP BY`
  */
 ```
 
