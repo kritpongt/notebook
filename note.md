@@ -263,7 +263,7 @@ const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
 ```
 
-### find the related element
+### find the child/parent element
 ```
 // navigates in
 let modal = document.getElementById('modal-stmt')
@@ -297,20 +297,36 @@ inputs.forEach(input => {
 
 ### update options in select
 ```
-function updSelectOptions(element, obj_options, val_selected){
-    const select = document.getElementById(element)
-    if(!select || !obj_options){ return false }
-    while(select.firstChild){
-        const child = select.firstChild
-        select.removeChild(child)
+function updSelectOptions(element, obj_options, val_selected = ''){
+    const selectEl = document.getElementById(element)
+    if(!selectEl || !obj_options){ return false }
+    while(selectEl.firstChild){
+        const child = selectEl.firstChild
+        selectEl.removeChild(child)
     }
     Object.keys(obj_options).forEach((index) => {
         const opt = document.createElement('option')
         opt.value = index
         opt.textContent = obj_options[index]
         if(val_selected == index){ opt.selected = true }
-        select.appendChild(opt)
+        selectEl.appendChild(opt)
     })
+}
+
+function updSelectInnerHTML(el, optionHtml){
+    const selectEl = document.getElementById(el)
+    selectEl.options.length = 0
+    selectEl.innerHTML = optionHtml
+}
+function optionsHTML(selectedVal = ''){
+    const datenow = new Date()
+    const year = datenow.getFullYear()
+    let optionHtml = `<option value="">Select</option>`
+    for(let i = 0; i >= 100; i++){
+        const y = year - i
+        optionHtml += `<option value="${y}" ${selectedVal = y ? 'selected': ''}>${y}</option>`
+    }
+    return optionHtml
 }
 ```
 
@@ -803,6 +819,26 @@ SET
 WHERE 
     count >= 5369
 ORDER BY id ASC
+```
+
+### update with join
+```
+UPDATE
+    table1 t1
+JOIN(
+    SELECT 
+        team_code,
+        MAX(team_name)as team_name
+    FROM
+        table2
+    GROUP BY team_code
+)as t2 ON(t2.team_code = t1.team_code)
+SET t1.description = t2.team_name
+```
+
+### format a date
+```
+SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 ```
 
 # PowerShell
