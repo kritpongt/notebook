@@ -886,7 +886,7 @@ this keeps the branch organized.
 - workbench.files.action.refreshFilesExplorer       `<z>`                   # explorerViewletFocus && !inputFocus
 - renameFile                                        `<r>`
 - deleteFile                                        `<d>`
-- filesExplorer.copy                                `<y>`                   # add "&& !notebookEditorFocused"
+- filesExplorer.copy                                `<y>`                   # filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !inputFocus && !notebookEditorFocused
 - filesExplorer.cut                                 `<x>`
 - filesExplorer.paste                               `<p>`
 - list.toggleSelection                              `<v>`
@@ -894,8 +894,8 @@ this keeps the branch organized.
 - list.find                                         `<ctrl + f>`
 - list.toggleFilterOnType                           `<alt + i>`             # listFocus
 - workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
-- openInIntegratedTerminal
-- filesExplorer.findInFolder                        `<alt + e + f>`
+- openInIntegratedTerminal                                                  # ?
+- filesExplorer.findInFolder                        `<alt + e + f>`         # ?
 - workbench.action.findInFiles                      `<alt + e + />`
 - search.focus.nextInputBox                         `<ctrl + j>`
 - search.action.collapseSearchResults               `<f>`                   # hasSearchResult && searchViewletFocus && !searchInputBoxFocus
@@ -903,14 +903,20 @@ this keeps the branch organized.
 - workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
 - workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
 - workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && terminalCount > 1
-- workbench.action.focusPreviousGroup               `<ctrl + h>`
-- workbench.action.focusNextGroup                   `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup        `<ctrl + k + h>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- workbench.action.moveEditorToNextGroup            `<ctrl + k + l>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- window.customMenuBarAltFocus                      `false`
+- workbench.action.focusPreviousGroup               `<leader + w + h>`
+- workbench.action.focusNextGroup                   `<leader + w + l>`
+- workbench.action.moveEditorToPreviousGroup        `<leader + w + H>` 
+- workbench.action.moveEditorToNextGroup            `<leader + w + L>` 
+- scrollLeft                                        `<ctrl + h>`            # vim.active
+- scrollRight                                       `<ctrl + l>`            # vim.active
+- editor.action.inlineSuggest.hide                  `<ctrl + h>`            # inlineSuggestionVisible
+- editor.action.inlineSuggest.acceptNextWord        `<ctrl + l>`            # inlineSuggestionVisible && !editorReadonly
 - editor.emmet.action.balanceIn                     `<alt + i>`
 - editor.emmet.action.balanceOut                    `<alt + o>`
 - editor.emmet.action.wrapWithAbbreviation          `<alt + u>`
 - editor.emmet.action.removeTag                     `<alt + backspace>`
-- visual mode paste without override                                        # NonRecursive
+- editor.action.addSelectionToNextFindMatch         `<ctrl + n>`            # editorFocus
 - editor.action.moveSelectionToPreviousFindMatch    `<ctrl + shift + n>`    # editorFocus
+- editor.action.addSelectionToPreviousFindMatch     `<ctrl + p>`            # editorFocus
+- visual mode paste without override                                        # NonRecursive
+- window.customMenuBarAltFocus                      `false`                 # In settings
