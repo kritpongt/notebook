@@ -11,7 +11,7 @@ $data 		= getDataForm_invoice();
 $sql 		= data_decrypt($data['source']);
 $rs 		= query_full($sql);
 
-$path_save 	= '../function/fileexport/directory/'.date('d');
+$path_save 	= '../function/fileexport/directory/'.getfulldate('', 'Y-m');
 $path_l 	= '../function/fileexport/directory';
 if(!is_dir($path_save)){
 	mkdir($path_save, 0777, true);
