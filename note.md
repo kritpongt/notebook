@@ -370,6 +370,13 @@ swal({
 })
 ```
 
+### jquery selectors
+```
+// (^) start, ($) end, (*) any
+const el = $('input[name="value"]')[0]
+const opt_sel = $('#select-code option:selected')
+```
+
 # CSS
 
 ### showing an ellipsis (...)
