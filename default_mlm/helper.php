@@ -111,15 +111,16 @@ function array_getfulldate($date = '', $mod = ''){
 function array_periods($amount, $periods){
 	if($periods <= 0){ return false; }
 	$amt 		= floor($amount / $periods);
-	$remain 	= $amount % $periods;
+	$remain_f 	= fmod($amount, $periods);
+	$remain 	= floor($remain_f);
+	$f_point 	= round($remain_f - $remain, 2);
 	$result 	= array();
 	for($i = 1; $i <= $periods; $i++){
-		if($i <= $remain){
-			$result[] = sprintf('%.2f', $amt + 1);
-		}else{
-			$result[] = sprintf('%.2f', $amt);
-		}
+		$period_amount = $amt;
+		if($i <= $remain){ $period_amount++; }
+		$result[] = sprintf('%.2f', $period_amount);
 	}
+	if($f_point > 0){ $result[0] += $f_point; }
 	return $result;
 }
 
