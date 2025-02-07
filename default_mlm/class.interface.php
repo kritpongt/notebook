@@ -2,7 +2,7 @@
 define('INTERFACE_PATH', __DIR__.'/');
 define('INTERFACE_AR_PATH', INTERFACE_PATH.'ar/');
 define('EXPORT_DDR_PATH', INTERFACE_AR_PATH.'out/');
-define('EXPORT_DDR_URL', '../interface/ar/out/');
+define('INTERFACE_DDR_URL', 'https://'.$_SERVER['SERVER_NAME'].$_SERVER['CONTEXT_PREFIX'].'/interface/ar/out');
 
 $encryptionKey = '-2m$5RY0^53~';
 

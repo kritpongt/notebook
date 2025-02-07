@@ -126,3 +126,6 @@ visual -> S<s>  # add <s> around visual
 --commentary--
 gcc 		    # line comment
 gCib 		    # block comment in bracket
+
+--search & replace--
+:s/w+\((.*)\)/\1/g 	# replace a function and then keeping only argument

@@ -111,15 +111,16 @@ function array_getfulldate($date = '', $mod = ''){
 function array_periods($amount, $periods){
 	if($periods <= 0){ return false; }
 	$amt 		= floor($amount / $periods);
-	$remain 	= $amount % $periods;
+	$remain_f 	= fmod($amount, $periods);
+	$remain 	= floor($remain_f);
+	$f_point 	= round($remain_f - $remain, 2);
 	$result 	= array();
 	for($i = 1; $i <= $periods; $i++){
-		if($i <= $remain){
-			$result[] = sprintf('%.2f', $amt + 1);
-		}else{
-			$result[] = sprintf('%.2f', $amt);
-		}
+		$period_amount = $amt;
+		if($i <= $remain){ $period_amount++; }
+		$result[] = sprintf('%.2f', $period_amount);
 	}
+	if($f_point > 0){ $result[0] += $f_point; }
 	return $result;
 }
 
@@ -136,5 +137,58 @@ function array_invert($arr_data){
 		$result[$val] = $key;
 	}
 	return $result;
+}
+
+function setPaymentGroup($bill_data){
+	global $dbprefix, $arr_payment_term_ar, $arr_payment_group;
+	$payment_term = $bill_data['payment_term'];
+	if($payment_term == ''){ return false; }
+
+	foreach($bill_data as $key => $val){
+		if(stripos($key, 'txt') === false && stripos($key, 'select') === false && stripos($key, 'option') === false){ continue; }
+		if(stripos($key, 'txt') !== false && (float)$val > 0){
+			$n_key 		= str_replace('txt', '', $key);
+			$data_tmp['txt'][$n_key] 	= $val;
+			$data_tmp['select'][$n_key] = $bill_data['select'.$n_key];
+			$data_tmp['option'][$n_key] = $bill_data['option'.$n_key];
+			break;
+		}
+	}
+
+	if(in_array($payment_term, array_keys($arr_payment_term_ar))){
+		$arr_payment 		= query_maps('payment_column', 'id', 'payment');
+		$sql 				= "SELECT pt.id, pt.payment_id,
+									io.mapping_code
+								FROM {$dbprefix}payment_type pt
+								LEFT JOIN {$dbprefix}inventory_order io ON(io.id = pt.inventory_order_id)
+								WHERE pt.inventory_order_id != '0'";
+		$rs_payment_type 	= query_full($sql);
+		foreach($rs_payment_type as $pay_type){
+			$arr_payment_type[$pay_type['payment_id']][$pay_type['id']] = $pay_type['mapping_code'];
+		}
+		foreach($arr_payment as &$pay){
+			$pay = $arr_payment_type[$pay];
+		}
+		
+		foreach($data_tmp['select'] as $key => $val){
+			if(empty($arr_payment[$key])){ continue; }
+			$payment_group 		= $arr_payment[$key][$val];
+			break;
+		}
+		$result = array(
+			'meta' 					=> $data_tmp,
+			'payment_group' 		=> $payment_group,
+			'payment_group_desc' 	=> $arr_payment_group[$payment_group]
+		);
+		return $result;
+
+	}else if($payment_term === '000'){
+		$result = array(
+			'meta' 					=> $data_tmp,
+			'payment_group' 		=> '013',
+			'payment_group_desc' 	=> $arr_payment_group['013']
+		);
+		return $result;
+	}
 }
 ?>

@@ -263,7 +263,7 @@ const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
 ```
 
-### find the related element
+### find the child/parent element
 ```
 // navigates in
 let modal = document.getElementById('modal-stmt')
@@ -279,9 +279,10 @@ modalTitle.textContent = 'Set Title from low level'
 ### validate form
 ```
 const form = document.getElementById('form')
-form.checkValidity()        
+if(form.checkValidity()){ return false }
 /** in jquery
  * $('#form')[0].checkValidity()
+ * $(this)[0].checkValidity()
  */
 
 const inputs = form.querySelectorAll('input, select, textarea')
@@ -297,20 +298,36 @@ inputs.forEach(input => {
 
 ### update options in select
 ```
-function updSelectOptions(element, obj_options, val_selected){
-    const select = document.getElementById(element)
-    if(!select || !obj_options){ return false }
-    while(select.firstChild){
-        const child = select.firstChild
-        select.removeChild(child)
+function updSelectOptions(element, obj_options, val_selected = ''){
+    const selectEl = document.getElementById(element)
+    if(!selectEl || !obj_options){ return false }
+    while(selectEl.firstChild){
+        const child = selectEl.firstChild
+        selectEl.removeChild(child)
     }
     Object.keys(obj_options).forEach((index) => {
         const opt = document.createElement('option')
         opt.value = index
         opt.textContent = obj_options[index]
         if(val_selected == index){ opt.selected = true }
-        select.appendChild(opt)
+        selectEl.appendChild(opt)
     })
+}
+
+function updSelectInnerHTML(el, optionHtml){
+    const selectEl = document.getElementById(el)
+    selectEl.options.length = 0
+    selectEl.innerHTML = optionHtml
+}
+function optionsHTML(selectedVal = ''){
+    const datenow = new Date()
+    const year = datenow.getFullYear()
+    let optionHtml = `<option value="">Select</option>`
+    for(let i = 0; i >= 100; i++){
+        const y = year - i
+        optionHtml += `<option value="${y}" ${selectedVal = y ? 'selected': ''}>${y}</option>`
+    }
+    return optionHtml
 }
 ```
 
@@ -352,6 +369,13 @@ swal({
     confirmButtonText: 'ยืนยัน',
     closeOnConfirm: true
 })
+```
+
+### jquery selectors
+```
+// (^) start, ($) end, (*) any
+const el = $('input[name="value"]')[0]
+const opt_sel = $('#select-code option:selected')
 ```
 
 # CSS
@@ -789,7 +813,7 @@ LEFT JOIN (
 )AS pl ON(pl.pay_id = ap.id AND pl.row_num = '1')
 /**
  * ROW_NUMBER() provide sequence number
- * PARTITION BY like `GROUP BY`
+ * `PARTITION BY` same like `GROUP BY`
  */
 ```
 
@@ -803,6 +827,26 @@ SET
 WHERE 
     count >= 5369
 ORDER BY id ASC
+```
+
+### update with join
+```
+UPDATE
+    table1 t1
+JOIN(
+    SELECT 
+        team_code,
+        MAX(team_name)as team_name
+    FROM
+        table2
+    GROUP BY team_code
+)as t2 ON(t2.team_code = t1.team_code)
+SET t1.description = t2.team_name
+```
+
+### format a date
+```
+SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 ```
 
 # PowerShell
@@ -850,7 +894,7 @@ this keeps the branch organized.
 - workbench.files.action.refreshFilesExplorer       `<z>`                   # explorerViewletFocus && !inputFocus
 - renameFile                                        `<r>`
 - deleteFile                                        `<d>`
-- filesExplorer.copy                                `<y>`                   # add "&& !notebookEditorFocused"
+- filesExplorer.copy                                `<y>`                   # filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !inputFocus && !notebookEditorFocused
 - filesExplorer.cut                                 `<x>`
 - filesExplorer.paste                               `<p>`
 - list.toggleSelection                              `<v>`
@@ -858,8 +902,8 @@ this keeps the branch organized.
 - list.find                                         `<ctrl + f>`
 - list.toggleFilterOnType                           `<alt + i>`             # listFocus
 - workbench.files.action.focusFilesExplorer         `<ctrl + j>`            # listFocus && filesExplorerFocus
-- openInIntegratedTerminal
-- filesExplorer.findInFolder                        `<alt + e + f>`
+- openInIntegratedTerminal                                                  # ?
+- filesExplorer.findInFolder                        `<alt + e + f>`         # ?
 - workbench.action.findInFiles                      `<alt + e + />`
 - search.focus.nextInputBox                         `<ctrl + j>`
 - search.action.collapseSearchResults               `<f>`                   # hasSearchResult && searchViewletFocus && !searchInputBoxFocus
@@ -867,14 +911,20 @@ this keeps the branch organized.
 - workbench.action.toggleEditorWidths               `<ctrl + shift + \>`    # editorFocus
 - workbench.action.toggleMaximizedPanel             `<ctrl + shift + \>`    # panelFocus
 - workbench.action.terminal.kill                    `<ctrl + w>`            # terminalFocus && terminalCount > 1
-- workbench.action.focusPreviousGroup               `<ctrl + h>`
-- workbench.action.focusNextGroup                   `<ctrl + l>`
-- workbench.action.moveEditorToPreviousGroup        `<ctrl + k + h>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- workbench.action.moveEditorToNextGroup            `<ctrl + k + l>`        # editorFocus && !suggestWidgetHasFocusedSuggestion && vim.active
-- window.customMenuBarAltFocus                      `false`
+- workbench.action.focusPreviousGroup               `<leader + w + h>`
+- workbench.action.focusNextGroup                   `<leader + w + l>`
+- workbench.action.moveEditorToPreviousGroup        `<leader + w + H>` 
+- workbench.action.moveEditorToNextGroup            `<leader + w + L>` 
+- scrollLeft                                        `<ctrl + h>`            # vim.active
+- scrollRight                                       `<ctrl + l>`            # vim.active
+- editor.action.inlineSuggest.hide                  `<ctrl + h>`            # inlineSuggestionVisible
+- editor.action.inlineSuggest.acceptNextWord        `<ctrl + l>`            # inlineSuggestionVisible && !editorReadonly
 - editor.emmet.action.balanceIn                     `<alt + i>`
 - editor.emmet.action.balanceOut                    `<alt + o>`
 - editor.emmet.action.wrapWithAbbreviation          `<alt + u>`
 - editor.emmet.action.removeTag                     `<alt + backspace>`
-- visual mode paste without override                                        # NonRecursive
+- editor.action.addSelectionToNextFindMatch         `<ctrl + n>`            # editorFocus
 - editor.action.moveSelectionToPreviousFindMatch    `<ctrl + shift + n>`    # editorFocus
+- editor.action.addSelectionToPreviousFindMatch     `<ctrl + p>`            # editorFocus
+- visual mode paste without override                                        # NonRecursive
+- window.customMenuBarAltFocus                      `false`                 # In settings
