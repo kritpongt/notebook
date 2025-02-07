@@ -16,7 +16,7 @@
 					<div class="form-group" style="">
 						<div class="input-group">
 							<div class="input-group-addon" style="min-width:100px"><?= 'ชื่อ'?></div>
-							<input type="text" class="form-control" autocomplete="off" id="" name="" value="<?= ''?>" readonly>
+							<input type="text" class="form-control" autocomplete="off" id="" name="" value="<?= $data['name']?>" readonly>
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 					<div class="form-group" style="padding-right: 0px;">
 						<div class="input-group">
 							<div class="input-group-addon" style="min-width: 100px;"><?= 'รหัส'?></div>
-							<input type="text" class="form-control" autocomplete="off" id="" name="" value="">
+							<input type="text" class="form-control" autocomplete="off" id="" name="" value="<?= $data['code']?>">
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-white btn-md btn-default no-border" id="btn-select"><?= 'เลือก'?></button>
 							</span>
@@ -35,7 +35,7 @@
 					<div class="form-group" style="padding-right: 0px;">
 						<div class="input-group">
 							<div class="input-group-addon" style="min-width:100px"><?= 'วันที่'?></div>
-							<input class="form-control datepicker" autocomplete="off" id="" name="" value="">
+							<input class="form-control datepicker" autocomplete="off" id="" name="" value="<?= $date?>">
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 				</div>
 				<div class="col-md-12">
 					<div class="form-group" style="padding-right: 0px;">
-						<select class="form-control minimal select2" id="" name="">
+						<select class="form-control minimal select2" id="" name="" value="<?= $data['select']?>">
 							<option value=""><?= 'กรุณาเลือก'?></option>
 							<? 
 							foreach($arr_select as $key => $val){
@@ -64,7 +64,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-addon" style="min-width:100px"><?= 'เลือกรายการ'?><font color="#ff0000">*</font></div>
-							<select class="form-control minimal select2" id="" name="">
+							<select class="form-control minimal select2" id="" name="" value="<?= $data['select']?>">
 								<option value=""><?= $wording_lan["alert"]["waiting"]?>...</option>
 							</select>
 						</div>
@@ -161,8 +161,8 @@ $(document).ready(function(){
 	$('form').bootstrap3Validate(function(e, data) { })
 	var txt_fillin = '<?= $wording_lan["pls_fillin"]?>'
 	var txt_select = '<?= $wording_lan["pls_select"]?>'
-	$('#code').attr('data-title', txt_fillin + '<?= $wording_lan['code']?>')
-	$('#code').attr('required', '')
+	$('input[name="member"]').attr('data-title', txt_fillin + '<?= $wording_lan['member']?>')
+	$('input[name="member"]').attr('required', '')
 
 
 	$('#collector_id').on('change', function(){
@@ -171,6 +171,9 @@ $(document).ready(function(){
 	})
 	$('#collector_id').trigger('change')
 
+	$('input[name="amount"]').on('blur', function(){
+		validateInputAmount(this)
+	})
 
 	$("#btn-select").click(function(){
 		const member_type = 'Collector'
@@ -210,6 +213,20 @@ $(document).ready(function(){
 		$('.dataTables_length').hide();
 	});
 })
+
+function validateInputAmount(input){
+	let str_num = input.value.replace(/[^0-9.]/g, '')
+	let parts = str_num.split('.');
+	if(parts.length > 2){
+		str_num = parts[0] + '.' + parts[1]
+	}
+	let num = Math.floor(parseFloat(str_num) * 100) / 100
+	if(!Number(num)){
+		input.value = ''
+	}else{
+		input.value = num.toFixed(2)
+	}
+}
 
 function select_mb(id){
 	const member_type = 'Collector';
