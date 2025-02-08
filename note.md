@@ -412,6 +412,11 @@ $arr_base = array(
 $arr_new = array_column($arr_base, 'id');
 $arr_new2 = array_column($arr_base, 'id', 'name');
 
+// array_combine()
+$arr_type = [2, 4, 6];
+$arr_value = ['two', 'four', 'six'];
+$arr_combine = array_combine($arr_type, $arr_value);
+
 // array_filter()
 $arr_test = array( 'total', 'send_amount', 'diff', 'status' );
 $arr_tmp = ['diff', 'status'];
