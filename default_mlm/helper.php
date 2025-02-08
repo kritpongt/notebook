@@ -151,7 +151,6 @@ function setPaymentGroup($bill_data){
 			$data_tmp['txt'][$n_key] 	= $val;
 			$data_tmp['select'][$n_key] = $bill_data['select'.$n_key];
 			$data_tmp['option'][$n_key] = $bill_data['option'.$n_key];
-			break;
 		}
 	}
 
