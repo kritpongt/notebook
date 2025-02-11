@@ -885,20 +885,31 @@ Remove-Item -Recurse -Force .git, .gitignore
 2. git checkout -b <feature/bugfix>             # create branch and work on new branch
 3. git commit -m "descriptive commit" -- ./path/file.md
 4. git push origin <branch_name>                # push current feature branch to remote.
---
-5. git checkout <main_branch>                   # change to main branch
-6. git pull origin <main_branch>                # synchronize
+
+    1. git checkout <main_branch>               # change to main branch
+    2. git pull origin <main_branch>            # synchronize
+
 - merge:                                        # create a merge commit at main, that combines branch and main
-    - git merge <branch_name>                   # merge feature branch into main branch
-    - git push origin <main_branch> 
-    - or create a pull request(PR) to merge into the main branch.
+```
+git merge <branch_name>                         # merge feature branch into main branch
+git push origin <main_branch>                   # or create a pull request(PR) to merge into the main branch.
+```
 - rebase: 
-    - git checkout <branch_name>                # 
-    - git rebase <main_branch>                  #
-    - git push origin <main_branch>             #
+```
+git checkout <branch_name>                      # 
+git rebase <main_branch>                        #
+git push origin <main_branch>                   #
+```
 - when feature branch has been successfully merged, can delete them
-    - git branch -d <branch_name>               # local delete.
-    - git push origin --delete <branch_name>    # remote delete.
+```
+git branch -d <branch_name>                     # local delete.
+git push origin --delete <branch_name>          # remote delete.
+```
+- recommit without changes
+```
+git reset --soft HEAD~1
+git commit -m "new commit"
+```
 
 # Volcab & Sentence
 ```
