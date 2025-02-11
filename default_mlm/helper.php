@@ -151,7 +151,6 @@ function setPaymentGroup($bill_data){
 			$data_tmp['txt'][$n_key] 	= $val;
 			$data_tmp['select'][$n_key] = $bill_data['select'.$n_key];
 			$data_tmp['option'][$n_key] = $bill_data['option'.$n_key];
-			break;
 		}
 	}
 
@@ -189,6 +188,60 @@ function setPaymentGroup($bill_data){
 			'payment_group_desc' 	=> $arr_payment_group['013']
 		);
 		return $result;
+	}
+}
+
+function log_update($topic = '', $tb, $where_by_id, $arr_updated, $log_update_conf_key = ''){
+	global $wording_lan;
+	$rs_sql 	= query("*", $tb, $where_by_id);
+	$rs_base 	= $rs_sql[0];
+
+	if(!empty($log_update_conf_key)){
+		$tb 	= $log_update_conf_key;
+	}
+	// include("log_conf.php");
+	/* 	$log_update_conf[$tb] = array(
+		'col_exclude' => [],
+		'col_lang' => [
+			'total' 	=> $wording_lan['price'],
+			'tot_pv' 	=> $wording_lan['pv'],
+			'send' 		=> $wording_lan['txt_send'],
+		],
+		'col_lang_sub' => [
+			'send' => [
+				'1' 	=> $wording_lan["send"]["1"],
+				'2' 	=> $wording_lan['send']['2'],
+			]
+		]
+	); */
+	if(count($rs_sql) < 1 || empty($arr_updated)){ return false; }
+
+	foreach($arr_updated as $key => $val){
+		if($rs_base[$key] == '0' && $val == ''){
+			$val = '0';
+		}else if($rs_base[$key] == '0000-00-00' && $val == ''){
+			$val = '0000-00-00';
+		}else if((is_numeric($rs_base[$key]) && strpos($rs_base[$key], '.')) !== false){
+			$val = number_format($val, 2, '.', '');
+		}
+		if(array_key_exists($key, $rs_base) && $rs_base[$key] != (string)$val){
+			$diff_key[] = $key;
+		}
+	}
+
+	$arr_exclude 	= $log_update_conf[$tb]['col_exclude'];
+	$select_col 	= array_filter($diff_key, function($val) use($arr_exclude){
+		return !in_array($val, $arr_exclude);
+	});
+
+	$txt_log 		= empty($topic) ? 'แก้ไข '.$tb : $topic;
+	foreach($select_col as $k){
+		$txt_column = $log_update_conf[$tb]['col_lang'][$k] ?? $k;
+		$col_sub 	= $log_update_conf[$tb]['col_lang_sub'][$k];
+		$txt_log 	.= '<br>'.$txt_column.': \''.($col_sub[$rs_base[$k]] ?? $rs_base[$k]).'\' '.$wording_lan['is'].' \''.($col_sub[$arr_updated[$k]] ?? $arr_updated[$k]).'\'.';
+	}
+	if(count($select_col) > 0){
+		return $txt_log;
 	}
 }
 ?>

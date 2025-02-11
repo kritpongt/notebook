@@ -180,33 +180,43 @@ $(document).ready(function(){
 		$('#modal-select').modal('show');
 		$('#datatable-member').DataTable().clear().destroy();
 		$('#datatable-member').DataTable({
-			"ajax": { "url": `member_listpicker.php?&member_type=${member_type}` },
-			"autoWidth": false,
-			"oLanguage": {
-				"sLengthMenu": "แสดง _MENU_ รายการ ต่อหน้า",
-				"sZeroRecords": "<?=$wording_lan["data_not_fund"]?>",
-				"sInfo": "<?=$wording_lan["Display"]?> _START_ <?=$wording_lan["Item"]?> <?=$wording_lan["From"]?> _TOTAL_ <?=$wording_lan["Item"]?> <?=$wording_lan["Each"]?> _END_ ",
-				"sSearch": "<?=$wording_lan["search_branch"]?> :",
-				"sSearchPlaceholder": "<?=$wording_lan["search_branch_1"]?>",
-				"oPaginate": {
-					"sFirst": "<?= $wording_lan["bt"]["page_first"]?>",
-					"sLast": "<?= $wording_lan["bt"]["page_last"]?>",
-					"sNext": "<?= $wording_lan["bt"]["page_next"]?>",
-					"sPrevious": "<?= $wording_lan["bt"]["page_back"]?>",
+			ajax: {
+				url: `member_listpicker.php?&member_type=${member_type}`,
+				beforeSend: function(){
+                    $(this).find('tbody').html(
+						'<tr class="odd">' +
+						'<td valign="top" colspan="100" width=100% align=center class="ball-pulse"><img src="../images/loading.gif"></td>' +
+						'</tr>'
+                    );
 				}
 			},
-			"columnDefs": [
+			autoWidth: false,
+			oLanguage: {
+				sLengthMenu	: "แสดง _MENU_ รายการ ต่อหน้า",
+				sZeroRecords: "<?= $wording_lan["data_not_fund"]?>",
+				sInfo: "<?= $wording_lan["Display"]?> _START_ <?= $wording_lan["Item"]?> <?= $wording_lan["From"]?> _TOTAL_ <?= $wording_lan["Item"]?> <?=$wording_lan["Each"]?> _END_ ",
+				sInfoFiltered: "(ค้ดกรองจาก _MAX_ รายการทั้งหมด)",
+				sSearch: "<?= $wording_lan['bt']["search"]?> :",
+				sSearchPlaceholder: "<?= $wording_lan["search_branch_1"]?>",
+				oPaginate: {
+					sFirst: "<?= $wording_lan["bt"]["page_first"]?>",
+					sLast: "<?= $wording_lan["bt"]["page_last"]?>",
+					sNext: "<?= $wording_lan["bt"]["page_next"]?>",
+					sPrevious: "<?= $wording_lan["bt"]["page_back"]?>"
+				}
+			},
+			columnDefs: [
 				{
-					"searchable": true,
-					"className": "dt-center",
-					"width": "10%",
-					"targets": 0
+					searchable: true,
+					className: "dt-center",
+					width: "10%",
+					targets: 0
 				},
 				{
-					"searchable": true,
-					"className": "dt-left",
-					"width": "20%",
-					"targets": 1
+					searchable: true,
+					className: "dt-left",
+					width: "20%",
+					targets: 1
 				}
 			]	
 		});

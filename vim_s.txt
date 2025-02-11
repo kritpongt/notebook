@@ -128,4 +128,7 @@ gcc 		    # line comment
 gCib 		    # block comment in bracket
 
 --search & replace--
-:s/w+\((.*)\)/\1/g 	# replace a function and then keeping only argument
+:%s/<pattern>/<replace>/g 			# replacing all the occurrences of pattern in the entire file (flag: /i)
+:., +20s/<pattern>/<replace>/g 		# startign from current line to specific line numbers (`:., $` to end of file)
+:s/w+\((.*)\)/\1/g 					# replace a function and then keeping only argument
+:s/\"(\w+)\":/\1:/gc 				# `n` to search and then `.` for repeat
