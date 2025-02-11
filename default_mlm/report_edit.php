@@ -195,13 +195,14 @@ $(document).ready(function(){
 				sLengthMenu	: "แสดง _MENU_ รายการ ต่อหน้า",
 				sZeroRecords: "<?= $wording_lan["data_not_fund"]?>",
 				sInfo: "<?= $wording_lan["Display"]?> _START_ <?= $wording_lan["Item"]?> <?= $wording_lan["From"]?> _TOTAL_ <?= $wording_lan["Item"]?> <?=$wording_lan["Each"]?> _END_ ",
+				sInfoFiltered: "(ค้ดกรองจาก _MAX_ รายการทั้งหมด)",
 				sSearch: "<?= $wording_lan['bt']["search"]?> :",
 				sSearchPlaceholder: "<?= $wording_lan["search_branch_1"]?>",
 				oPaginate: {
 					sFirst: "<?= $wording_lan["bt"]["page_first"]?>",
 					sLast: "<?= $wording_lan["bt"]["page_last"]?>",
 					sNext: "<?= $wording_lan["bt"]["page_next"]?>",
-					sPrevious: "<?= $wording_lan["bt"]["page_back"]?>",
+					sPrevious: "<?= $wording_lan["bt"]["page_back"]?>"
 				}
 			},
 			columnDefs: [
