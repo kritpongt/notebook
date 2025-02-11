@@ -809,6 +809,20 @@ CROSS JOIN
     (SELECT COALESCSE(MAX(cod), 0)AS max_cod FROM rate_point)AS rp;
 ```
 
+### inner join find max_id in table
+```
+SELECT 
+    tb1.id,
+    tb1.contract
+FROM 
+    table1 AS tb1
+INNER JOIN (
+    SELECT MAX(id)as max_id, contract
+    FROM table2
+    GROUP BY contract
+)tb2 ON(tb2.contract = tb1.contract AND tb1.id = tb2.max_id)
+```
+
 ### window function
 ```
 LEFT JOIN (
