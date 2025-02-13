@@ -85,12 +85,12 @@ if($data['state'] == 4){
 	$sqlwhere 	= search_where($data, $arr_show, $array_option, $array_search);
 	$sqlhaving 	= search_where($data, $arr_tmp, $array_option, $array_search);
 	
-	$sql = "SELECT * ";
-	$sql .= "FROM {$dbprefix}table tb ";
-	$sql .= "WHERE 1 ";
+	$sql .= "SELECT *
+			 FROM {$dbprefix}table tb 
+			 WHERE 1";
 	$sql .= $sqlwhere;
 	if($sqlhaving != ''){
-		$sql .= ' HAVING 1 '.$sqlhaving;
+		$sql .= " HAVING 1 ".$sqlhaving;
 	}
 
 	box_search_datatable($data, $array_search);
