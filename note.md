@@ -236,15 +236,16 @@ function observeAndSetValue(id, value){
 fetch('path/file.xls').then(function(res){
     return res.blob()
 }).then(function(data){
-    const link  = document.createElement('a')
-    const url   = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(data)
     link.href = url
-    link.download = 'file.xls
+    link.download = 'file.xls'
     link.click()
     URL.revokeObjectURL(url)
-}).catch(err){
-    console.error(err)
-}
+}).catch(function(err){
+    console.log(err)
+})
+
 ```
 
 ### localStorage(), sessionStorage()
@@ -838,7 +839,7 @@ LEFT JOIN (
 
 ### session variable
 ```
-SET @rn = 0;
+SET @rn := 0;
 UPDATE 
     table
 SET 
