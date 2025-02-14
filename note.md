@@ -421,7 +421,7 @@ $arr_combine = array_combine($arr_type, $arr_value);
 $arr_test = array( 'total', 'send_amount', 'diff', 'status' );
 $arr_tmp = ['diff', 'status'];
 $arr_new = array_filter($arr_test, function($item) use($arr_tmp){
-    return !in_array($item, $arr_tmp);
+    return !in_array($item, $arr_tmp, true);
 });
 
 // array_map()
@@ -866,6 +866,14 @@ SET t1.description = t2.team_name
 ### format a date
 ```
 SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
+```
+
+### combine values from multiple rows into a single string in one row
+```
+SELECT *,
+    GROUP_CONCAT(item_code ORDER BY item_code ASC)as item_list
+FROM invoice
+GROUP BY invoice_no
 ```
 
 # PowerShell
