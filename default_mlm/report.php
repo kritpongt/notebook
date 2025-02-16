@@ -71,7 +71,7 @@ if($data['state'] == 4){
 		'time' 			=> array($array_option["time"][0], 'TIME', '4-6-12',  '', '', ''),
 		'effect_date' 	=> array($array_option["effect_date"][0], 'DATE9', '2-3-6', '', '', '%LIKE%'),
 		'member_id' 	=> array($array_option["member_id"][0], 'TEXT', '2-3-6', '', '', '%LIKE%'),
-		'total' 		=> array($array_option["amount"][0], 'TEXT', '2-3-6', '', '', '-'),
+		'total' 		=> array($array_option["total"][0], 'TEXT', '2-3-6', '', '', '-'),
 		'remark' 		=> array($array_option["remark"][0], 'TEXT', '2-3-6', '', '', '%LIKE%'),
 		'locationbase' 	=> array($array_option["locationbase"][0], 'DROPDOWN_MULTI', '2-3-6', $arr_locationbase, '', ''),
 		's_list' 		=> array($wording_lan["list_number"], 'DROPDOWN', '2-3-6', $arr_page, '', ''),
@@ -85,13 +85,11 @@ if($data['state'] == 4){
 	$sqlwhere 	= search_where($data, $arr_show, $array_option, $array_search);
 	$sqlhaving 	= search_where($data, $arr_tmp, $array_option, $array_search);
 	
-	$sql = "SELECT * ";
-	$sql .= "FROM {$dbprefix}table tb ";
-	$sql .= "WHERE 1 ";
+	$sql .= "SELECT *
+			 FROM {$dbprefix}table tb 
+			 WHERE 1";
 	$sql .= $sqlwhere;
-	if($sqlhaving != ''){
-		$sql .= ' HAVING 1 '.$sqlhaving;
-	}
+	if($sqlhaving != ''){ $sql .= " HAVING 1 ".$sqlhaving; }
 
 	box_search_datatable($data, $array_search);
 
@@ -115,9 +113,9 @@ if($data['state'] == 4){
 	// 	$obj->setSpecial("../images/true.gif", "", "sale_special", "id,mcode", "IMAGE", $wording_lan["re_pass"]);
 	// 	$obj->setSpecial("../images/editlink.gif", "", "sale_edit", "id,sano_temp", "IMAGE", $wording_lan['edit']);
 	// 	$obj->setSpecial("../images/cancel.gif", "", "sale_cancel", "id,sano_temp,linkx", "IMAGE",$wording_lan["bt"]["cancle"]);
-	// 	================ one column multi select ================
+	// 	// ================ one column multi select ================ //
 	// 	$obj->setdel("index.php?sessiontab={$data['sessiontab']}&sub={$data['sub']}&state=5","id","id","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันรับชำระเงิน');
-	// 	=========== more than one column multi select ===========
+	// 	// =========== more than one column multi select =========== //
 	// 	$obj->setselect('multi_cancel',"id","selfield","<font class='txt-button-link' >".$wording_lan["bt"]['cancle']."</font>", 'ยืนยันการยกเลิก', 1, '');
 	// 	$obj->setselect("index.php?sessiontab=".$data['sessiontab']."&sub=".$data['sub']."&state=5","id","delfield","<font class='txt-button-link' style='color:red;font-size:19px;'>"."ยืนยันรับชำระ"."</font>", 'ยืนยันการชำระเงิน', 1, '');
 	// }
