@@ -837,13 +837,21 @@ LEFT JOIN (
  */
 ```
 
+### combine values from multiple rows into a single string in one row
+```
+SELECT *,
+    GROUP_CONCAT(item_code ORDER BY item_code ASC)as item_list
+FROM invoice
+GROUP BY invoice_no
+```
+
 ### session variable
 ```
 SET @rn := 0;
 UPDATE 
     table
 SET 
-    count = @rn := @rn + 1
+    count = (@rn := @rn + 1)
 WHERE 
     count >= 5369
 ORDER BY id ASC
@@ -869,12 +877,24 @@ SET t1.description = t2.team_name
 SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 ```
 
-### combine values from multiple rows into a single string in one row
+### tcl mysql (innodb)
 ```
-SELECT *,
-    GROUP_CONCAT(item_code ORDER BY item_code ASC)as item_list
-FROM invoice
-GROUP BY invoice_no
+SHOW TABLE STATUS WHERE Name = '<table_name>';
+SELECT @@AUTOCOMMIT;
+SET AUTOCOMMIT = 0;
+
+START TRANSACTION;
+UPDATE accounts SET balance_amt = balance + 300 WHERE account_id = '12';
+SAVEPOINT sp1;
+UPDATE accounts SET balance_amt = balance - 150  WHERE account_id = '12';
+
+SELECT 1 FROM accounts WHERE account_id = '64';
+IF FOUND_ROWS() = 0 THEN
+    ROLLBACK TO sp1;
+ELSE
+    UPDATE accounts SET balance = balance + 150 WHERE account_id = '64';
+    COMMIT;
+END IF;
 ```
 
 # PowerShell
@@ -889,35 +909,54 @@ ls -Force
 Remove-Item -Recurse -Force .git, .gitignore
 ```
 
-# Git cycle
-1. git pull origin <main_branch>                # synchronize the branch that lastest ver of the project.
-2. git checkout -b <feature/bugfix>             # create branch and work on new branch
-3. git commit -m "descriptive commit" -- ./path/file.md
-4. git push origin <branch_name>                # push current feature branch to remote.
+# Git 
 
-    1. git checkout <main_branch>               # change to main branch
-    2. git pull origin <main_branch>            # synchronize
+### config
+```
+git version
+git config --global user.name "<name>"
+git config --global user.email "<email>"
+```
 
-- merge:                                        # create a merge commit at main, that combines branch and main
+### tracked
+`modified`<->`staged`<->`committed`
+
+### cycle
 ```
-git merge <branch_name>                         # merge feature branch into main branch
-git push origin <main_branch>                   # or create a pull request(PR) to merge into the main branch.
-```
-- rebase: 
-```
-git checkout <branch_name>                      # 
-git rebase <main_branch>                        #
-git push origin <main_branch>                   #
-```
-- when feature branch has been successfully merged, can delete them
-```
-git branch -d <branch_name>                     # local delete.
-git push origin --delete <branch_name>          # remote delete.
-```
-- recommit without changes
-```
-git reset --soft HEAD~1
-git commit -m "new commit"
+# working directory
+git status
+git diff                            # for modified, `git diff <file>`
+====
+git pull                            # remote to local
+
+# staging area
+git add .
+git diff --cached
+git reset                           # reset staged to modified (--mixed) `git reset <file>`, `git reset <hash>`
+====
+git add .
+git commit --amend -no-edit         # add file without create a new commit
+
+# local repository
+git commit -m "<feature_name>"
+git log --oneline --stat
+====
+git reset --soft HEAD~1             # recommit, `git reset --soft <hash>` rollback to <hash> commit, (`--hard` to destroy all files)
+git commit -m "<new_commit>"
+
+# remote repository
+git push -u origin master
+
+?
+# branch
+git fetch                                       # up-to-date
+git branch -a                                   # show branch local and remote
+git branch <branch_name>                        # create branch
+git checkout <branch_name>                      # `--track` to checkout remote branch to local
+====
+git branch -d <branch_name>                     # delete local branch
+git push --delete origin <branch_name>          # delete remote branch
+?
 ```
 
 # Volcab & Sentence
@@ -926,7 +965,7 @@ update this english for clearity.
 this keeps the branch organized.
 ```
 
-# Vscode
+# VSCode setting
 - block comment                                     `<alt + shift + a>`
 - workbench.explorer.fileView.focus                 `<alt + e + e>`
 - workbench.files.action.collapseExplorerFolders    `<f>`                   # filesExplorerFocus && !inputFocus
