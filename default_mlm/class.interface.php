@@ -578,9 +578,12 @@ function convertToDATETIME($input_date){
 		}
 	}
 	if($time != ''){
-		$obj_time 	= DateTime::createFromFormat('G:i', $time);
-		if($obj_time !== false){
-			$time 	= $obj_time->format('H:i:s');
+		$obj_time 	= DateTime::createFromFormat('H:i:s', $time);
+		if($obj_time === false){
+			$obj_time 	= DateTime::createFromFormat('H:i', $time);
+			$time 		= $obj_time ? $obj_time->format('H:i:s') : '00:00:00';
+		}else{
+			$time 		= $obj_time->format('H:i:s');
 		}
 	}
 	return $new_date.' '.$time;
