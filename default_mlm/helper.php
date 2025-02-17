@@ -244,4 +244,66 @@ function log_update($topic = '', $tb, $where_by_id, $arr_updated, $log_update_co
 		return $txt_log;
 	}
 }
+
+// practice
+class DetailedRecursiveTimer {
+    private $startTimes = [];
+    private $calls = [];
+    private static $depth = 0;
+    private $indent = "";
+
+    public function startTimer($functionName, ...$args) {
+        $this->indent = str_repeat("\t", self::$depth);
+        $callId = self::$depth;
+        
+        $this->startTimes[$callId] = microtime(true);
+        $this->calls[$callId] = [
+            'function' => $functionName,
+            'args' => $args,
+            'depth' => self::$depth
+        ];
+        
+        echo $this->indent . "เริ่ม $functionName(" . implode(', ', $args) . ")\n";
+        self::$depth++;
+    }
+
+    public function stopTimer() {
+        self::$depth--;
+        $callId = self::$depth;
+        
+        if (isset($this->startTimes[$callId])) {
+            $executionTime = microtime(true) - $this->startTimes[$callId];
+            $call = $this->calls[$callId];
+            
+            echo $this->indent . "จบ {$call['function']}(" . 
+                 implode(', ', $call['args']) . ") - " . 
+                 number_format($executionTime * 1000, 2) . " ms\n";
+                 
+            unset($this->startTimes[$callId]);
+            unset($this->calls[$callId]);
+            
+            return $executionTime;
+        }
+        return 0;
+    }
+}
+
+// // ตัวอย่างการใช้งาน
+function recursiveFunction($n) {
+	global $timer;
+    $timer->startTimer('recursiveFunction', $n);
+    
+    if ($n <= 1) {
+        $timer->stopTimer();
+        return 1;
+    }
+    
+    $result = recursiveFunction($n - 1) + recursiveFunction($n - 2);
+    $timer->stopTimer();
+    return $result;
+}
+
+$timer = new DetailedRecursiveTimer();
+$result = recursiveFunction(5);
+echo "\nผลลัพธ์: $result\n";
 ?>
