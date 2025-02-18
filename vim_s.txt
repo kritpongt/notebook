@@ -34,9 +34,9 @@ ctrl + i 	# go to newer cursor location
 zt 		# top screen on cursor
 zz 		# center screen on cursor
 <i>% 		# move cursor to the line `<i>` percentage
-% 		# jump to matching block `( [], (), {} )`
-[<block> 	# jump to opener block `( [, (, { )`
-]<block> 	# jump to closer block `( ], ), } )`
+% 		# jump to matching block ([], (), {})
+[<block> 	# jump to opener block `[`, `(`, `{`
+]<block> 	# jump to closer block `]`, `)`, `}`
 
 --quit--
 :q    # quit (`:q!` force quit)
@@ -130,6 +130,13 @@ visual -> S<s>  # add <s> around visual
 --commentary--
 gcc 		    # line comment
 gCib 		    # block comment in bracket
+
+--marks--
+m<mark>             # mark (a-z&A-Z)
+'<mark>             # jump to mark
+:delmarks <mark>    # delete mark, `:delmarks!` delete all
+['                  # jump to previous line
+]'                  # jump to next line with a lowercase mark
 
 --search & replace--
 :%s/<pattern>/<replace>/g 			# replacing all the occurrences of pattern in the entire file (flag: /i)
