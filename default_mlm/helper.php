@@ -139,58 +139,6 @@ function array_invert($arr_data){
 	return $result;
 }
 
-function setPaymentGroup($bill_data){
-	global $dbprefix, $arr_payment_term_ar, $arr_payment_group;
-	$payment_term = $bill_data['payment_term'];
-	if($payment_term == ''){ return false; }
-
-	foreach($bill_data as $key => $val){
-		if(stripos($key, 'txt') === false && stripos($key, 'select') === false && stripos($key, 'option') === false){ continue; }
-		if(stripos($key, 'txt') !== false && (float)$val > 0){
-			$n_key 		= str_replace('txt', '', $key);
-			$data_tmp['txt'][$n_key] 	= $val;
-			$data_tmp['select'][$n_key] = $bill_data['select'.$n_key];
-			$data_tmp['option'][$n_key] = $bill_data['option'.$n_key];
-		}
-	}
-
-	if(in_array($payment_term, array_keys($arr_payment_term_ar))){
-		$arr_payment 		= query_maps('payment_column', 'id', 'payment');
-		$sql 				= "SELECT pt.id, pt.payment_id,
-									io.mapping_code
-								FROM {$dbprefix}payment_type pt
-								LEFT JOIN {$dbprefix}inventory_order io ON(io.id = pt.inventory_order_id)
-								WHERE pt.inventory_order_id != '0'";
-		$rs_payment_type 	= query_full($sql);
-		foreach($rs_payment_type as $pay_type){
-			$arr_payment_type[$pay_type['payment_id']][$pay_type['id']] = $pay_type['mapping_code'];
-		}
-		foreach($arr_payment as &$pay){
-			$pay = $arr_payment_type[$pay];
-		}
-		
-		foreach($data_tmp['select'] as $key => $val){
-			if(empty($arr_payment[$key])){ continue; }
-			$payment_group 		= $arr_payment[$key][$val];
-			break;
-		}
-		$result = array(
-			'meta' 					=> $data_tmp,
-			'payment_group' 		=> $payment_group,
-			'payment_group_desc' 	=> $arr_payment_group[$payment_group]
-		);
-		return $result;
-
-	}else if($payment_term === '000'){
-		$result = array(
-			'meta' 					=> $data_tmp,
-			'payment_group' 		=> '013',
-			'payment_group_desc' 	=> $arr_payment_group['013']
-		);
-		return $result;
-	}
-}
-
 function log_update($topic = '', $tb, $where_by_id, $arr_updated, $log_update_conf_key = ''){
 	global $wording_lan;
 	$rs_sql 	= query("*", $tb, $where_by_id);
@@ -245,65 +193,55 @@ function log_update($topic = '', $tb, $where_by_id, $arr_updated, $log_update_co
 	}
 }
 
-// practice
-class DetailedRecursiveTimer {
-    private $startTimes = [];
-    private $calls = [];
-    private static $depth = 0;
-    private $indent = "";
+function setPaymentGroup($bill_data){
+	global $dbprefix, $arr_payment_term_ar, $arr_payment_group;
+	$payment_term = $bill_data['payment_term'];
+	if($payment_term == ''){ return false; }
 
-    public function startTimer($functionName, ...$args) {
-        $this->indent = str_repeat("\t", self::$depth);
-        $callId = self::$depth;
-        
-        $this->startTimes[$callId] = microtime(true);
-        $this->calls[$callId] = [
-            'function' => $functionName,
-            'args' => $args,
-            'depth' => self::$depth
-        ];
-        
-        echo $this->indent . "เริ่ม $functionName(" . implode(', ', $args) . ")\n";
-        self::$depth++;
-    }
+	foreach($bill_data as $key => $val){
+		if(stripos($key, 'txt') === false && stripos($key, 'select') === false && stripos($key, 'option') === false){ continue; }
+		if(stripos($key, 'txt') !== false && (float)$val > 0){
+			$n_key 		= str_replace('txt', '', $key);
+			$data_tmp['txt'][$n_key] 	= $val;
+			$data_tmp['select'][$n_key] = $bill_data['select'.$n_key];
+			$data_tmp['option'][$n_key] = $bill_data['option'.$n_key];
+		}
+	}
 
-    public function stopTimer() {
-        self::$depth--;
-        $callId = self::$depth;
-        
-        if (isset($this->startTimes[$callId])) {
-            $executionTime = microtime(true) - $this->startTimes[$callId];
-            $call = $this->calls[$callId];
-            
-            echo $this->indent . "จบ {$call['function']}(" . 
-                 implode(', ', $call['args']) . ") - " . 
-                 number_format($executionTime * 1000, 2) . " ms\n";
-                 
-            unset($this->startTimes[$callId]);
-            unset($this->calls[$callId]);
-            
-            return $executionTime;
-        }
-        return 0;
-    }
+	if(in_array($payment_term, array_keys($arr_payment_term_ar))){
+		$arr_payment 		= query_maps('payment_column', 'id', 'payment');
+		$sql 				= "SELECT pt.id, pt.payment_id,
+									io.mapping_code
+								FROM {$dbprefix}payment_type pt
+								LEFT JOIN {$dbprefix}inventory_order io ON(io.id = pt.inventory_order_id)
+								WHERE pt.inventory_order_id != '0'";
+		$rs_payment_type 	= query_full($sql);
+		foreach($rs_payment_type as $pay_type){
+			$arr_payment_type[$pay_type['payment_id']][$pay_type['id']] = $pay_type['mapping_code'];
+		}
+		foreach($arr_payment as &$pay){
+			$pay = $arr_payment_type[$pay];
+		}
+		
+		foreach($data_tmp['select'] as $key => $val){
+			if(empty($arr_payment[$key])){ continue; }
+			$payment_group 		= $arr_payment[$key][$val];
+			break;
+		}
+		$result = array(
+			'meta' 					=> $data_tmp,
+			'payment_group' 		=> $payment_group,
+			'payment_group_desc' 	=> $arr_payment_group[$payment_group]
+		);
+		return $result;
+
+	}else if($payment_term === '000'){
+		$result = array(
+			'meta' 					=> $data_tmp,
+			'payment_group' 		=> '013',
+			'payment_group_desc' 	=> $arr_payment_group['013']
+		);
+		return $result;
+	}
 }
-
-// // ตัวอย่างการใช้งาน
-function recursiveFunction($n) {
-	global $timer;
-    $timer->startTimer('recursiveFunction', $n);
-    
-    if ($n <= 1) {
-        $timer->stopTimer();
-        return 1;
-    }
-    
-    $result = recursiveFunction($n - 1) + recursiveFunction($n - 2);
-    $timer->stopTimer();
-    return $result;
-}
-
-$timer = new DetailedRecursiveTimer();
-$result = recursiveFunction(5);
-echo "\nผลลัพธ์: $result\n";
 ?>
