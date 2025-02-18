@@ -98,6 +98,10 @@ Xp 		# swap character <-
 << 		# shiftwidth left current line
 >> 		# shiftwidth right current line
 
+--folding--
+zc      # fold
+zo      # unfold
+
 --easymotion--
 \ 			# <leader>
 <leader><leader> w 	# start of words
