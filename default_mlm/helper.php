@@ -244,4 +244,63 @@ function setPaymentGroup($bill_data){
 		return $result;
 	}
 }
+
+function getMemberStructure(){
+	global $dbprefix;
+	$rs_member  = query_full("SELECT mcode, sp_code, upa_code, lr
+							  FROM {$dbprefix}member
+							  GROUP BY id ASC");
+	foreach($rs_member as $member){
+		$mcode          = $member['mcode'];
+		$sp_code        = $member['sp_code'];
+		$sp[$sp_code][] = $mcode;
+	}
+
+	$rs_team 	= query('mcode, team_id, subteam_id', $dbprefix.'member', "1=1 ORDER BY id ASC");
+	foreach($rs_team as $val){
+		$GLOBALS['member_team'][$val['mcode']] = array(
+			'team_id' 		=> $val['team_id'],
+			'subteam_id' 	=> $val['subteam_id']
+		);
+	}
+
+	$data_m 	= updateMemberStructure($sp);
+}
+
+function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_member = []){
+	global $dbprefix, $member_team;
+	if($mcode == ''){
+		$rs_top 	= query_full("SELECT mcode
+							  	  FROM {$dbprefix}member 
+							  	  WHERE sp_code = ''");
+		foreach($rs_top as $topper){
+			$mcode = $topper['mcode'];
+			$arr_member[$mcode] = array(
+				'sp_code' 	=> '',
+				'level' 	=> $level
+			);
+			$arr_member = updateMemberStructure($data_structure, $mcode, $level, $arr_member);
+		}
+		return $arr_member;
+	}else{
+		$upd_team = array(
+			'team_id' 		=> $member_team[$mcode]['team_id'],
+			'subteam_id' 	=> $member_team[$mcode]['subteam_id']
+		);
+		if(empty($arr_member[$mcode]['team_id']) || empty($arr_member[$mcode]['subteam_id'])){
+			$arr_member[$mcode] = array_merge($arr_member[$mcode], $upd_team);
+		}
+		if(!isset($data_structure[$mcode])){ return $arr_member; }
+		$level++;
+		foreach($data_structure[$mcode] as $child){
+			$arr_member[$child] = array(
+				'sp_code' 	=> $mcode,
+				'level' 	=> $level,
+			);
+			$arr_member[$child] = array_merge($arr_member[$child], $upd_team);
+			$arr_member = updateMemberStructure($data_structure, $child, $level, $arr_member);
+		}
+		return $arr_member;
+	}
+}
 ?>
