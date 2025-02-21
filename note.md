@@ -857,7 +857,7 @@ WHERE
 ORDER BY id ASC
 ```
 
-### update with join
+### update with join(inner join)
 ```
 UPDATE
     table1 t1
