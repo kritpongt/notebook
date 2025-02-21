@@ -102,10 +102,10 @@
 						</div> -->
 						<div class="btn-group" data-toggle="radio" style="display: flex; gap: 12px;">
 							<label class="btn btn-default">
-								<input type="radio" id="" name="" value="" checked/><?= 'รูปแบบที่ 1'?>
+								<input type="radio" id="" name="radio_group" value="" checked/><?= 'รูปแบบที่ 1'?>
 							</label> 
 							<label class="btn btn-default">
-								<input type="radio" id="" name="" value=""/><?= 'รูปแบบที่ 2'?>
+								<input type="radio" id="" name="radio_group" value=""/><?= 'รูปแบบที่ 2'?>
 							</label> 
 						</div>
 					</div>
