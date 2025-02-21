@@ -32,6 +32,11 @@
 					</div>
 				</div>
 				<div class="col-md-12">
+					<div class="form-group" style="">
+						<input type="text" class="form-control" autocomplete="off" id="" name="" value="<?= $data['description']?>">
+					</div>
+				</div>
+				<div class="col-md-12">
 					<div class="form-group" style="padding-right: 0px;">
 						<div class="input-group">
 							<div class="input-group-addon" style="min-width:100px"><?= 'วันที่'?></div>
@@ -88,6 +93,31 @@
 							$('#status').prop('checked', true)
 							$('#status').trigger('change')
 						}
+					</script>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group" style="padding-right: 5px;" id="radio_item">
+						<!-- <div class="text-title text-center">
+							<div class="box-title"><font size="4px"><?= 'รูปแบบ'?></font></div>
+						</div> -->
+						<div class="btn-group" data-toggle="radio" style="display: flex; gap: 12px;">
+							<label class="btn btn-default">
+								<input type="radio" id="" name="" value="" checked/><?= 'รูปแบบที่ 1'?>
+							</label> 
+							<label class="btn btn-default">
+								<input type="radio" id="" name="" value=""/><?= 'รูปแบบที่ 2'?>
+							</label> 
+						</div>
+					</div>
+					<script>
+						$('#radio_item').on('change', function(){
+							$('#input-group1, #input-group2').toggle();
+							for(let el of ['#input1', '#input2']){
+								let isDisabled = $(el).prop("disabled")
+								$(el).prop('disabled', !isDisabled)
+								$(el).val('');
+							}
+						})
 					</script>
 				</div>
 				<div class="col-md-12">
