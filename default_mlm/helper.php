@@ -124,6 +124,25 @@ function array_periods($amount, $periods){
 	return $result;
 }
 
+function array_periods_amt($amount, $install_amt, $unshift = false){
+	if($install_amt <= 0 || $install_amt > $amount){ return false; }
+	$period 	= floor($amount / $install_amt);
+	$remain_f 	= fmod($amount, $install_amt);
+	$result 	= array();
+	for($i = 1; $i <= $period; $i++){
+		$result[] = sprintf('%.2f', $install_amt);
+	}
+	if($remain_f > 0){
+		$remaining_amt = sprintf('%.2f', $remain_f);
+		if($unshift === true){
+			$result = array_merge([$remaining_amt], $result);
+		}else{
+			$result[] = $remaining_amt;
+		}
+	}
+	return $result;
+}
+
 function sanitizedTextArea($text){
 	$result = str_replace(['\r\n', "\r"], "\n", $text);
 	return $result;
