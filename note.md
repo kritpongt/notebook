@@ -401,14 +401,8 @@ const opt_sel = $('#select-code option:selected')
 ```
 // array_column()
 $arr_base = array(
-    [
-        'id'    => '1',
-        'name'  => 'name_1',
-    ],
-    [
-        'id'    => '2',
-        'name'  => 'name_2',
-    ]
+    ['id' => '1', 'name' => 'name_1'],
+    ['id' => '2', 'name' => 'name_2']
 );
 $arr_new = array_column($arr_base, 'id');
 $arr_new2 = array_column($arr_base, 'id', 'name');
@@ -417,6 +411,17 @@ $arr_new2 = array_column($arr_base, 'id', 'name');
 $arr_type = [2, 4, 6];
 $arr_value = ['two', 'four', 'six'];
 $arr_combine = array_combine($arr_type, $arr_value);
+
+// array_slice(<array>, <start>, <length>, <perserve-key>)
+$arr_test = [1 => 'one', 2 => 'two', 3 => 'three'];
+$arr_left = array_slice($arr_test, 0, 2, true);
+
+// array_fill(<first-index>, <number-elements>, <value>)
+$arr_filled = array_fill(0, 20, null);
+
+// array_fill_keys(<key>, <value>)
+$arr_index = ['A', 'B', 'C'];
+$arr_new = array_fill_keys($arr_index, null);
 
 // array_filter()
 $arr_test = array( 'total', 'send_amount', 'diff', 'status' );
@@ -449,12 +454,8 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // end()             # return last value of an array
 // reset()           # move to first element of the array **and return the value `$first_element = reset($arr);`**
 
-array_merge()   ?
-array_replace() ?
-// array_slice()    # (array, start, length)
-$arr_left = array_slice($array, 0, 12);
-
-// array_fill()      # fills an array with value (index, number, value)
+array_merge()       ?
+array_replace()     ?
 ```
 
 ### flatten array
