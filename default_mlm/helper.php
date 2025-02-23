@@ -124,10 +124,10 @@ function array_periods($amount, $periods){
 	return $result;
 }
 
-function array_periods_amt($amount, $install_amt, $unshift = false){
-	if($install_amt <= 0 || $install_amt > $amount){ return false; }
-	$period 	= floor($amount / $install_amt);
-	$remain_f 	= fmod($amount, $install_amt);
+function array_periods_amt($total_amt, $install_amt, $unshift = false){
+	if($install_amt <= 0 || $install_amt > $total_amt){ return false; }
+	$period 	= floor($total_amt / $install_amt);
+	$remain_f 	= fmod($total_amt, $install_amt);
 	$result 	= array();
 	for($i = 1; $i <= $period; $i++){
 		$result[] = sprintf('%.2f', $install_amt);
@@ -270,9 +270,7 @@ function getMemberStructure(){
 							  FROM {$dbprefix}member
 							  GROUP BY id ASC");
 	foreach($rs_member as $member){
-		$mcode          = $member['mcode'];
-		$sp_code        = $member['sp_code'];
-		$sp[$sp_code][] = $mcode;
+		$sp[$member['sp_code']][] = $member['mcode'];
 	}
 
 	$rs_team 	= query('mcode, team_id, subteam_id', $dbprefix.'member', "1=1 ORDER BY id ASC");
@@ -293,7 +291,7 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 							  	  FROM {$dbprefix}member 
 							  	  WHERE sp_code = ''");
 		foreach($rs_top as $topper){
-			$mcode = $topper['mcode'];
+			$mcode 	= $topper['mcode'];
 			$arr_member[$mcode] = array(
 				'sp_code' 	=> '',
 				'level' 	=> $level
@@ -306,10 +304,12 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 			'team_id' 		=> $member_team[$mcode]['team_id'],
 			'subteam_id' 	=> $member_team[$mcode]['subteam_id']
 		);
+
 		if(empty($arr_member[$mcode]['team_id']) || empty($arr_member[$mcode]['subteam_id'])){
 			$arr_member[$mcode] = array_merge($arr_member[$mcode], $upd_team);
 		}
 		if(!isset($data_structure[$mcode])){ return $arr_member; }
+
 		$level++;
 		foreach($data_structure[$mcode] as $child){
 			$arr_member[$child] = array(
