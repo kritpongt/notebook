@@ -280,12 +280,22 @@ function getMemberStructure(){
 			'subteam_id' 	=> $val['subteam_id']
 		);
 	}
+	$rs_leader = query('id, name', $dbprefix.'team', "1=1 AND mcode_ref != ''");
+	foreach($rs_leader as $val){
+		$GLOBALS['team_leader'][$val['mcode_ref']]['team_id'] = $val['id'];
+		$GLOBALS['team_leader'][$val['mcode_ref']]['team'] = $val['name'];
+	}
+	$rs_leader = query('id, name', $dbprefix.'subteam', "1=1 AND mcode_ref != ''");
+	foreach($rs_leader as $val){
+		$GLOBALS['team_leader'][$val['mcode_ref']]['subteam_id'] = $val['id'];
+		$GLOBALS['team_leader'][$val['mcode_ref']]['subteam'] = $val['name'];
+	}
 
-	$data_m 	= updateMemberStructure($sp);
+	$data_m = updateMemberStructure($sp);
 }
 
 function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_member = []){
-	global $dbprefix, $member_team;
+	global $dbprefix, $member_team, $team_leader;
 	if($mcode == ''){
 		$rs_top 	= query_full("SELECT mcode
 							  	  FROM {$dbprefix}member 
@@ -300,14 +310,20 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 		}
 		return $arr_member;
 	}else{
-		$upd_team = array(
-			'team_id' 		=> $member_team[$mcode]['team_id'],
-			'subteam_id' 	=> $member_team[$mcode]['subteam_id']
-		);
-
-		if(empty($arr_member[$mcode]['team_id']) || empty($arr_member[$mcode]['subteam_id'])){
+		if(isset($team_leader)){
+			$upd_team = array(
+				'team_id' 		=> $member_team[$mcode]['team_id'],
+				'subteam_id' 	=> $member_team[$mcode]['subteam_id']
+			);
 			$arr_member[$mcode] = array_merge($arr_member[$mcode], $upd_team);
+		}else{
+			$sp_code = $arr_member[$mcode]['sp_code'];
+			$upd_team = array(
+				'team_id' 		=> $arr_member[$sp_code]['team_id'] ?? $member_team[$mcode]['team_id'],
+				'subteam_id' 	=> $arr_member[$sp_code]['subteam_id'] ?? $member_team[$mcode]['subteam_id']
+			);
 		}
+
 		if(!isset($data_structure[$mcode])){ return $arr_member; }
 
 		$level++;
