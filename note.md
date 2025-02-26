@@ -416,6 +416,8 @@ $arr_combine = array_combine($arr_type, $arr_value);
 $arr_test = [1 => 'one', 2 => 'two', 3 => 'three'];
 $arr_left = array_slice($arr_test, 0, 2, true);
 
+// array_spilce(<array>, <offset>, <length>, <array-spilce>)
+
 // array_fill(<first-index>, <number-elements>, <value>)
 $arr_filled = array_fill(0, 20, null);
 
