@@ -143,6 +143,20 @@ function array_periods_amt($total_amt, $install_amt, $unshift = false){
 	return $result;
 }
 
+function query_y(string $sql){
+	global $linksql;
+	$objQuery = mysqli_query($linksql, $sql);
+	if(!$objQuery){ return false; }
+
+	while($rowData = $objQuery->fetch_assoc()){
+		foreach($rowData as $key => $val){
+			$data[$key] = $val;
+		}
+		yield $data;
+	}
+	mysqli_free_result($objQuery);
+}
+
 function sanitizedTextArea($text){
 	$result = str_replace(['\r\n', "\r"], "\n", $text);
 	return $result;
