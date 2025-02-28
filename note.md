@@ -456,8 +456,8 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // end()             # return last value of an array
 // reset()           # move to first element of the array **and return the value `$first_element = reset($arr);`**
 
-array_merge()       ?
-array_replace()     ?
+// array_merge()    ?
+// array_replace()
 ```
 
 ### flatten array
@@ -879,6 +879,9 @@ SET t1.description = t2.team_name
 ```
 SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 ```
+
+### EXPLAIN
+looks `Rows` and `Extra` if it's `Using temporary` and `Using filesort` index it.
 
 ### tcl mysql (innodb)
 ```
