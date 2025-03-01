@@ -5,7 +5,7 @@
 const url = '/';
 fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ action: action, mcode: mcode })
 }).then(function(res){
     return res.json()
@@ -24,7 +24,7 @@ echo json_encode($postData);
 // response text with php file
 fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: new URLSearchParams({ data: data })
 }).then(function(res){
     return res.text()
@@ -50,7 +50,7 @@ $data = $_POST['data'] ?>
 
 ### send structured JSON to backend
 ```
-const data = JSON.stringify([{ 'key': 'value' }, { 'key': 'value' }])
+const data = JSON.stringify([{'key': 'value'}, {'key': 'value'}])
 
 // set header and body
 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -102,6 +102,38 @@ function assignObjCallback(inputs, callback){
 }
 
 assignObjCallback(inputs, fetchData)
+
+function fetchData(obj){
+    const base_url = '<?= $actual_link?>branch/'
+    fetch(base_url + 'order_module_search.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+    }).then(function(res){
+        return res.json()
+    }).then(function(data){
+        //...
+    })
+}
+```
+```
+function getDataProduct(id){
+    const data = { id: id }
+    const url = ""
+    return new Promise(function(resolve, reject){
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({data: data})
+        }).then(function(res){
+            return res.json()
+        }).then(function(data){
+            resolve(data)
+        }).catch(function(err){
+            console.error(err)
+        })
+    })
+}
 ```
 
 ### execute loop with sequential promises (using await waits for a promise in async function)
