@@ -65,16 +65,16 @@ $data = json_decode($postData['data'], true);
 let order_filed = document.getElementById('order-field')
 let inputs = document.querySelectorAll('#order-field input')
 let obj_input = {}
+
 const p = new Promise(function(resolve, reject){
     for(let input of inputs){
         if(input.name){ obj_input[input.name] = input.value }
     }
     resolve()
 })
-
 p.then(function(){ fetchData(obj_input) })
 
-// as function
+// As function
 function assignObj(dom_inputs){
     let obj_input = {}
     return new Promise(function(resolve, reject){
@@ -84,13 +84,12 @@ function assignObj(dom_inputs){
         resolve(obj_input)
     })
 }
-
 assignObj(inputs).then(function(result){ fetchData(result) })
 
-// function callback
+// Callback function
 function assignObjCallback(inputs, callback){
     let obj_input = {}
-    const p =  new Promise(function(resolve, reject){
+    const p = new Promise(function(resolve, reject){
         for(let input of inputs){
             if(input.name){ obj_input[input.name] = input.value }
         }
@@ -100,7 +99,6 @@ function assignObjCallback(inputs, callback){
         callback(obj_input)
     })
 }
-
 assignObjCallback(inputs, fetchData)
 
 function fetchData(obj){
@@ -117,6 +115,11 @@ function fetchData(obj){
 }
 ```
 ```
+function main(){
+    getDataProduct('123').then(function(res){
+        const result = res
+    })
+}
 function getDataProduct(id){
     const data = { id: id }
     const url = ""
@@ -124,13 +127,14 @@ function getDataProduct(id){
         fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({data: data})
+            body: JSON.stringify(data)
         }).then(function(res){
             return res.json()
         }).then(function(data){
             resolve(data)
         }).catch(function(err){
             console.error(err)
+            reject(false)
         })
     })
 }
