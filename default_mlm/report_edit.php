@@ -1,6 +1,8 @@
 <? session_start();
 // require_once('connectmysql.php');
 // require_once('global.php');
+// include_once("../backoffice/linkheader.php");
+// include_once("../backoffice/linkjs.php");
 
 // if(isset($_POST)){ getDataPOSTForm(); }
 ?>
@@ -102,10 +104,10 @@
 						</div> -->
 						<div class="btn-group" data-toggle="radio" style="display: flex; gap: 12px;">
 							<label class="btn btn-default">
-								<input type="radio" id="" name="radio_group" value="" checked/><?= 'รูปแบบที่ 1'?>
+								<input type="radio" id="" name="radio_group" value="" checked/><?= ' รูปแบบที่ 1'?>
 							</label> 
 							<label class="btn btn-default">
-								<input type="radio" id="" name="radio_group" value=""/><?= 'รูปแบบที่ 2'?>
+								<input type="radio" id="" name="radio_group" value=""/><?= ' รูปแบบที่ 2'?>
 							</label> 
 						</div>
 					</div>
@@ -152,9 +154,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">
-					<i class="glyphicon glyphicon-th"></i><?= $wording_lan["bt"]["choose_member"]?>
-				</h4>
+				<h4 class="modal-title"><i class="glyphicon glyphicon-th"></i><?= $wording_lan["bt"]["choose_member"]?></h4>
 			</div>
 			<div class="modal-body scroll-button">
 				<table class="table table-hover" id="datatable-member" cellspacing="0" width="100%">
@@ -166,8 +166,7 @@
 							<th><?= $wording_lan["member_type"]?></th>
 						</tr>
 					</thead>
-					<tbody>
-					</tbody>
+					<tbody></tbody>
 				</table>
 			</div>
 			<div class="modal-footer">
@@ -194,29 +193,16 @@ $(document).ready(function(){
 	$('input[name="member"]').attr('data-title', txt_fillin + '<?= $wording_lan['member']?>')
 	$('input[name="member"]').attr('required', '')
 
-
-	$('#collector_id').on('change', function(){
-		let mcode = $('#collector_id').val()
-		if(mcode != ''){ select_mb(mcode) }
-	})
-	$('#collector_id').trigger('change')
-
-	$('input[name="amount"]').on('blur', function(){
-		validateInputAmount(this)
-	})
-
-	$("#btn-select").click(function(){
+	$('#btn-select').click(function(){
 		const member_type = 'Collector'
 		$('#modal-select').modal('show');
 		$('#datatable-member').DataTable().clear().destroy();
 		$('#datatable-member').DataTable({
 			ajax: {
-				url: `member_listpicker.php?&member_type=${member_type}`,
+				url: `datatable_member_list.php?&member_type=${member_type}`,
 				beforeSend: function(){
-                    $(this).find('tbody').html(
-						'<tr class="odd">' +
-						'<td valign="top" colspan="100" width=100% align=center class="ball-pulse"><img src="../images/loading.gif"></td>' +
-						'</tr>'
+                    $('#datatable-member').find('tbody').html(
+						'<tr class="odd">' + '<td valign="top" colspan="100" width=100% align=center class="ball-pulse"><img src="../images/loading.gif"></td>' + '</tr>'
                     );
 				}
 			},
@@ -227,7 +213,7 @@ $(document).ready(function(){
 				sInfo: "<?= $wording_lan["Display"]?> _START_ <?= $wording_lan["Item"]?> <?= $wording_lan["From"]?> _TOTAL_ <?= $wording_lan["Item"]?> <?=$wording_lan["Each"]?> _END_ ",
 				sInfoFiltered: "(ค้ดกรองจาก _MAX_ รายการทั้งหมด)",
 				sSearch: "<?= $wording_lan['bt']["search"]?> :",
-				sSearchPlaceholder: "<?= $wording_lan["search_branch_1"]?>",
+				sSearchPlaceholder: "รหัสสมาชิก / ชื่อสมาชิก",
 				oPaginate: {
 					sFirst: "<?= $wording_lan["bt"]["page_first"]?>",
 					sLast: "<?= $wording_lan["bt"]["page_last"]?>",
@@ -252,33 +238,39 @@ $(document).ready(function(){
 		});
 		$('.dataTables_length').hide();
 	});
+	
+	$('#collector_id').on('change', function(){
+		if(this.val() != ''){ select_mb(this.val()) }
+	})
+	$('#collector_id').trigger('change')
+
+	$('input[name="amount"]').on('blur', function(){
+		this.value = validateInputAmount(this.value)
+	})
 })
 
-function validateInputAmount(input){
-	let str_num = input.value.replace(/[^0-9.]/g, '')
+function validateInputAmount(input_value){
+	let str_num = input_value.replace(/[^0-9.]/g, '')
 	let parts = str_num.split('.');
 	if(parts.length > 2){
 		str_num = parts[0] + '.' + parts[1]
 	}
 	let num = Math.floor(parseFloat(str_num) * 100) / 100
-	if(!Number(num)){
-		input.value = ''
-	}else{
-		input.value = num.toFixed(2)
-	}
+	if(!Number(num)){ return '' }
+	return num.toFixed(2)
 }
 
-function select_mb(id){
+function select_mb(member_code){
 	const member_type = 'Collector';
-	const url = `member_listpicker.php?&member_type=${member_type}`;
+	const url = `datatable_member_list.php?&member_type=${member_type}`;
 	fetch(url, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: new URLSearchParams({ where: `mcode = ${id}` })
+		body: new URLSearchParams({ searchData: `mcode = ${member_code}` })
 	}).then(function(res){
 		return res.json()
 	}).then(function(data){
-		with(data.searchData){
+		with(data.searchResult){
 			$('#collector_id').val(mcode)
 			$('#collector_name').val(name_t)
 		}
