@@ -4,12 +4,12 @@
 <script>
 	function sale_print(id){
 		var link = '../invoice/invoice_aprint_sale_temp.php?bid='+id;
+		// var link = '<?=$actual_link?>invoice/invoice_aprint_sale_look.php?bid='+id;
 		window.open(link);
 	}
-	function sale_look(id){
-		var link = '<?=$actual_link?>invoice/invoice_aprint_sale_look.php';
-		var link = link+'?bid='+id;
-		window.open(link);
+	function sale_special(id){
+		var link = 'index.php?sessiontab=<?= $data["sessiontab"]?>&sub=<?= $data["sub"]?>&state=8&bid='+id;
+		window.location.href = link
 	}
 	function sale_edit(id,sano_temp){
 		var txt = "แก้ไขเลขที่บิล: " + sano_temp;
