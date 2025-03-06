@@ -368,6 +368,43 @@ function optionsHTML(selectedVal = ''){
 }
 ```
 
+### copy to clipboard
+```
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        // console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+    document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+    if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function() {
+        // console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+    });
+}`
+```
+
 # JQuery and other libaries
 
 ### select2 + btn in option
@@ -861,6 +898,13 @@ INNER JOIN (
     FROM table2
     GROUP BY contract
 )tb2 ON(tb2.contract = tb1.contract AND tb1.id = tb2.max_id)
+
+/**
+* INNER JOIN (SELECT id,
+*               ROW_NUMBER() OVER(PARTITION BY contract_id ORDER BY id DESC)as row_n
+*             FROM ali_asaleh_payment 
+* )latest ON(latest.row_n = 1 AND latest.id = ap.id)
+*/
 ```
 
 ### window function
