@@ -261,8 +261,7 @@ function validateInputAmount(input_value){
 }
 
 function select_mb(member_code){
-	const member_type = 'Collector';
-	const url = `datatable_member_list.php?&member_type=${member_type}`;
+	const url = `datatable_member_list.php`;
 	fetch(url, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
