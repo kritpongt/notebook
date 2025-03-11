@@ -1,6 +1,7 @@
 <? session_start();
 require_once("connectmysql.php");
 require_once("adminchecklogin.php");
+session_write_close();
 
 if($_GET['member_type'] != ''){
 	$expl 		= explode(',', $_GET['member_type']);
