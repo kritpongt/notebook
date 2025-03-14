@@ -531,6 +531,7 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 
 // array_merge()    ?
 // array_replace()
+// array_change_key_case()
 ```
 
 ### flatten array
