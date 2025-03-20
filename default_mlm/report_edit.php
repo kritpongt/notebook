@@ -279,4 +279,42 @@ function select_mb(member_code){
 		$('#collector_name').val('')
 	})
 }
+
+// TODO
+function set_ajax_address(){
+	const province_select = $('select[name*="province"]')
+	province_select.each(function(){
+		const $province = $(this);
+		$.post("../member/getAddress.php", {
+			IDTbl: 1,
+			IDSelected: $province.data("initval"),
+			//national: 'Thailand',
+			lb: 1
+		}, function(data){
+			$province.html(data).trigger('change');
+		});
+	})
+
+	$(".ajax-address").on("change", function(){
+		$ajaxAddress = $(".ajax-address")
+		const index = $ajaxAddress.index(this);
+		$ajaxAddress.each(function(i){
+			if(i > index){ $ajaxAddress.eq(i).val('').trigger('change') }
+			if(i == (index + 1)){
+				const $el = $ajaxAddress.eq(index)
+				const $el_next = $ajaxAddress.eq(i)
+				$.post("../member/getAddress.php", {
+					IDTbl: i + 1,
+					IDCheck: $el.val(),
+					IDSelected: $el_next.data("initval"),
+					IDWhere: i,
+					//national: 'Thailand',
+					lb: 1
+				}, function(data){
+					$el_next.html(data).trigger('change')
+				});
+			}
+		});
+	})
+}
 </script>
