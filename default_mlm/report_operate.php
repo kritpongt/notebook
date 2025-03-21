@@ -9,9 +9,12 @@ include_once("../backoffice/linkjs.php");
 // chk_click();
 
 if(isset($_POST)){ getDataPOSTForm(); }
+if($data['bid'] != ''){
 
-// func_java_alert("Error!");exit;
-// logtext(true, $uid, "Log insert", $ins_id);
+	// func_java_alert("Error!");exit;
+
+	// logtext(true, $uid, "Log insert", $ins_id);
+}
 
 func_java_alert('', "window.location='?sessiontab=".$_GET["sessiontab"]."&sub=".$_GET["sub"]."';"); 
 exit;
