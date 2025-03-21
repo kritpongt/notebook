@@ -228,6 +228,7 @@ arr_map.forEach((item) => {
 ```
 const str = 'test test test'
 const pattern = /\S/g
+const pattern_th = /[\u0E00-\u0E7F]+/
 const foo = pattern.test(str)   // return false / true
 const bar = pattern.exec(str)   // return an array
 
@@ -472,7 +473,9 @@ const opt_sel = $('#select-code option:selected')
 
 ### array built-in function
 ```
-// array_column()
+/**
+ * array_column()
+ */
 $arr_base = array(
     ['id' => '1', 'name' => 'name_1'],
     ['id' => '2', 'name' => 'name_2']
@@ -480,16 +483,22 @@ $arr_base = array(
 $arr_new = array_column($arr_base, 'id');
 $arr_new2 = array_column($arr_base, 'id', 'name');
 
-// array_combine()
+/**
+ * array_combine()
+ */
 $arr_type = [2, 4, 6];
 $arr_value = ['two', 'four', 'six'];
 $arr_combine = array_combine($arr_type, $arr_value);
 
-// array_slice(<array>, <start>, <length>, <perserve-key>)
+/**
+ * array_slice(<array>, <start>, <length>, <preserve-key>)
+ */
 $arr_test = [1 => 'one', 2 => 'two', 3 => 'three'];
 $arr_left = array_slice($arr_test, 0, 2, true);
 
-// array_spilce(<array>, <offset>, <length>, <array-spilce>)
+/**
+ * array_spilce(<array>, <offset>, <length>, <array-spilce>)
+ */
 
 // array_fill(<first-index>, <number-elements>, <value>)
 $arr_filled = array_fill(0, 20, null);
