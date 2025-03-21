@@ -16,6 +16,7 @@ fetch(url, {
 })
 
 // in php
+header('Content-Type: application/json');
 $postData = json_decode(file_get_contents('php://input'), true);
 // ...
 echo json_encode($postData);
@@ -299,6 +300,12 @@ fetch('path/file.xls').then(function(res){
 ```
 const form = document.getElementById('form')
 const inputs = form.querySelectorAll('input, select, textarea')
+```
+
+### call function form parent in iframe(child)
+```
+window.parent.document.getElementById('input-member')
+window.parent.doSomething()
 ```
 
 ### find the child/parent element
