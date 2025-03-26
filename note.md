@@ -493,9 +493,9 @@ $arr_new2 = array_column($arr_base, 'id', 'name');
 /**
  * array_combine()
  */
-$arr_type = [2, 4, 6];
-$arr_value = ['two', 'four', 'six'];
-$arr_combine = array_combine($arr_type, $arr_value);
+$arr_value = ['two', 'three', 'four'];
+$arr_st = range(2, 2 + (count($arr_value) - 1));
+$arr_combine = array_combine($arr_st, $arr_value);
 
 /**
  * array_slice(<array>, <start>, <length>, <preserve-key>)
@@ -586,11 +586,6 @@ $arr_queue = array(
 usort($arr_queue, function($a, $b){
     return $a['seq_no'] <=> $b['seq_no'];
 })
-```
-
-### range()
-```
-$arr = range(1, 5); // array(1, 2, 3, 4, 5);
 ```
 
 ### less than 0 to be equal to 0
