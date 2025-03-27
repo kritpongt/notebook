@@ -352,4 +352,90 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 		return $arr_member;
 	}
 }
+
+function insert_temp($table, ...$rs_data){
+	$rs_column_tb 	= query_full("SHOW COLUMNS FROM {$table} WHERE field != 'id'");
+	$arr_column_tb 	= array_fill_keys(array_column($rs_column_tb, 'Field'), '');
+
+	foreach($rs_data as $value){
+		if($i == 0){
+			$base_data = $value[0];
+			$i++; continue;
+		}
+		
+		if(!is_array($value[0]) || count($value[0]) < 1){ return false; }
+		if(empty($value[1])){ continue; }
+		$col_join 			= $value[1];
+		$arr_coljoin[$i] 	= $value[2] ?? $value[1];
+		$arr_data 			= array_column($value[0], null, $col_join);
+		$arr_rs['query'.$i] = $arr_data;
+		$i++;
+	}
+
+	$count_query = count($arr_rs);
+	foreach($base_data as $key => $val){
+		for($i = 1; $i <= $count_query; $i++){
+			$data_tmp 	= $arr_rs['query'.$i];
+			if(!isset($data_tmp)){ continue; }
+			
+			$column 	= $arr_coljoin[$i];
+			if(isset($data_tmp[$val[$column]])){
+				$base_data[$key] = array_merge($arr_column_tb ?? [], $base_data[$key], $data_tmp[$val[$column]]);
+			}
+		}
+	}
+
+	if(count($base_data) > 0){
+		truncate($table);
+		muti_insert($table, $base_data);
+	}
+}
+
+function setTaskInsertTemp($task_name, $set_minutes){
+	if($task_name == ''){ return false; }
+	$path 		= dirname(__DIR__).'/backoffice';
+	$file 		= $path.'/task_insert_temp.txt';
+	$content 	= getTaskInsertTemp($task_name, $file);
+
+	$datetime 	= getfulldate('', 'Y-m-d H:i:s');
+	if($content !== false && new DateTime($datetime) < new DateTime($content)){ return false; }
+	
+	$time 		= getfulldate('', 'Y-m-d H:i:s', "+".abs($set_minutes)." minutes");
+	$task_entry = 'Task: '.$task_name.' - '.$time."\n";
+	if(!file_exists($file) || !$content){
+		file_put_contents($file, $task_entry, FILE_APPEND | LOCK_EX);
+	}else{
+		$tasks 		= getTaskInsertTemp($task_name, $file, true);
+		$tasks[] 	= $task_entry;
+		$handle 	= fopen($file, 'w');
+		if($handle){
+			foreach($tasks as $task){
+				fwrite($handle, $task);
+			}
+			fclose($handle);
+		}
+	}
+}
+
+function getTaskInsertTemp($task_name, $path_file, $exclude = false){
+	if(!file_exists($path_file)){ return false; }
+	$tasks = array();
+
+	$file = fopen($path_file, 'r');
+	while(($line = fgets($file)) !== false){
+		if(preg_match('/^Task: (\S+) - (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/', trim($line), $matches)){
+			if($exclude !== false){
+				if($matches[1] !== $task_name){ $tasks[] = $line; }
+				continue;
+			}
+
+			if($matches[1] === $task_name && !empty($matches[2])){
+				fclose($file);
+				return $matches[2];
+			}
+		}
+	}
+	fclose($file);
+	return $exclude !== false ? $tasks : false;
+}
 ?>
