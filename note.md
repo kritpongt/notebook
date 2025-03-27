@@ -505,28 +505,38 @@ $arr_left = array_slice($arr_test, 0, 2, true);
  * array_spilce(<array>, <offset>, <length>, <array-spilce>)
  */
 
-// array_fill(<first-index>, <number-elements>, <value>)
+/**
+ * array_fill(<first-index>, <number-elements>, <value>)
+ */
 $arr_filled = array_fill(0, 20, null);
 
-// array_fill_keys(<key>, <value>)
+/**
+ * array_fill_keys(<array-key>, <value>)
+ */
 $arr_index = ['A', 'B', 'C'];
 $arr_new = array_fill_keys($arr_index, null);
 
-// array_filter()
+/** 
+ * array_filter()
+ */
 $arr_test = array( 'total', 'send_amount', 'diff', 'status' );
 $arr_tmp = ['diff', 'status'];
 $arr_new = array_filter($arr_test, function($item) use($arr_tmp){
     return !in_array($item, $arr_tmp, true);
 });
 
-// array_map()
+/**
+ * array_map()
+ */
 $arr_test = array( '1', '2', '3', '4', '5' );
 $arr_new = array_map(function($value){
     if($value % 2 == 0){ return 'ZERO'; }
     return $value;
 }, $arr_test);
 
-// array_reduce()
+/**
+ * array_reduce()
+ */
 $arr_new = array_reduce($arr_test, funciton($result, $value){
     $result[] = $value % 2;
     return $result;
@@ -543,8 +553,8 @@ $arr_new = array_reduce($arr_test, funciton($result, $value){
 // end()             # return last value of an array
 // reset()           # move to first element of the array **and return the value `$first_element = reset($arr);`**
 
-// array_merge()    ?
-// array_replace()
+// array_merge()     # same keys, the last one overrides the others, when the keys are integers, return with integer keys starting at 0
+// array_replace()   #
 // array_change_key_case()
 ```
 
