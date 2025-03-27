@@ -192,6 +192,10 @@ $(document).ready(function(){
 	var txt_select = '<?= $wording_lan["pls_select"]?>'
 	$('input[name="member"]').attr('data-title', txt_fillin + '<?= $wording_lan['member']?>')
 	$('input[name="member"]').attr('required', '')
+	$('form').submit(function(e){
+		// e.preventDefault()
+		if($(this)[0].checkValidity()){ $('button[type="submit"]').prop('disabled', true) }
+	})
 
 	$('#btn-select').click(function(){
 		const member_type = 'Collector'
