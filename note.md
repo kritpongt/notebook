@@ -325,10 +325,8 @@ modalTitle.textContent = 'Set Title from low level'
 ```
 const form = document.getElementById('form')
 if(form.checkValidity()){ return false }
-/** in jquery
- * $('#form')[0].checkValidity()
- * $(this)[0].checkValidity()
- */
+// in jquery
+// $('#form')[0].checkValidity() or $(this)[0].checkValidity()
 
 const inputs = form.querySelectorAll('input, select, textarea')
 inputs.forEach(input => {
