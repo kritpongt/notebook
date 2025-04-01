@@ -21,6 +21,20 @@
 		var link = 'index.php?sessiontab=<?=$data["sessiontab"];?>&sub=<?=$data["sub"];?>&state=4&bid='+id;
 		remark_confirm(txt,link);
 	}
+	function ajax_report_operate(){
+		const url = `report_operate.php`;
+		fetch(url, {
+			method: 'POST',
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			body: new URLSearchParams({ date: JSON.parse('<?= json_encode(getfulldate())?>') })
+		}).then(function(res){
+			return res.json()
+		}).then(function(data){
+			$('#datatable').DataTable().ajax.reload()
+		}).catch(function(err){
+			console.log(err)
+		})
+	}
 </script>
 
 <?
@@ -29,11 +43,9 @@ if($data['state'] == 4){
 }else if($data['state'] == 5){
 	include('report_operate.php');
 }else{
-	$case_status = ",CASE 
-						status_terminate WHEN '0' THEN 
-							CONCAT('<a role=\"button\" onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-danger\">NO</font></a>')
-						ELSE 
-							CONCAT('<a role=\"button\" onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-success\">YES</font></a>') 
+	$case_status = ",CASE status_terminate WHEN '0' 
+					THEN CONCAT('<a role=\"button\" onclick=\"status_terminate(0,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-danger\">NO</font></a>')
+					ELSE CONCAT('<a role=\"button\" onclick=\"status_terminate(1,\'',m.id,'\',\'',m.mcode,'\',\'{$linkx}\')\"><font class=\"text-success\">YES</font></a>') 
 					END AS status_terminate ";
 
 	$array_show = array(
@@ -139,6 +151,6 @@ if($data['state'] == 4){
 		$obj->setpdf($wording_lan["bt"]["load_pdf"], 'report.pdf', 14, 'L', $header);
 		// $obj->setSpecialButton($wording_lan["print_all"], '../invoice/invoice_aprint_sale.php?lid='.$_SESSION['admininvent'].$linkx);
 	}
-	$obj->showdata();
+	$obj->showdata('datatable');
 }
 ?>
