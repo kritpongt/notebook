@@ -6,6 +6,7 @@ require_once("logtext.php");
 require_once("function.log.inc.php");
 include_once("../backoffice/linkheader.php");
 include_once("../backoffice/linkjs.php");
+session_write_close();
 // chk_click();
 
 if(isset($_POST)){ getDataPOSTForm(); }
