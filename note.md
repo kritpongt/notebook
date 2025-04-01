@@ -411,6 +411,13 @@ function copyTextToClipboard(text) {
 }`
 ```
 
+### create hidden element
+```
+let hiddenBtn = document.createElement('button')
+hiddenBtn.style.display = 'none'
+document.body.appendChild(hiddenBtn)
+```
+
 # JQuery and other libaries
 
 ### select2 + btn in option
@@ -437,7 +444,9 @@ swal({
     showCancelButton: true,
     // confirmButtonColor: '#53E69D',
     confirmButtonText: 'OK',
-    closeOnConfirm: false
+    closeOnConfirm: false,
+    allowEscapeKey: false,
+    allowOutsideClick: false
 }, function(){
     form.submit();
 })
@@ -447,7 +456,8 @@ swal({
     text: '',
     type: 'warning',
     confirmButtonText: 'ยืนยัน',
-    closeOnConfirm: true
+    closeOnConfirm: true,
+    allowEscapeKey: false
 })
 ```
 
@@ -980,6 +990,11 @@ SET t1.description = t2.team_name
 SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 ```
 
+### format a decimal
+```
+SELECT FORMAT(1234.567, 0)as format , FLOOR(1234.567 * 100) / 100 as without_rounding
+```
+
 ### EXPLAIN
 looks `Rows` and `Extra` if it's `Using temporary` and `Using filesort` index it.
 
@@ -1112,3 +1127,4 @@ this keeps the branch organized.
 - editor.action.addSelectionToPreviousFindMatch     `<ctrl + p>`            # editorFocus
 - visual mode paste without override                                        # NonRecursive
 - window.customMenuBarAltFocus                      `false`                 # In settings
+- Developer: Generate Color Theme
