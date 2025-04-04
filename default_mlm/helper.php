@@ -363,8 +363,8 @@ function insert_temp($table, ...$rs_data){
 			$i++; continue;
 		}
 		
-		if(!is_array($value[0]) || count($value[0]) < 1){ return false; }
-		if(empty($value[1])){ continue; }
+		if(!is_array($value[0])){ return false; }
+		if(empty($value[1]) || count($value[0]) < 1){ continue; }
 		$col_join 			= $value[1];
 		$arr_coljoin[$i] 	= $value[2] ?? $value[1];
 		$arr_data 			= array_column($value[0], null, $col_join);
