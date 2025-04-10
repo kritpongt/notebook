@@ -284,7 +284,7 @@ function select_mb(member_code){
 	})
 }
 
-// TODO
+// TODO set_ajax_address
 function set_ajax_address(){
 	const province_select = $('select[name*="province"]')
 	province_select.each(function(){
