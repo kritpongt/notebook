@@ -995,6 +995,15 @@ SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 SELECT FORMAT(1234.567, 0)as format , FLOOR(1234.567 * 100) / 100 as without_rounding
 ```
 
+### add column
+```
+ALTER TABLE <table>
+ADD COLUMN year VARCHAR(50) NOT NULL COMMENT 'ปี',
+ADD COLUMN month VARCHAR(50) NOT NULL COMMENT 'เดือน'
+-- add an index
+CREATE INDEX <index_name> ON <table> (<column>)
+```
+
 ### EXPLAIN
 looks `Rows` and `Extra` if it's `Using temporary` and `Using filesort` index it.
 
