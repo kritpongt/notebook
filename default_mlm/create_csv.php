@@ -12,7 +12,7 @@ $sql 		= data_decrypt($data['source']);
 $rs 		= query_full($sql);
 
 $path_save 	= '../function/fileexport/directory/'.getfulldate('', 'Y-m');
-$path_l 	= '../function/fileexport/directory';
+$path_l 	= '../function/fileexport/directory'; // path for loading
 if(!is_dir($path_save)){
 	mkdir($path_save, 0777, true);
 	chmod($path_save, 0777);
@@ -55,7 +55,7 @@ foreach($rs as $key => $val){
 		$val['en_date']
 	);
 	fputcsv($output, $arr_record);
-	$i+=1;
+	$i += 1;
 }
 fclose($output);
 
