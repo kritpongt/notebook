@@ -202,8 +202,14 @@ $(document).ready(function(){
 		$('#modal-select').modal('show');
 		$('#datatable-member').DataTable().clear().destroy();
 		$('#datatable-member').DataTable({
+			// serverSide: true,
 			ajax: {
 				url: `datatable_member_list.php?&member_type=${member_type}`,
+				// type: "POST",
+				// data: function(data){
+				// 	let input_filter = $('.dataTables_filter').children().find('input')
+				// 	data.q = input_filter.val();
+				// },
 				beforeSend: function(){
                     $('#datatable-member').find('tbody').html(
 						'<tr class="odd">' + '<td valign="top" colspan="100" width=100% align=center class="ball-pulse"><img src="../images/loading.gif"></td>' + '</tr>'
