@@ -172,9 +172,9 @@ function array_invert($arr_data){
 	return $result;
 }
 
-function log_update($topic = '', $tb, $where_by_id, $arr_updated, $log_update_conf_key = ''){
+function log_update($topic = '', $tb, $tb_where, $arr_updated, $log_update_conf_key = ''){
 	global $wording_lan;
-	$rs_sql 	= query("*", $tb, $where_by_id);
+	$rs_sql 	= query("*", $tb, $tb_where);
 	$rs_base 	= $rs_sql[0];
 
 	if(!empty($log_update_conf_key)){
@@ -356,6 +356,7 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 function insert_temp($table, ...$rs_data){
 	$rs_column_tb 	= query_full("SHOW COLUMNS FROM {$table} WHERE field != 'id'");
 	$arr_column_tb 	= array_fill_keys(array_column($rs_column_tb, 'Field'), '');
+	$count_column 	= count($arr_column_tb);
 
 	foreach($rs_data as $value){
 		if($i == 0){
@@ -364,7 +365,7 @@ function insert_temp($table, ...$rs_data){
 		}
 		
 		if(!is_array($value[0])){ return false; }
-		if(empty($value[1]) || count($value[0]) < 1){ continue; }
+		if(count($value[0]) < 1 || empty($value[1])){ continue; }
 		$col_join 			= $value[1];
 		$arr_coljoin[$i] 	= $value[2] ?? $value[1];
 		$arr_data 			= array_column($value[0], null, $col_join);
@@ -380,6 +381,10 @@ function insert_temp($table, ...$rs_data){
 			
 			$column 	= $arr_coljoin[$i];
 			if(isset($data_tmp[$val[$column]])){
+				if($count_column > 0){
+					$arr_intersect1 = array_intersect_key($base_data[$key], $arr_column_tb);
+					$arr_intersect2 = array_intersect_key($data_tmp[$val[$column]], $arr_column_tb);
+				}
 				$base_data[$key] = array_merge($arr_column_tb ?? [], $base_data[$key], $data_tmp[$val[$column]]);
 			}
 		}
@@ -437,5 +442,20 @@ function getTaskInsertTemp($task_name, $path_file, $exclude = false){
 	}
 	fclose($file);
 	return $exclude !== false ? $tasks : false;
+}
+
+function reorder_rs($arr_order, $rs_data){
+	$arr_top = array();
+	foreach($arr_order as $value){
+		if(empty($value[0]) || empty($value[1])){ continue; }
+		foreach($rs_data as $key => $val){
+			if(preg_match('/'.preg_quote($value[1], '/').'/u', $val[$value[0]])){
+				$arr_top[] = $val;
+				unset($rs_data[$key]);
+				break;
+			}
+		}
+	}
+	return array_merge($arr_top, $rs_data);
 }
 ?>
