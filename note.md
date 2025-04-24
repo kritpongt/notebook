@@ -517,14 +517,17 @@ $arr_left = array_slice($arr_test, 0, 2, true);
 
 /**
  * array_fill(<first-index>, <number-elements>, <value>)
+ * array_fill_keys(<array-key>, <value>)
  */
 $arr_filled = array_fill(0, 20, null);
 
-/**
- * array_fill_keys(<array-key>, <value>)
- */
 $arr_index = ['A', 'B', 'C'];
 $arr_new = array_fill_keys($arr_index, null);
+
+/**
+ * array_intersect(<array1>, <array2>)
+ * array_interssect_key()
+ */
 
 /** 
  * array_filter()
