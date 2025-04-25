@@ -933,11 +933,19 @@ INNER JOIN (
 )tb2 ON(tb2.contract = tb1.contract AND tb1.id = tb2.max_id)
 
 /**
-* INNER JOIN (SELECT id,
-*               ROW_NUMBER() OVER(PARTITION BY contract_id ORDER BY id DESC)as row_n
-*             FROM ali_asaleh_payment 
-* )latest ON(latest.row_n = 1 AND latest.id = ap.id)
-*/
+ * LEFT JOIN (
+ *      SELECT sano_id, MAX(id)as max_id
+ *      FROM ali_asaleh_payment
+ *      GROUP BY sano_id
+ * )AS latest_ap ON(latest_ap.sano_id = ah.id)
+ * LEFT JOIN ali_asaleh_payment ap ON(ap.sano_id = latest_ap.sano_id AND ap.id = latest_ap.max_id)
+ *
+ * INNER JOIN (
+ *      SELECT id,
+ *          ROW_NUMBER() OVER(PARTITION BY contract_id ORDER BY id DESC)as row_n
+ *      FROM ali_asaleh_payment 
+ * )AS latest ON(latest.row_n = 1 AND latest.id = ap.id)
+ */
 ```
 
 ### window function
