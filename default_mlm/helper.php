@@ -385,7 +385,9 @@ function insert_temp($table, ...$rs_data){
 					$arr_intersect1 = array_intersect_key($base_data[$key], $arr_column_tb);
 					$arr_intersect2 = array_intersect_key($data_tmp[$val[$column]], $arr_column_tb);
 				}
-				$base_data[$key] = array_merge($arr_column_tb ?? [], $base_data[$key], $data_tmp[$val[$column]]);
+				$r_data = array_merge($arr_column_tb ?? [], $base_data[$key], $data_tmp[$val[$column]]);
+				if(count($r_data) !== $count_column){ return $base_data[$key]; }
+				$base_data[$key] = $r_data;
 			}
 		}
 	}
