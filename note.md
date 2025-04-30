@@ -49,7 +49,7 @@ $data = $_POST['data'] ?>
 </body>
 ```
 
-### send structured JSON to backend
+### send structured JSON to backend(PHP)
 ```
 const data = JSON.stringify([{'key': 'value'}, {'key': 'value'}])
 
@@ -797,7 +797,7 @@ sleep(5); // sleep 5s
 
 ### ini_set modify setting in php.ini
 ```
-ini_set('memory_limit', '4069M');
+ini_set('memory_limit', '4096M');
 echo memory_get_usage();
 echo memory_get_peak_usage();
 ```
@@ -846,8 +846,7 @@ GROUP BY
 ### decorate the query group by with rollup
 ```
 SELECT * 
-FROM 
-    (
+FROM (
     SELECT 
         r.id, 
         CASE WHEN r.sm_id IS NULL THEN CONCAT(r.sano, '') ELSE '' END AS sano, 
@@ -881,7 +880,7 @@ FROM
         ) r 
     WHERE 
         r.id IS NOT NULL AND sadate between '2024-09-01' AND '2024-09-26'
-    ) a 
+)a 
 GROUP BY 
     a.id, 
     a.sm_id 
@@ -902,10 +901,8 @@ WHERE NOT EXISTS(SELECT 1 FROM table2 t2 WHERE t2.id = t1.id);
 ```
 SELECT 
     COUNT(CASE WHEN status = '0' THEN id END) AS count 
-FROM 
-    table
-GROUP BY 
-    id
+FROM table
+GROUP BY id
 ```
 
 ### cross join return all records from both tables
@@ -961,10 +958,35 @@ LEFT JOIN (
  */
 ```
 
+### find column(st.mcode_ref) by using LIKE with LEFT JOIN
+```
+SELECT DISTINCT s.mcode_ref, 
+    s.sp_index, 
+    sa_p.total_sales, 
+    sa_p.total_pv, 
+    st.mcode_ref as mcode_child, 
+    sa_t.total_sales as team_sales, 
+    sa_t.total_pv as team_pv 
+FROM ali_structure s 
+LEFT JOIN (
+    SELECT ea_code, SUM(total) as total_sales, SUM(tot_pv) as total_pv 
+    FROM ali_asaleh 
+    WHERE cancel = '0'
+    GROUP BY ea_code
+)sa_p ON(sa_p.ea_code = s.mcode_ref) 
+LEFT JOIN ali_structure st ON(st.sp_index LIKE CONCAT(s.sp_index, ':%')) 
+LEFT JOIN (
+    SELECT ea_code, SUM(total) as total_sales, SUM(tot_pv) as total_pv 
+    FROM ali_asaleh 
+    WHERE cancel = '0'
+    GROUP BY ea_code
+)sa_t ON(sa_t.ea_code = st.mcode_ref) 
+WHERE s.mcode_ref = '0220200'
+```
+
 ### combine values from multiple rows into a single string in one row
 ```
-SELECT *,
-    GROUP_CONCAT(item_code ORDER BY item_code ASC)as item_list
+SELECT *, GROUP_CONCAT(item_code ORDER BY item_code ASC)as item_list
 FROM invoice
 GROUP BY invoice_no
 ```
@@ -974,10 +996,8 @@ GROUP BY invoice_no
 SET @rn := 0;
 UPDATE 
     table
-SET 
-    count = (@rn := @rn + 1)
-WHERE 
-    count >= 5369
+SET count = (@rn := @rn + 1)
+WHERE count >= 5369
 ORDER BY id ASC
 ```
 
@@ -986,14 +1006,12 @@ ORDER BY id ASC
 UPDATE
     table1 t1
 JOIN(
-    SELECT 
-        team_code,
-        MAX(team_name)as team_name
-    FROM
-        table2
+    SELECT team_code, MAX(team_name)as team_name
+    FROM table2
     GROUP BY team_code
 )as t2 ON(t2.team_code = t1.team_code)
 SET t1.description = t2.team_name
+WHERE t1.description = ''
 ```
 
 ### format a date
@@ -1006,13 +1024,18 @@ SELECT DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s %p')as formatted_date
 SELECT FORMAT(1234.567, 0)as format , FLOOR(1234.567 * 100) / 100 as without_rounding
 ```
 
-### add column
+### add column after table has been created
 ```
 ALTER TABLE <table>
 ADD COLUMN year VARCHAR(50) NOT NULL COMMENT 'ปี',
 ADD COLUMN month VARCHAR(50) NOT NULL COMMENT 'เดือน'
+-- primary
+ADD PRIMARY KEY(id)
+-- modify
+MODIFY id int(11) NOT NULL AUTO_INCREMENT
 -- add an index
 CREATE INDEX <index_name> ON <table> (<column>)
+;
 ```
 
 ### EXPLAIN
