@@ -324,7 +324,7 @@ function updateMemberStructure($data_structure, $mcode = '', $level = 1, &$arr_m
 		}
 		return $arr_member;
 	}else{
-		if(isset($team_leader)){
+		if(isset($team_leader[$mcode])){
 			$upd_team = array(
 				'team_id' 		=> $member_team[$mcode]['team_id'],
 				'subteam_id' 	=> $member_team[$mcode]['subteam_id']
@@ -446,9 +446,9 @@ function getTaskInsertTemp($task_name, $path_file, $exclude = false){
 	return $exclude !== false ? $tasks : false;
 }
 
-function reorder_rs($arr_order, $rs_data){
+function reorder_rs($arr_val_order, $rs_data){
 	$arr_top = array();
-	foreach($arr_order as $value){
+	foreach($arr_val_order as $value){
 		if(empty($value[0]) || empty($value[1])){ continue; }
 		foreach($rs_data as $key => $val){
 			if(preg_match('/'.preg_quote($value[1], '/').'/u', $val[$value[0]])){
