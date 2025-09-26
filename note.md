@@ -1123,6 +1123,14 @@ git push --delete origin <branch_name>          # delete remote branch
 ?
 ```
 
+# NVM
+```
+nvm list
+nvm i lts
+nvm use <x.x.x>
+nvm current
+```
+
 # Volcab & Sentence
 ```
 update this english for clearity.
