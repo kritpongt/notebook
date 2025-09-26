@@ -1131,6 +1131,11 @@ nvm use <x.x.x>
 nvm current
 ```
 
+# Windows Set execution policy
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 # Volcab & Sentence
 ```
 update this english for clearity.
