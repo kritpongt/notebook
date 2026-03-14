@@ -103,7 +103,7 @@
 
 changing default shell
 1. shell list `# chsh -l`
-2. set `# chsh -s $(which zsh)`
+2. set `# chsh -s $(which zsh)` (`# chsh -s /usr/bin/zsh` if got an error)
 > switch back to `bash`: `# chsh -s /usr/bin/bash`
 
 configure prompt place the following in `~/.zshrc`
