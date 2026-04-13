@@ -1,6 +1,7 @@
 # Installation Arch Linux
 
 > Note: Arch Linux do not support Secure Boot.
+> Turn off beep `setterm -blength 0`
 
 > VMware: VM->Setting->Options->Advanced->Firmware type->`UEFI`.
 
@@ -22,11 +23,11 @@
     `# timedatectl set-timezone Asia/Bangkok`
 - partition the disks
     - create
-    `# lsblk` `# cfdisk /dev/<disk_name>` select `gpt`,
+    `# lsblk`, select disk (node) `# cfdisk /dev/<disk_name>` select `gpt`,
     create first one size 1GiB type as EFI System and then, create second one type as Linux filesystem, select `write` and then, `quit`.
-    - disk encrypt `# cryptsetup luksFormat /dev/<root_partition>` `# cryptsetup luksOpen /dev/<root_partition> cryptroot`
+    - disk encrypt (primary partition) `# cryptsetup luksFormat /dev/<root_partition>` `# cryptsetup luksOpen /dev/<root_partition> cryptroot`
     - format `# mkfs.fat -F 32 /dev/<efi_system_partition>`
-    ~~`# mkfs.ext4 /dev/<root_partition>`~~ `# mkfs.btrfs /dev/mapper/crytproot`
+    ~~`# mkfs.ext4 /dev/<root_partition>`~~, format cryptroot `# mkfs.btrfs /dev/mapper/crytproot`
     - mount ~~`# mount /dev/<root_partition> /mnt`~~
 
         ```
@@ -47,13 +48,19 @@
     - ~~audio->pipewire~~
     - ~~network configuration->use NetworkManager~~
     ```
-    # pacstrap -K /mnt base linux linux-firmware
+    # pacstrap -K /mnt base linux linux-firmware btrfs-progs ntfs-3g intel-ucode
     # genfstab -U /mnt >> /mnt/etc/fstab
     # arch-chroot /mnt
     ```
-- arch-chroot
+    > Recovery & Maintenance (Remounting after reboot) \
     > live-usb: ~~`# mount /dev/<root_partition> /mnt` `# mount /dev/<efi_system_partition> /mnt/boot`~~
-    `# cryptsetup open <root_partition> cryptroot` `# mount -o subvol=@ /dev/mapper/cryptroot /mnt` `# mount <efi_system_partition> /mnt/boot` and then, `# arch-chroot /mnt`
+    > 1. `# cryptsetup open <root_partition> cryptroot` unlock the encrypted partition
+    > 2. `mount -o noatime,compress=zstd,ssd,discard=async,subvol=@ /dev/mapper/cryptroot /mnt` mount the root subvolume
+    > 3. `mount -o noatime,compress=zstd,ssd,discard=async,subvol=@home /dev/mapper/cryptroot /mnt/home` mount the home subvolume 
+    > 4. `# mount <efi_system_partition> /mnt/boot` mount the EFI/Boot partition
+    > and then `# arch-chroot /mnt`
+
+- arch-chroot
     - localization edit `/etc/locale.gen` and then, uncomment `en_US.UTF-8 UTF-8`
         ```
         # locale-gen
@@ -65,7 +72,7 @@
     - initramfs add `encrypt` between `block` and `filesystems` to the `HOOK=(...)` in `/etc/mkinitcpio.conf` and then, `# mkinitcpio -P`
     - install packages
         ```
-        # pacman -S base-devel pipewire networkmanager intel-ucode grub efibootmgr
+        # pacman -S base-devel pipewire networkmanager grub efibootmgr
         ```
     - grub config `# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB`
 

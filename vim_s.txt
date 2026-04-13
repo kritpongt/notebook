@@ -138,6 +138,11 @@ m<mark>             # mark (a-z&A-Z)
 ['                  # jump to previous line
 ]'                  # jump to next line with a lowercase mark
 
+--highlights--
+*               # highlights selection (replace all `:%s//<replace>/g`)
+n               # next highlights
+N               # previous highlights
+
 --search & replace--
 :%s/<pattern>/<replace>/g 			# replacing all the occurrences of pattern in the entire file (flag: /i)
 :., +20s/<pattern>/<replace>/g 		# startign from current line to specific line numbers (`:., $` to end of file)
