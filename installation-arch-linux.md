@@ -1,7 +1,8 @@
 # Installation Arch Linux
 
-> Note: Arch Linux do not support Secure Boot.
-> Turn off beep `setterm -blength 0`
+> Note: Arch Linux **do not support** Secure Boot.
+
+> Tip: Turn off beep `setterm -blength 0`
 
 > VMware: VM->Setting->Options->Advanced->Firmware type->`UEFI`.
 
@@ -18,6 +19,7 @@
 
     `# ping 8.8.8.8`
     - via ssh (optional) `# systemctl status sshd` `# ip addr show` set password `# passwd` connect from client `ssh root@<server_ip>`
+    > Note: Warning: remote host identification has changed! `ssh-keygen -R <ip-host>`
 - update system clock
     `# timedatectl`
     `# timedatectl set-timezone Asia/Bangkok`
@@ -48,10 +50,11 @@
     - ~~audio->pipewire~~
     - ~~network configuration->use NetworkManager~~
     ```
-    # pacstrap -K /mnt base linux linux-firmware btrfs-progs ntfs-3g intel-ucode
+    # pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs os-prober ntfs-3g sudo neovim
     # genfstab -U /mnt >> /mnt/etc/fstab
     # arch-chroot /mnt
     ```
+- arch-chroot
     > Recovery & Maintenance (Remounting after reboot) \
     > live-usb: ~~`# mount /dev/<root_partition> /mnt` `# mount /dev/<efi_system_partition> /mnt/boot`~~
     > 1. `# cryptsetup open <root_partition> cryptroot` unlock the encrypted partition
@@ -60,37 +63,42 @@
     > 4. `# mount <efi_system_partition> /mnt/boot` mount the EFI/Boot partition
     > and then `# arch-chroot /mnt`
 
-- arch-chroot
     - localization edit `/etc/locale.gen` and then, uncomment `en_US.UTF-8 UTF-8`
         ```
         # locale-gen
         # echo "LANG=en_US.UTF-8" >> /etc/locale.conf
         # echo "KEYMAP=us" >> /etc/vconsole.conf
         ```
-    - hostname `echo "<hostname>" >> /etc/hostname` set root password `# passwd`
+    - hostname `echo "<hostname>" >> /etc/hostname` set **root** password `# passwd`
     - user `# useradd -m -G wheel <user_name>` set password `# passwd <user_name>` enable user sudo `# EDITOR=nvim visudo` uncomment `%wheel ALL=(ALL:ALL) ALL`
-    - initramfs add `encrypt` between `block` and `filesystems` to the `HOOK=(...)` in `/etc/mkinitcpio.conf` and then, `# mkinitcpio -P`
+    - initramfs add `encrypt` between `block` and `filesystems` to the `HOOKS=(...)` in `/etc/mkinitcpio.conf` and then, `# mkinitcpio -P`
+        for `udev` -> `encrypt` \
+        for `systemd` -> `sd-encrypt`
     - install packages
         ```
-        # pacman -S base-devel pipewire networkmanager grub efibootmgr
+        # pacman -Syu base-devel pipewire networkmanager grub efibootmgr
         ```
     - grub config `# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB`
 
-        add the following to the `GRUB_CMDLINE_LINUX_DEFAULT` in `/etc/default/grub` (find UUID `# blkid <root_partition>`)
+        add the following to the `GRUB_CMDLINE_LINUX_DEFAULT` variable in `/etc/default/grub` (find UUID `# blkid` or `# lsblk -f` look at TYPE="crypto-LUKS")
         ```
+        # udev
         cryptdevice=UUID=<uuid>:cryptroot root=/dev/mapper/cryptroot
-        ```
 
-        add windows boot to list, place the following in `/etc/grub.d/40_custom` (find UUID vfat ESP) and update config file `# grub-mkconfig -o /boot/grub/grub.cfg`
+        # systemd
+        rd.luks.name=<uuid>=cryptroot root=/dev/mapper/cryptroot
         ```
-        menuentry "Windows 11"{
-            insmod part_gpt
-            insmod fat
-            search --no-floppy --fs-uuid --set=root <uuid>
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
+        and then, uncomment `GRUB_DISABLE_OS_PROBER=false`
+        > Note: if `/boot` be encrypted uncomment the `GRUB_ENABLE_CRYPTODISK=y`
+
+        to set default GRUB Boot Menu Interface
         ```
-    > check: `# efibootmgr`, check file `/boot/EFI/GRUB/grubx64.efi`, check file `/boot/grub/grub.cfg`, check UUID `/etc/fstab` file.
+        mv /etc/grub.d/30_os-prober /etc/grub.d/08_os-prober
+        ```
+        and then `# grub-mkconfig -o /boot/grub/grub.cfg`
+    > check:
+    > - `grep GRUB_CMDLINE /etc/default/grub`
+    > - `grep HOOKS /etc/mkinitcpio.conf`
 
     `# exit` `# umount -R /mnt` `# reboot`
 - session env root
