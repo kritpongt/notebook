@@ -17,7 +17,7 @@
     `# station <name> get-networks`
     `# station <name> connect <ssid>`
 
-    `# ping 8.8.8.8`
+    `# ping 1.1.1.1`
     - via ssh (optional) `# systemctl status sshd` `# ip addr show` set password `# passwd` connect from client `ssh root@<server_ip>`
     > Note: Warning: remote host identification has changed! `ssh-keygen -R <ip-host>`
 - update system clock
@@ -103,6 +103,8 @@
     `# exit` `# umount -R /mnt` `# reboot`
 - session env root
     `# sudo su -`
+- list installed package
+    `# pacman -Qe`
 - remove package
     `# sudo pacman -Rns <package_name>`
 
