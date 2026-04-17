@@ -40,3 +40,10 @@ Hard Reset:
 ```
 git reset --hard HEAD~1
 ```
+
+## Commit guidelines
+bug: `fix(<scope>):` \
+optimize: `refactor(<scope>):` \
+conventional: `chore: ..cleanup` \
+add new config: `conf(<scope>):` \
+undo: `re-commit`
