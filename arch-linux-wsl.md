@@ -49,13 +49,23 @@ config file: `~/.config/starship.toml`
 
 `zoxide`
 
-`tmux` \
-config file:
-
 Plugins:
 - [zsh-fzf-tab][ref5]
 - [zsh-system-clipboard][ref6]
 - [zsh-syntax-highlights][ref7]
+
+### Install tmux
+
+`tmux` \
+config file: `~/.config/tmux/tmux.conf`
+
+> [installation tpm (tmux plugin manager)][ref8]
+
+Clone at `~/.config/tmux/plugins/tpm`:
+```
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+```
+run `tmux` and then, press `prefix + I` to install all plugins.
 
 ## Link win32yank from windows to wsl
 Windows:
@@ -164,4 +174,5 @@ wt.exe -p "archlinux"
 [ref5]: https://github.com/aloxaf/fzf-tab?tab=readme-ov-file#oh-my-zsh
 [ref6]: https://github.com/kutsan/zsh-system-clipboard?tab=readme-ov-file#installation
 [ref7]: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh
+[ref8]: https://github.com/tmux-plugins/tpm?tab=readme-ov-file#installation
 [zinit]: https://github.com/zdharma-continuum/zinit
