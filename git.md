@@ -31,7 +31,7 @@ git fetch origin main
 git reset --hard origin/main
 ```
 
-### Reset
+### Reset (backward 1 commit)
 Safety:
 ```
 git reset --soft HEAD~1
