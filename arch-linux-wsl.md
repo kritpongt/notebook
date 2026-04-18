@@ -67,7 +67,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 run `tmux` and then, press `prefix + I` to install all plugins.
 
-## Link win32yank from windows to wsl
+## Link win32yank from windows to WSL
 Windows:
 ```
 scoop install win32yank
@@ -128,6 +128,19 @@ rm -rf ~/dotfiles/.config/nvim/lazy-lock.json
 rm -rf ~/dotfiles/.config/nvim/lazyvim.json
 ```
 
+## WSL Interop (windows executable support in linux)
+Status WSLInterop:
+```
+cat /proc/sys/fs/binfmt_misc/WSLInterop
+```
+if disabled, append the following in `/etc/wsl.conf` file:
+```
+[interop]
+enabled=true
+appendWindowsPath=true
+```
+and then `wsl --shutdown`
+
 ## WSL Commands
 
 `wsl -l -v` 
@@ -136,7 +149,7 @@ rm -rf ~/dotfiles/.config/nvim/lazyvim.json
 
 `wsl --terminate archlinux` turn off archlinux
 
-## Manual installation for older versions of wsl
+## Manual installation for older versions of WSL
 
 > [install manual][ref2]
 
