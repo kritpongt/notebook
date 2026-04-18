@@ -51,7 +51,8 @@ config file: `~/.config/starship.toml`
 
 Plugins:
 - [zsh-fzf-tab][ref5]
-- [zsh-system-clipboard][ref6]
+- [zsh-system-clipboard][ref6] \
+`git clone https://github.com/kutsan/zsh-system-clipboard ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-system-clipboard`
 - [zsh-syntax-highlights][ref7]
 
 ### Install tmux
@@ -66,19 +67,6 @@ Clone at `~/.config/tmux/plugins/tpm`:
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 run `tmux` and then, press `prefix + I` to install all plugins.
-
-## Link win32yank from windows to WSL
-Windows:
-```
-scoop install win32yank
-
-scoop which win32yank
-```
-WSL:
-```
-sudo ln -s "/mnt/c/Users/<user_name>/scoop/apps/.." /usr/local/bin/win32yank.exe
-sudo chmod +x /usr/local/bin/win32yank.exe
-```
 
 ## Install zinit (plugin manager)
 append the following to `.zshrc` file:
@@ -126,6 +114,19 @@ rm -rf ~/.cache/nvim
 
 rm -rf ~/dotfiles/.config/nvim/lazy-lock.json
 rm -rf ~/dotfiles/.config/nvim/lazyvim.json
+```
+
+## Link win32yank from windows to WSL
+Windows:
+```
+scoop install win32yank
+
+scoop which win32yank
+```
+WSL:
+```
+sudo ln -s "/mnt/c/Users/<user_name>/scoop/apps/.." /usr/local/bin/win32yank.exe
+sudo chmod +x /usr/local/bin/win32yank.exe
 ```
 
 ## WSL Interop (windows executable support in linux)
