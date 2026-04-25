@@ -22,3 +22,9 @@ Edit php.ini file:
 if `Loaded Configuration File: (none)`
 1. go to php path file
 2. copy `php.ini-development` and then rename it `php.ini`
+
+## Error unknown cause
+Edit file php.ini:
+```
+short_open_tag = On
+```
