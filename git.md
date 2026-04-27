@@ -47,3 +47,7 @@ optimize: `refactor(<scope>):` \
 conventional: `chore: ..cleanup` \
 add new config: `conf(<scope>):` \
 undo: `re-commit`
+
+## git ignore global
+1. create file `.gitignore_global`
+2. `git config --global core.excludesfile <gitignore_path>`
