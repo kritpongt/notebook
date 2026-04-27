@@ -51,3 +51,48 @@ undo: `re-commit`
 ## git ignore global
 1. create file `.gitignore_global`
 2. `git config --global core.excludesfile <gitignore_path>`
+
+## ssh key
+Run as administrator \
+list:
+```
+ls $HOME\.ssh\
+```
+
+add key:
+```
+cd $HOME\.ssh
+
+ssh-keygen -t ed25519 -C "<email>"
+```
+
+enable service, add key into file:
+```
+Start-Service ssh-agent
+
+ssh-add $HOME\.ssh\id_ed25519_personal
+```
+> Note: `Set-Service -Name ssh-agent -StartupType Manual` to enable service
+
+copy to github:
+```
+cat $HOME\.ssh\id_ed25519_personal.pub
+```
+GitHub > Setting > SSH and GPG Key > New SSH key
+
+config:
+```
+code $HOME\.ssh\config
+```
+add the following:
+```
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_personal
+```
+
+test:
+```
+ssh -T git@github.com
+```
