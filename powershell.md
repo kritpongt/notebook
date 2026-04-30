@@ -25,3 +25,21 @@ ls <path> | Where-Object { $_.LinkType -eq "SymbolicLink" }
 ```
 Remove-Item <link>
 ```
+
+## Curl check 404 Not Found
+```
+curl.exe -I <url>
+```
+
+## NPM ui (Nginx Proxy Manager)
+```
+ssh -L 8181:localhost:81 <user>@<server>
+```
+Browse in web browser: `http://localhost:8181`
+
+## Install Claude
+```
+irm https://claude.ai/install.ps1 | iex
+```
+*`irm` => `Invoke-RestMethod` download script for `.ps1`* \
+*`iex` => `Invoke-Expreesion` process script*
