@@ -1,29 +1,50 @@
-# Docker
+# Docker commands
 
 ### Status
 ```
 docker ps -a
 ```
-`Exited (1)...` is broke
+*`Exited (1)...` is down*
 
 ### Logs
 ```
-docker logs <id_or_name_container>
+docker logs -f <container_name_or_id>
 ```
+*`-f` follow log*
 
 ### Restart
 ```
-docker restart <id_or_name_container>
+docker restart <container_name>
 ```
-`$(docker ps -q)` restart all
+*`$(docker ps -q)` restart all*
 
 ### Stop & start
 ```
-docker stop <name_container>
-docker start <name_container>
+docker stop <container_name>
+docker start <container_name>
 ```
 
-### Recreate docker-compose
+## Docker Compose
+
+### Run
 ```
 docker-compose up -d
+```
+*`-d` Detached mode*
+
+## Troubleshoot
+
+### Check disk
+```
+docker exec -it <container_name> df -h
+```
+
+### Shell
+```
+docker exec -it <container_name> sh
+```
+
+### Run php file
+```
+docker exec -it php8 php weadmin/index.php
 ```
