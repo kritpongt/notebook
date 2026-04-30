@@ -8,14 +8,14 @@ git commit -m "move .. to .."
 ```
 
 ### Delete file
-File:
 ```
+# file
 git rm <file>
+
+# cache(index)
+git rm --cache <file>
 ```
-Folder:
-```
-git rm -r <folder>
-```
+`-r` remove folder \
 and then `git commit -m "delete unnecessary files"`
 
 ### Fetch ignore local branch
@@ -41,6 +41,10 @@ Hard Reset:
 git reset --hard HEAD~1
 ```
 
+## Remove index
+```
+```
+
 ## Commit guidelines
 bug: `fix(<scope>):` \
 optimize: `refactor(<scope>):` \
@@ -52,7 +56,7 @@ undo: `re-commit`
 1. create file `.gitignore_global`
 2. `git config --global core.excludesfile <gitignore_path>`
 
-## ssh key
+## SSH key
 Run as administrator \
 list:
 ```
