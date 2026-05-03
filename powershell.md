@@ -41,5 +41,5 @@ Browse in web browser: `http://localhost:8181`
 ```
 irm https://claude.ai/install.ps1 | iex
 ```
-*`irm` => `Invoke-RestMethod` download script for `.ps1`* \
-*`iex` => `Invoke-Expreesion` process script*
+*`irm` = `Invoke-RestMethod` download script for `.ps1`* \
+*`iex` = `Invoke-Expreesion` process script*

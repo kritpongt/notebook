@@ -29,3 +29,15 @@ pm2 stop <id-or-name>
 
 pm2 restart <id-or-name>
 ```
+
+## Node version manager (nvm)
+```
+# check version install
+nvm list available
+
+nvm install lts
+
+# list and use node
+nvm list
+nvm use <node_version>
+```

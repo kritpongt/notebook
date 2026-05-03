@@ -1,3 +1,17 @@
+# PHP Local Deployment
+index.php:
+```
+$path_root = ""
+```
+
+front/libs/config.php:
+- constant `env`
+- database
+
+admin/lib/config.php:
+- `$DB_ENV`
+- database
+
 # CSS
 
 ### Visual hidden
