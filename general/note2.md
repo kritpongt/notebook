@@ -80,6 +80,16 @@ $smarty->assign("recaptchaV2_public_key", $recaptchaV2_public_key);
 ```
 
 ```js
+window.onRecaptchaSuccess = function(token) {
+	const inputResponse = $('#g-recaptcha-response-content');
+	inputResponse.val(token).trigger('change');
+};
+
+window.onRecaptchaExpired = function() {
+	const inputResponse = $('#g-recaptcha-response-content');
+	inputResponse.val('').trigger('change');
+};
+
 const recaptchaV2 = $(this).find('input[name="g-recaptcha-form"]').val();
 if (recaptchaV2 !== grecaptcha.getResponse()) {
 	return false
