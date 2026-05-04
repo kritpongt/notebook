@@ -41,6 +41,10 @@ stop&start:
 run: `docker run <container_id>`
 - *`-it` interactive terminal*
 
+## List images
+
+## Logs layer
+
 ## Troubleshoot
 
 ### Check disk
