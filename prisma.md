@@ -13,14 +13,9 @@ npx prisma init
 ### Edit .env
 `DATABASE_URL`
 
-## Rename table
-use `@@map("<name>")`
-
+## Reset migrate (remove `/prisma/migrations`)
 ```
-npx prisma migrate dev --name rename_table_all
-
-npx prisma generate
-
-# seed
+npx prisma migrate reset
+npx prisma migrate dev --name init
 npx prisma db seed
 ```
