@@ -14,12 +14,21 @@ instruction:
 - `EXPOSE` port
 - `CMD` run linux command
 
+commands:
+- `docker build -t <image_name> .` build image
+- `docker run -p 3000:3000 <image_name>`
+	- `--name` set container name
+	- `-d` detach
+	- `--env-file` .env
+test run:
+- `docker run --rm -it <image_name> sh` remove image when exit
+
 ## Docker compose
 `docker-compose.yml` (services = containers)
 
 run: `docker-compose up`
-- *`--build` new image*
 - *`-d` Detached mode*
+- *`--build` new image*
 
 stop: `docker-compse down`
 
