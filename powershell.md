@@ -43,3 +43,12 @@ irm https://claude.ai/install.ps1 | iex
 ```
 *`irm` = `Invoke-RestMethod` download script for `.ps1`* \
 *`iex` = `Invoke-Expreesion` process script*
+
+## VS Code clean
+```
+# Extensions file
+Remove-Item -Recurse -Force "$env:USERPROFILE\.vscode"
+
+# Data/config
+Remove-Item -Recurse -Force "$env:APPDATA\Code"
+```
