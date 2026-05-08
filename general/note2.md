@@ -44,6 +44,11 @@ admin/lib/config.php:
 </form>
 ```
 
+### Text truncate `...`
+```css
+style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+```
+
 ## Smarty
 
 ### Cache Busting
