@@ -11,6 +11,7 @@ winget: \
 git config user.name "<user>"
 git config user.email "<email>"
 ```
+*`git config user.name` check user*
 
 ### Move/Rename file
 ```
