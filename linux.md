@@ -1,22 +1,24 @@
-# Linux commands
+# Linux Commands
 
-### Operation System
+### Operation system
 `cat /etc/os-release` OS \
 `uname -a` Kernal Architecture
 
-### Database
-```
-# postgresql
-psql --version
+### Memory overview
+`free -h`
+- *`-h` human readable*
 
-# mysql
-mysql --version
-```
+`top`, `htop`
 
-## PostgreSQL
+process order by desc usage: \
+`ps aux --sort=%mem | head -10`
+
+## Database
+
+### PostgreSQL:
+`psql --version`
 
 `/var/log/postgresql`
 
-## MySQL
-
-`/var/log/postgresql`
+### MySQL:
+`mysql --version`
