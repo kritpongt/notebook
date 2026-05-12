@@ -11,7 +11,7 @@
 `top`, `htop`
 
 process order by desc usage: \
-`ps aux --sort=%mem | head -10`
+`ps aux --sort=-%mem | head -11`
 
 ## Database
 
