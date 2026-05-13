@@ -65,6 +65,13 @@ Display request by ip | date | url | times |:
 
 ## PHP-FPM
 
-### log `.gz`
+### Log `.gz`
 `sudo zgrep -hiE "error|warning|fatal" /var/log/php8.2-fpm.log.*.gz | sort -k1.9,1.12 -k1.5,1.7M -k1.2,1.3 -k2` sort time \
 `sudo zcat $(sudo ls -tr /var/log/php8.2-fpm.log.*.gz) | grep -iE "error|warning|fatal"`
+
+### Log real-time
+`tail -f /var/log/php8.1-fpm.log` \
+`tail -f /var/log/php8.2-fpm.log | grep -iE "error|warning|fatal"`
+
+## Sysstat (sar)
+`sar -r -f /var/log/sysstat/<sa_>`
