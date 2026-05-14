@@ -44,6 +44,8 @@ List logs: \
 - `-h` human readable
 - `-tr` time reverse sort
 
+`sudo ls -lhtr /var/log/nginx | awk '$6 == "May"'`
+
 Top 10 ip: \
 `sudo awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -10`
 
@@ -70,7 +72,7 @@ Display request by ip | date | url | times |:
 `sudo zcat $(sudo ls -tr /var/log/php8.2-fpm.log.*.gz) | grep -iE "error|warning|fatal"`
 
 ### Log real-time
-`tail -f /var/log/php8.1-fpm.log` \
+`tail -f /var/log/php8.2-fpm.log` \
 `tail -f /var/log/php8.2-fpm.log | grep -iE "error|warning|fatal"`
 
 ## Sysstat (sar)
