@@ -75,5 +75,17 @@ Display request by ip | date | url | times |:
 `tail -f /var/log/php8.2-fpm.log` \
 `tail -f /var/log/php8.2-fpm.log | grep -iE "error|warning|fatal"`
 
-## Sysstat (sar)
-`sar -r -f /var/log/sysstat/<sa_>`
+## PID logs
+
+### sysstat (sar)
+`sar -r -f /var/log/sysstat/<sa_*>`
+
+### atop
+`atop -r /var/log/atop/<atop_*>`
+
+top peak: \
+`atop -r /var/log/atop/<atop_*> -P MEM 2>/dev/null | awk '{print $3, $6}' | sort -k2 -rh | head -5`
+
+keybind:
+- `m` memory view
+- `t` / `T` time previous, next
