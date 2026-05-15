@@ -3,6 +3,12 @@
 2. Microservices Architecture (scalability)
 3. Layered Architecture
 
+## REST API
+response: \
+`401` unauthorized
+`403` forbidden
+`404` resource not found
+
 ## Middleware
 Client -> Request -> `Middleware` -> Response -> Route/Endpoint
 
