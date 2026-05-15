@@ -1,11 +1,5 @@
 # Git CLI
 
-### Installation
-winget: \
-`winget install --id Git.Git -e`
-
-> *upgrade: `winget upgrade --id Git.Git`*
-
 ### Set user/email (local)
 ```
 git config user.name "<user>"
