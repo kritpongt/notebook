@@ -32,3 +32,7 @@ Client -> Request -> `Middleware` -> Response -> Route/Endpoint
 	- `.env.production`
 
 2.
+
+## Migrations
+1. Legacy-first Migration (Additive Migration)
+2. Schema-first Migration
