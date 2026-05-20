@@ -50,7 +50,7 @@ echo "<script>console.log(".json_encode($trace).")</script>";
 
 Reflection class:
 ```php
-$ref = new ReflectionClass('member');
+$ref = new ReflectionClass('<class_name>');
 $trace = [
 	'class' => $ref->getName(),
 	'file' => $ref->getFileName(),
@@ -80,8 +80,8 @@ echo "<script>console.log(".json_encode($trace, JSON_UNESCAPED_SLASHES | JSON_UN
 
 ### Functions included
 ```php
-print_r(get_included_files());
-echo "<script>console.log(".json_encode(get_included_files()).")</script>";
+$inc_funcs = get_included_files();
+echo "<script>console.log(".json_encode($inc_funcs).")</script>";
 ```
 
 ### Defined functions
