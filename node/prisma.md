@@ -18,10 +18,15 @@
 1. edit `schema.prisma`
 2. `npx prisma migrate dev --name add_<table_name>`
 
+### Migrate status
+`npx prisma migrate status`
+
 ### Reset database
 remove `/prisma/migrations` and then:
 ```
 npx prisma migrate reset
 npx prisma migrate dev --name init
+npx prisma generate
+
 npx prisma db seed
 ```
