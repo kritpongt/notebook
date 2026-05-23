@@ -21,8 +21,8 @@ RUN apt-get update && apt-get install -y \
     && a2enmod rewrite headers \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY ./php/conf.d/php.ini /usr/local/etc/php/conf.d/custom.ini
 
-COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
+COPY ./apache2/sites-available/apache.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html
