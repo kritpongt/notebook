@@ -1,10 +1,8 @@
 # Docker
-
 `Dockerfile` > `Image`  \
 `docker-compose.yml` > Container1, Container2, ...
 
 ## Dockerfile (image)
-
 instruction:
 - `FROM` base image
 - `WORKDIR` serve files
@@ -14,29 +12,44 @@ instruction:
 - `EXPOSE` port
 - `CMD` run linux command
 
-commands:
-- `docker build -t <image_name> .` build image
-- `docker run -p 3000:3000 <image_name>`
-	- `--name` set container name
-	- `-d` detach
-	- `--env-file` .env
-test run:
-- `docker run --rm -it <image_name> sh` remove image when exit
+### Commands
+build: \
+`docker build -t <image_name> .`
+
+run: \
+`docker run -p 3000:3000 <image_name>`
+- `--name` set container name
+- `-d` detach
+
+test run: \
+`docker run --rm -it <image_name> sh` remove image when exit
+
+list volume: \
+`docker volumne ls`
+
+status: \
+`docker ps -a`
+
+remote container: \
+`docker exec -it <container_name>`
 
 ## Docker compose
-`docker-compose.yml` (services = containers)
+`docker-compose.yml` (service == container)
 
-run: `docker-compose up`
+run: \
+`docker-compose up -d`
 - *`-d` Detached mode*
 - *`--build` new image*
 
-stop: `docker-compse down`
+stop: \
+`docker-compose down`
+
+list: \
+`docker-compose ps -a`
+
+---
 
 ## Commands
-
-status: `docker ps`
-- *`-a` list all*
-
 logs: `docker logs <container_name_or_id>`
 - *`-f` follow logs*
 
