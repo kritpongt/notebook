@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  reverse-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+  
+  letsencrypt:
+    container_name: nginx-proxy-letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumnes_from:
+      - reverse-proxy
+    volumes:
+      - certs:/etc/nginx/cert:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx-proxyt
+
+volumes:
+  vhost:
+  html:
+  certs:
+  dhparam:
+
+networks:
+  default:
+    external:
+      name:
+        webproxy

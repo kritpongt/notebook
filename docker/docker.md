@@ -12,7 +12,6 @@ instruction:
 - `EXPOSE` port
 - `CMD` run linux command
 
-### Commands
 build: \
 `docker build -t <image_name> .`
 
@@ -43,9 +42,21 @@ run: \
 
 stop: \
 `docker-compose down`
+- *`--rmi all`* remove all images
 
 list: \
 `docker-compose ps -a`
+
+## Docker network
+create: \
+`docker network create <network_name>`
+and then add the following in `docker-compose.yml`:
+```
+networks:
+  default:
+    external:
+      name: <network_name>
+```
 
 ---
 
