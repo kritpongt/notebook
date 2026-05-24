@@ -1,4 +1,4 @@
-# Git CLI
+## Git CLI
 
 ### Set user/email (local)
 ```
@@ -106,4 +106,14 @@ Host github.com
 test:
 ```
 ssh -T git@github.com
+```
+
+## Git LFS
+`scoop install`
+```
+git lfs install
+git add .gitattributes
+git add <files>
+
+git lfs ls-files
 ```
