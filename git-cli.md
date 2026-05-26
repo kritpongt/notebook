@@ -52,6 +52,15 @@ git reset --hard HEAD~1
 ```
 ```
 
+### Fast forward merge
+branch `feat/<feature_name>` -> `dev`
+- `git checkout dev`
+- `git pull --ff-only origin dev`
+- `git merge --ff-only feat/<feature_name>`
+- `git log --oneline -5`
+
+---
+
 ## Commit guidelines
 bug: `fix(<scope>):` \
 optimize: `refactor(<scope>):` \
