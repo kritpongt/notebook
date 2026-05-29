@@ -26,6 +26,11 @@ logs process: \
 logs mem: \
 `grep -E "VmHWM|VmRSS|VmPeak|VmSize" /proc/<pid>/status`
 
+### Clear cache
+`free -h` \
+`sudo sync && sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"` \
+`free -h`
+
 ## Database
 
 ### PostgreSQL:
@@ -78,14 +83,14 @@ Display request by ip | date | url | times |:
 ## PID logs
 
 ### sysstat (sar)
-`sar -r -f /var/log/sysstat/<sa_*>`
+`sar -r -f /var/log/sysstat/<sa*>`
 
 ### atop
 `atop -r /var/log/atop/<atop_*>`
 
-top peak: \
-`atop -r /var/log/atop/<atop_*> -P MEM 2>/dev/null | awk '{print $3, $6}' | sort -k2 -rh | head -5`
-
 keybind:
 - `m` memory view
 - `t` / `T` time previous, next
+
+top peak: \
+`atop -r /var/log/atop/<atop_*> -P MEM 2>/dev/null | awk '{print $3, $6}' | sort -k2 -rh | head -5`
