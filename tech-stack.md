@@ -33,6 +33,14 @@ Client -> Request -> `Middleware` -> Response -> Route/Endpoint
 
 2.
 
+## Frontend
+react (CSR) \
+next.js (full framework on react)
+- SSR render HTML
+- SSG build HTML
+- Routing
+- Run server, bundle
+
 ## Migrations
 1. Legacy-first Migration (Additive Migration)
 2. Schema-first Migration
