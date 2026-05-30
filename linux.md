@@ -43,6 +43,10 @@ logs mem: \
 
 ## Nginx
 
+### validation & reload
+`sudo nginx -t` \
+`sudo sysmtemctl reload nginx`
+
 ### Access log
 List logs: \
 `sudo ls -lhtr /var/log/nginx/`
