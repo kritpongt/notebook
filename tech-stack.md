@@ -34,7 +34,13 @@ Client -> Request -> `Middleware` -> Response -> Route/Endpoint
 2.
 
 ## Frontend
-react (CSR) \
+react (CSR)
+- react core
+	- component
+	- useState()
+	- props (read-only) - data down
+	- event handling - events up
+
 next.js (full framework on react)
 - SSR render HTML
 - SSG build HTML
