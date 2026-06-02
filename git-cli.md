@@ -72,6 +72,10 @@ undo: `re-commit`
 1. create file `.gitignore_global`
 2. `git config --global core.excludesfile <gitignore_path>`
 
+
+## Remove credential-manager (pwsh)
+`"protocol=https`nhost=github.com`n`n" | git credential-manager erase`
+
 ## SSH key
 Run as administrator \
 list:
@@ -125,4 +129,5 @@ git add .gitattributes
 git add <files>
 
 git lfs ls-files
+git lfs push --all origin
 ```

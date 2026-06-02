@@ -5,7 +5,7 @@
 `uname -a` Kernal Architecture
 
 ### Boot logs
-`sudo journalctl --list-boots` | idx | boot_id | *first_entry* | *last_entry* |
+`sudo journalctl --list-boots` columns: | idx | boot_id | *first_entry* | *last_entry* |
 
 ### List logs
 `sudo ls -lhtr /var/log/ | tail -20` \
@@ -46,6 +46,9 @@ logs mem: \
 ### validation & reload
 `sudo nginx -t` \
 `sudo sysmtemctl reload nginx`
+
+### Config
+`/etc/nginx/nginx.conf` main
 
 ### Access log
 List logs: \
