@@ -1,4 +1,5 @@
-# PHP Local Deployment
+# WWP
+## PHP Local Deployment
 index.php:
 ```
 ini_set('session.cookie_secure', "0");
@@ -14,7 +15,7 @@ admin/lib/config.php:
 - `$DB_ENV`
 - database
 
-# CSS
+## CSS
 
 ### Visual hidden
 
@@ -100,3 +101,6 @@ if (recaptchaV2 !== grecaptcha.getResponse()) {
 	return false
 }
 ```
+
+## Content-Security-Policy Set Header
+If use 'self'. either 'unsafe-inline', hash, or nonce is required
