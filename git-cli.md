@@ -8,11 +8,7 @@ git config user.email "<email>"
 *`git config user.name` check user*
 
 ### Move/Rename file
-```
-git mv <file_target> <file_destination>
-git status
-git commit -m "move .. to .."
-```
+`git mv <file_target> <file_destination>`
 
 ### Delete file
 ```
@@ -48,9 +44,9 @@ Hard Reset:
 git reset --hard HEAD~1
 ```
 
-## Remove index
-```
-```
+### Remove index
+
+### Worktree
 
 ### Fast forward merge
 branch `feat/<feature_name>` -> `dev`
@@ -72,57 +68,8 @@ undo: `re-commit`
 1. create file `.gitignore_global`
 2. `git config --global core.excludesfile <gitignore_path>`
 
-
-## Remove credential-manager (pwsh)
-`"protocol=https`nhost=github.com`n`n" | git credential-manager erase`
-
-## SSH key
-Run as administrator \
-list:
-```
-ls $HOME\.ssh\
-```
-
-add key:
-```
-cd $HOME\.ssh
-
-ssh-keygen -t ed25519 -C "<email>"
-```
-
-enable service, add key into file:
-```
-Start-Service ssh-agent
-
-ssh-add $HOME\.ssh\id_ed25519_personal
-```
-> Note: `Set-Service -Name ssh-agent -StartupType Manual` to enable service
-
-copy to github:
-```
-cat $HOME\.ssh\id_ed25519_personal.pub
-```
-GitHub > Setting > SSH and GPG Key > New SSH key
-
-config:
-```
-code $HOME\.ssh\config
-```
-add the following:
-```
-Host github.com
-  HostName github.com
-  User git
-  IdentityFile ~/.ssh/id_ed25519_personal
-```
-
-test:
-```
-ssh -T git@github.com
-```
-
 ## Git LFS
-`scoop install`
+`scoop install git-lfs`
 ```
 git lfs install
 git add .gitattributes
