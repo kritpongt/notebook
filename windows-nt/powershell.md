@@ -1,50 +1,45 @@
-# PowerShell commands
+# PowerShell CLI
 
-> Note: `$env:LOCALAPPDATA\`
+> `$env:LOCALAPPDATA` \
+> `$env:USERPROFILE` ~
 
 ### Remove file
-```
-Remove-Item -Recurse -Force <file>
-```
+`Remove-Item -Recurse -Force <file>`
 
-### Create Symbolic Link (run as adminstrator)
-```
-New-Item -ItemType SymbolicLink -Path "<link>" -Target "<target>"
-```
-`-Path <link>`      symlink file
-`-Target <target>`  real file
+### Symbolic link
+> Warning: filesystem **NTFS** only
 
-> Warning: Filesystem **NTFS** Only
+create: \
+`New-Item -ItemType SymbolicLink -Path "<link>" -Target "<target>"`
+- *`Path <link>` symlink file*
+- *`Target <target>` real file*
 
-### List Symbolic Link in path
-```
-ls <path> | Where-Object { $_.LinkType -eq "SymbolicLink" }
-```
+remove: \
+`Remove-Item <link>`
 
-### Remove Symbolic Link
-```
-Remove-Item <link>
-```
+### Set default file extension(?)
 
-## Curl check 404 Not Found
-```
-curl.exe -I <url>
-```
+### Set environment variable
+user: \
+`[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_GIT_BASH_PATH", "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe", "User")`
+system: \
+`[System.Environment]::SetEnvironmentVariable("<variable>", "<path>", "Machine")`
 
-## NPM ui (Nginx Proxy Manager)
-```
-ssh -L 8181:localhost:81 <user>@<server>
-```
-Browse in web browser: `http://localhost:8181`
+---
 
-## Install Claude
-```
-irm https://claude.ai/install.ps1 | iex
-```
-*`irm` = `Invoke-RestMethod` download script for `.ps1`* \
-*`iex` = `Invoke-Expreesion` process script*
+### Curl
+check 404 Not Found: \
+`curl.exe -I <url>`
 
-## VS Code clean
+---
+
+### SSH local port forwarding
+`ssh -L 8181:localhost:81 <user>@<server>` \
+*Browse in web browser: `http://localhost:8181`*
+
+---
+
+### VS Code clean
 ```
 # Extensions file
 Remove-Item -Recurse -Force "$env:USERPROFILE\.vscode"
