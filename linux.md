@@ -101,3 +101,16 @@ keybind:
 
 top peak: \
 `atop -r /var/log/atop/<atop_*> -P MEM 2>/dev/null | awk '{print $3, $6}' | sort -k2 -rh | head -5`
+
+## Grep
+`grep -rn "helloworld" /home`
+- *`-r` recursive*
+- *`-n` line number*
+- *`-i` case-insensitive*
+- *`-c` count match*
+- *`-l` file name, exclude content*
+- *`--include="*.<ext>"` filter file extension*
+
+`grep -n "POST" /var/logs/access.log | grep "500"`
+- *`-A<n>`, `-B<n>`, `-C<n>` context*
+- *`-E` extended regex*

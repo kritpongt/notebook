@@ -17,6 +17,9 @@ create: \
 remove: \
 `Remove-Item <link>`
 
+### Find
+`Get-ChildItem -Path "C:\Users" -Recurse | Select-String -Pattern "helloworld"`
+
 ### Set default file extension(?)
 
 ### Set environment variable
