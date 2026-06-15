@@ -58,6 +58,11 @@ networks:
       name: <network_name>
 ```
 
+## Docker inspect
+`docker inspect wwp-crop-website --format '{{json .Config.Cmd}} {{json .Config.Env}}'` \
+`docker inspect wwp-crop-website --format '{{json .Mounts}}'` \
+`docker inspect wwp-crop-website --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`
+
 ---
 
 ## Commands
